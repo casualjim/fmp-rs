@@ -1,0 +1,25 @@
+[package]
+name = "fmp_rs"
+version = "0.1.0"
+edition = "2024"
+description = "rust bindings for the FMP API
+"
+authors = ["Lbyl Team"]
+repository = "https://git.wagyu.icu//lbyl/fmp-rs"
+homepage = "https://git.wagyu.icu/lbyl"
+publish = ["forgejo"]
+keywords = [
+]
+categories = ["development-tools::debugging", "network-programming", "web-programming"]
+readme = "README.md"
+license = "none"
+
+[package.metadata.release]
+sign-commit = false
+tag = false
+registry = "forgejo"
+# Add [ci skip] to commit messages to prevent CI triggers
+pre-release-commit-message = "Release {{version}} [ci skip]"
+
+[dependencies]
+eyre = "0.6"
