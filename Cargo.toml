@@ -2,8 +2,7 @@
 name = "fmp_rs"
 version = "0.1.0"
 edition = "2024"
-description = "rust bindings for the FMP API
-"
+description = "rust bindings for the FMP API"
 authors = ["Lbyl Team"]
 repository = "https://git.wagyu.icu//lbyl/fmp-rs"
 homepage = "https://git.wagyu.icu/lbyl"
@@ -23,3 +22,28 @@ pre-release-commit-message = "Release {{version}} [ci skip]"
 
 [dependencies]
 eyre = "0.6"
+http = "1"
+jiff = { version = "0.2.15", features = ["serde", "logging", "static"] }
+reqwest = { version = "0.12.24", default-features = false, features = [
+  "rustls-tls",
+  "json",
+  "stream",
+  "http2",
+  "charset",
+  "macos-system-configuration",
+  "brotli",
+  "gzip",
+  "deflate",
+  "zstd",
+] }
+reqwest-middleware = "0.4.2"
+reqwest-retry = "0.7.0"
+reqwest-tracing = { version = "0.5.8", features = ["opentelemetry_0_30"] }
+secrecy = { version = "0.10.3", features = ["serde"] }
+serde = { version = "1.0.225", features = ["derive"] }
+serde_json = "1.0.142"
+serde_with = "3.8.3"
+thiserror = "2.0.17"
+tracing = { version = "0.1.41" }
+typed-builder = "0.23.2"
+serde_urlencoded = "0.7"

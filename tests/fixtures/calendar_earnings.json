@@ -1,0 +1,11 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2025-01-28",
+    "epsActual": 2.1,
+    "epsEstimated": 2.05,
+    "revenueActual": 118000000000,
+    "revenueEstimated": 117000000000,
+    "lastUpdated": "2025-01-28T21:30:00Z"
+  }
+]

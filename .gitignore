@@ -27,3 +27,4 @@ warp-*.md
 qwen.sh
 /memory.db
 .sctl.toml
+/.vscode

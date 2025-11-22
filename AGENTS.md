@@ -122,7 +122,6 @@ Always default to the `mise` tasks below; only run direct toolchain commands if 
 - `mise test`: All tests (Rust nextest + Workers via bun test).
 - `mise test:rust [--package <crate>]`: Rust tests only (use `-- --nocapture` to see output).
 - `mise test:rust --package common --lib` for a specific crate test
-- `mise test:workers llm-agents [path/to/file.test.ts]`: Worker tests.
 - Dev servers:
   - Worker: `bun run --cwd workers/llm-agents dev`
   - Rust server: `cargo run --package slipstreamd`
