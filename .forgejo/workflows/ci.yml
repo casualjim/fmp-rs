@@ -37,6 +37,6 @@ jobs:
         env:
           CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_FORGEJO_TOKEN }}"
         run: |-
-          git config --global user.email "mctest@wagyu.icu"
-          git config --global user.name "Bob the Builder"
+          git config user.name "forgejo-actions[bot]"
+          git config user.email "forgejo-actions[bot]@noreply.wagyu.icu"
           cargo release patch --execute --no-confirm --all-features
