@@ -11,6 +11,8 @@ jobs:
       - docker
       - linux
       - amd64
+    container:
+      image: ghcr.io/casualjim/rust-builder:24.04-1.91.0-1.3.1-52
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,24 +30,13 @@ jobs:
 
       - name: Run tests
         run: |
-          cargo nextest run --all-features --no-tests pass
-
-      - name: Configure Cargo for Forgejo Registry
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-        run: |
-          mkdir -p ~/.cargo
-          cat > ~/.cargo/config.toml << 'EOF'
-          [registry]
-          global-credential-providers = ["cargo:token"]
-          [registries.forgejo]
-          index = "sparse+https://git.wagyu.icu/api/packages/pkg/cargo/"
-          EOF
+          cargo nextest run --all-features
 
       - name: Publish to Cargo Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
           CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_FORGEJO_TOKEN }}"
-        run: |
+        run: |-
           git config --global user.email "mctest@wagyu.icu"
           git config --global user.name "Bob the Builder"
           cargo release patch --execute --no-confirm --all-features
