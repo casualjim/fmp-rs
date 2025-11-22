@@ -35,7 +35,7 @@ jobs:
       - name: Publish to Cargo Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
-          CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_FORGEJO_TOKEN }}"
+          CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.FORGEJO_REGISTRY_TOKEN }}"
         run: |-
           git config user.name "forgejo-actions[bot]"
           git config user.email "forgejo-actions[bot]@noreply.wagyu.icu"
