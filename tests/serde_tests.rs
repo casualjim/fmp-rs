@@ -1,9 +1,5 @@
-use fmp_rs::types::{
-  calendar::EarningsReport,
-  chart::ChartData,
-  company::CompanyProfile,
-  news::NewsArticle,
-  quotes::StockQuote,
+use fmp::types::{
+  calendar::EarningsReport, chart::ChartData, company::CompanyProfile, news::NewsArticle, quotes::StockQuote,
 };
 use serde_json::from_slice;
 
