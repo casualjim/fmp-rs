@@ -30,6 +30,8 @@ jobs:
           cache: false
 
       - name: Run tests
+        env:
+          FMP_API_KEY: ${{ secrets.FMP_API_KEY }}
         run: |
           cargo nextest run --all-features
 

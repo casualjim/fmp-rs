@@ -47,3 +47,6 @@ thiserror = "2.0.17"
 tracing = { version = "0.1.41" }
 typed-builder = "0.23.2"
 serde_urlencoded = "0.7"
+
+[dev-dependencies]
+tokio = { version = "1.42", features = ["macros", "rt-multi-thread"] }
