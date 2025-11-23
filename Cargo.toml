@@ -1,6 +1,6 @@
 [package]
 name = "fmp_rs"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 description = "rust bindings for the FMP API"
 authors = ["Lbyl Team"]
