@@ -1,5 +1,5 @@
 [package]
-version = "0.1.2"
+version = "0.1.3"
 name = "fmp"
 edition = "2024"
 description = "rust bindings for the FMP API"
