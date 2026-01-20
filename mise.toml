@@ -10,6 +10,7 @@ rust = { version = "latest", profile = "default", components = "llvm-tools,rust-
 bun = "latest"
 age = "latest"
 sops = "latest"
+pkl = "latest"
 
 [env]
 _.file = ".env.json"

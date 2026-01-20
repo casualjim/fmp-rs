@@ -1,5 +1,4 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
+use crate::macros::define_api_trait;
 use crate::types::company::{
   CikParams, CompanyExecutive, CompanyNote, CompanyProfile, DelistedCompany, EmployeeCount, ExecutiveCompensation,
   ExecutiveCompensationBenchmark, ExecutivesParams, MarketCap, MarketCapHistoryParams, MergerAcquisition,
@@ -7,88 +6,24 @@ use crate::types::company::{
   SymbolsParams,
 };
 
-pub async fn profile(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<CompanyProfile>> {
-  http.get_json("/profile", &params).await
-}
-
-pub async fn profile_cik(http: &FmpHttpClient, params: CikParams) -> FmpResult<Vec<CompanyProfile>> {
-  http.get_json("/profile-cik", &params).await
-}
-
-pub async fn company_notes(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<CompanyNote>> {
-  http.get_json("/company-notes", &params).await
-}
-
-pub async fn stock_peers(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<StockPeer>> {
-  http.get_json("/stock-peers", &params).await
-}
-
-pub async fn delisted_companies(http: &FmpHttpClient, params: PaginationParams) -> FmpResult<Vec<DelistedCompany>> {
-  http.get_json("/delisted-companies", &params).await
-}
-
-pub async fn employee_count(http: &FmpHttpClient, params: SymbolLimitParams) -> FmpResult<Vec<EmployeeCount>> {
-  http.get_json("/employee-count", &params).await
-}
-
-pub async fn historical_employee_count(
-  http: &FmpHttpClient,
-  params: SymbolLimitParams,
-) -> FmpResult<Vec<EmployeeCount>> {
-  http.get_json("/historical-employee-count", &params).await
-}
-
-pub async fn market_capitalization(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<MarketCap>> {
-  http.get_json("/market-capitalization", &params).await
-}
-
-pub async fn market_capitalization_batch(http: &FmpHttpClient, params: SymbolsParams) -> FmpResult<Vec<MarketCap>> {
-  http.get_json("/market-capitalization-batch", &params).await
-}
-
-pub async fn historical_market_capitalization(
-  http: &FmpHttpClient,
-  params: MarketCapHistoryParams,
-) -> FmpResult<Vec<MarketCap>> {
-  http.get_json("/historical-market-capitalization", &params).await
-}
-
-pub async fn shares_float(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<ShareFloat>> {
-  http.get_json("/shares-float", &params).await
-}
-
-pub async fn shares_float_all(http: &FmpHttpClient, params: ShareFloatAllParams) -> FmpResult<Vec<ShareFloat>> {
-  http.get_json("/shares-float-all", &params).await
-}
-
-pub async fn mergers_acquisitions_latest(
-  http: &FmpHttpClient,
-  params: PaginationParams,
-) -> FmpResult<Vec<MergerAcquisition>> {
-  http.get_json("/mergers-acquisitions-latest", &params).await
-}
-
-pub async fn mergers_acquisitions_search(
-  http: &FmpHttpClient,
-  params: MnaSearchParams,
-) -> FmpResult<Vec<MergerAcquisition>> {
-  http.get_json("/mergers-acquisitions-search", &params).await
-}
-
-pub async fn key_executives(http: &FmpHttpClient, params: ExecutivesParams) -> FmpResult<Vec<CompanyExecutive>> {
-  http.get_json("/key-executives", &params).await
-}
-
-pub async fn governance_executive_compensation(
-  http: &FmpHttpClient,
-  params: SymbolParams,
-) -> FmpResult<Vec<ExecutiveCompensation>> {
-  http.get_json("/governance-executive-compensation", &params).await
-}
-
-pub async fn executive_compensation_benchmark(
-  http: &FmpHttpClient,
-  params: SymbolParams,
-) -> FmpResult<Vec<ExecutiveCompensationBenchmark>> {
-  http.get_json("/executive-compensation-benchmark", &params).await
-}
+define_api_trait!(
+  /// API endpoints for company.
+  CompanyApi,
+  profile -> "/profile" -> SymbolParams  -> Vec<CompanyProfile>,
+  profile_cik -> "/profile-cik" -> CikParams  -> Vec<CompanyProfile>,
+  company_notes -> "/company-notes" -> SymbolParams  -> Vec<CompanyNote>,
+  stock_peers -> "/stock-peers" -> SymbolParams  -> Vec<StockPeer>,
+  delisted_companies -> "/delisted-companies" -> PaginationParams  -> Vec<DelistedCompany>,
+  employee_count -> "/employee-count" -> SymbolLimitParams  -> Vec<EmployeeCount>,
+  historical_employee_count -> "/historical-employee-count" -> SymbolLimitParams  -> Vec<EmployeeCount>,
+  market_capitalization -> "/market-capitalization" -> SymbolParams  -> Vec<MarketCap>,
+  market_capitalization_batch -> "/market-capitalization-batch" -> SymbolsParams  -> Vec<MarketCap>,
+  historical_market_capitalization -> "/historical-market-capitalization" -> MarketCapHistoryParams  -> Vec<MarketCap>,
+  shares_float -> "/shares-float" -> SymbolParams  -> Vec<ShareFloat>,
+  shares_float_all -> "/shares-float-all" -> ShareFloatAllParams  -> Vec<ShareFloat>,
+  mergers_acquisitions_latest -> "/mergers-acquisitions-latest" -> PaginationParams  -> Vec<MergerAcquisition>,
+  mergers_acquisitions_search -> "/mergers-acquisitions-search" -> MnaSearchParams  -> Vec<MergerAcquisition>,
+  key_executives -> "/key-executives" -> ExecutivesParams  -> Vec<CompanyExecutive>,
+  governance_executive_compensation -> "/governance-executive-compensation" -> SymbolParams  -> Vec<ExecutiveCompensation>,
+  executive_compensation_benchmark -> "/executive-compensation-benchmark" -> SymbolParams  -> Vec<ExecutiveCompensationBenchmark>,
+);

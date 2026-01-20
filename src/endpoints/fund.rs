@@ -1,58 +1,20 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
+use crate::macros::define_api_trait;
 use crate::types::fund::{
   FundAssetExposure, FundCountryAllocation, FundDisclosure, FundDisclosureDate, FundDisclosureDatesParams,
   FundDisclosureHolder, FundDisclosureParams, FundDisclosureSearch, FundDisclosureSearchParams, FundHolding, FundInfo,
   FundSectorWeighting, FundSymbolParams,
 };
 
-pub async fn etf_holdings(http: &FmpHttpClient, params: FundSymbolParams) -> FmpResult<Vec<FundHolding>> {
-  http.get_json("/etf/holdings", &params).await
-}
-
-pub async fn etf_info(http: &FmpHttpClient, params: FundSymbolParams) -> FmpResult<FundInfo> {
-  http.get_json("/etf/info", &params).await
-}
-
-pub async fn etf_country_weightings(
-  http: &FmpHttpClient,
-  params: FundSymbolParams,
-) -> FmpResult<Vec<FundCountryAllocation>> {
-  http.get_json("/etf/country-weightings", &params).await
-}
-
-pub async fn etf_asset_exposure(http: &FmpHttpClient, params: FundSymbolParams) -> FmpResult<Vec<FundAssetExposure>> {
-  http.get_json("/etf/asset-exposure", &params).await
-}
-
-pub async fn etf_sector_weightings(
-  http: &FmpHttpClient,
-  params: FundSymbolParams,
-) -> FmpResult<Vec<FundSectorWeighting>> {
-  http.get_json("/etf/sector-weightings", &params).await
-}
-
-pub async fn funds_disclosure_holders_latest(
-  http: &FmpHttpClient,
-  params: FundSymbolParams,
-) -> FmpResult<Vec<FundDisclosureHolder>> {
-  http.get_json("/funds/disclosure-holders-latest", &params).await
-}
-
-pub async fn funds_disclosure_holders_search(
-  http: &FmpHttpClient,
-  params: FundDisclosureSearchParams,
-) -> FmpResult<Vec<FundDisclosureSearch>> {
-  http.get_json("/funds/disclosure-holders-search", &params).await
-}
-
-pub async fn funds_disclosure_dates(
-  http: &FmpHttpClient,
-  params: FundDisclosureDatesParams,
-) -> FmpResult<Vec<FundDisclosureDate>> {
-  http.get_json("/funds/disclosure-dates", &params).await
-}
-
-pub async fn funds_disclosure(http: &FmpHttpClient, params: FundDisclosureParams) -> FmpResult<Vec<FundDisclosure>> {
-  http.get_json("/funds/disclosure", &params).await
-}
+define_api_trait!(
+  /// API endpoints for fund data (ETFs and mutual funds).
+  FundApi,
+  etf_holdings -> "/etf/holdings" -> FundSymbolParams  -> Vec<FundHolding>,
+  etf_info -> "/etf/info" -> FundSymbolParams  -> FundInfo,
+  etf_country_weightings -> "/etf/country-weightings" -> FundSymbolParams  -> Vec<FundCountryAllocation>,
+  etf_asset_exposure -> "/etf/asset-exposure" -> FundSymbolParams  -> Vec<FundAssetExposure>,
+  etf_sector_weightings -> "/etf/sector-weightings" -> FundSymbolParams  -> Vec<FundSectorWeighting>,
+  funds_disclosure_holders_latest -> "/funds/disclosure-holders-latest" -> FundSymbolParams  -> Vec<FundDisclosureHolder>,
+  funds_disclosure_holders_search -> "/funds/disclosure-holders-search" -> FundDisclosureSearchParams  -> Vec<FundDisclosureSearch>,
+  funds_disclosure_dates -> "/funds/disclosure-dates" -> FundDisclosureDatesParams  -> Vec<FundDisclosureDate>,
+  funds_disclosure -> "/funds/disclosure" -> FundDisclosureParams  -> Vec<FundDisclosure>,
+);

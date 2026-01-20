@@ -1,7 +1,8 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
+use crate::macros::define_api_trait;
 use crate::types::commodity::Commodity;
 
-pub async fn commodity_list(http: &FmpHttpClient) -> FmpResult<Vec<Commodity>> {
-  http.get_json("/commodity-list", &()).await
-}
+define_api_trait!(
+  /// API endpoints for commodities.
+  CommodityApi,
+  commodity_list -> "/commodity-list" -> () -> Vec<Commodity>,
+);

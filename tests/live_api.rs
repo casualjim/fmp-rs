@@ -1,14 +1,11 @@
 use std::{env, time::Duration};
 
 use fmp::{
-  endpoints::{news, quotes},
+  FmpConfig, FmpError, FmpHttpClient, NewsApi, QuotesApi,
   types::{
     news::NewsParams,
     quotes::{BatchQuoteParams, QuoteParams},
   },
-  FmpError,
-  FmpConfig,
-  FmpHttpClient,
 };
 
 /// Build a client from `FMP_API_KEY`; panics if the key is missing.
@@ -28,7 +25,7 @@ async fn quote_returns_price_for_symbol() -> eyre::Result<()> {
   let client = live_client();
 
   let params = QuoteParams::builder().symbol("AAPL").build();
-  let quotes = quotes::quote(&client, params).await?;
+  let quotes = client.quote(params).await?;
 
   let aapl = quotes.iter().find(|q| q.symbol == "AAPL");
   let quote = aapl.expect("AAPL quote missing");
@@ -41,7 +38,7 @@ async fn news_respects_limit() -> eyre::Result<()> {
   let client = live_client();
 
   let params = NewsParams::builder().limit(3u32).build();
-  let items = news::stock_news(&client, params).await?;
+  let items = client.stock_news(params).await?;
 
   assert!(!items.is_empty());
   assert!(items.len() <= 3);
@@ -57,7 +54,8 @@ async fn invalid_key_surfaces_api_error() {
     .build();
   let client = FmpHttpClient::new(config).expect("client");
 
-  let err = quotes::quote(&client, QuoteParams::builder().symbol("AAPL").build())
+  let err = client
+    .quote(QuoteParams::builder().symbol("AAPL").build())
     .await
     .expect_err("expected API error");
 
@@ -73,7 +71,7 @@ async fn batch_quote_returns_multiple_symbols() -> eyre::Result<()> {
   let client = live_client();
 
   let params = BatchQuoteParams::builder().symbols("AAPL,MSFT").build();
-  let quotes = quotes::batch_quote(&client, params).await?;
+  let quotes = client.batch_quote(params).await?;
 
   assert!(quotes.iter().any(|q| q.symbol == "AAPL"));
   assert!(quotes.iter().any(|q| q.symbol == "MSFT"));

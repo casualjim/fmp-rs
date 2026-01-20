@@ -1,67 +1,23 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
+use crate::macros::define_api_trait;
 use crate::types::analyst::{
   AnalystEstimate, AnalystEstimatesParams, HistoricalRating, HistoricalStockGrade, PageParams, PriceTargetConsensus,
   PriceTargetNews, PriceTargetSummary, RatingsSnapshot, StockGrade, StockGradeNews, StockGradeSummary,
   SymbolLimitParams, SymbolPageParams,
 };
 
-pub async fn analyst_estimates(
-  http: &FmpHttpClient,
-  params: AnalystEstimatesParams,
-) -> FmpResult<Vec<AnalystEstimate>> {
-  http.get_json("/analyst-estimates", &params).await
-}
-
-pub async fn ratings_snapshot(http: &FmpHttpClient, params: SymbolLimitParams) -> FmpResult<Vec<RatingsSnapshot>> {
-  http.get_json("/ratings-snapshot", &params).await
-}
-
-pub async fn ratings_historical(http: &FmpHttpClient, params: SymbolLimitParams) -> FmpResult<Vec<HistoricalRating>> {
-  http.get_json("/ratings-historical", &params).await
-}
-
-pub async fn price_target_summary(
-  http: &FmpHttpClient,
-  params: SymbolLimitParams,
-) -> FmpResult<Vec<PriceTargetSummary>> {
-  http.get_json("/price-target-summary", &params).await
-}
-
-pub async fn price_target_consensus(
-  http: &FmpHttpClient,
-  params: SymbolLimitParams,
-) -> FmpResult<Vec<PriceTargetConsensus>> {
-  http.get_json("/price-target-consensus", &params).await
-}
-
-pub async fn price_target_news(http: &FmpHttpClient, params: SymbolPageParams) -> FmpResult<Vec<PriceTargetNews>> {
-  http.get_json("/price-target-news", &params).await
-}
-
-pub async fn price_target_latest_news(http: &FmpHttpClient, params: PageParams) -> FmpResult<Vec<PriceTargetNews>> {
-  http.get_json("/price-target-latest-news", &params).await
-}
-
-pub async fn grades(http: &FmpHttpClient, params: SymbolLimitParams) -> FmpResult<Vec<StockGrade>> {
-  http.get_json("/grades", &params).await
-}
-
-pub async fn grades_historical(
-  http: &FmpHttpClient,
-  params: SymbolLimitParams,
-) -> FmpResult<Vec<HistoricalStockGrade>> {
-  http.get_json("/grades-historical", &params).await
-}
-
-pub async fn grades_consensus(http: &FmpHttpClient, params: SymbolLimitParams) -> FmpResult<Vec<StockGradeSummary>> {
-  http.get_json("/grades-consensus", &params).await
-}
-
-pub async fn grades_news(http: &FmpHttpClient, params: SymbolPageParams) -> FmpResult<Vec<StockGradeNews>> {
-  http.get_json("/grades-news", &params).await
-}
-
-pub async fn grades_latest_news(http: &FmpHttpClient, params: PageParams) -> FmpResult<Vec<StockGradeNews>> {
-  http.get_json("/grades-latest-news", &params).await
-}
+define_api_trait!(
+  /// API endpoints for analyst.
+  AnalystApi,
+  analyst_estimates -> "/analyst-estimates" -> AnalystEstimatesParams  -> Vec<AnalystEstimate>,
+  ratings_snapshot -> "/ratings-snapshot" -> SymbolLimitParams  -> Vec<RatingsSnapshot>,
+  ratings_historical -> "/ratings-historical" -> SymbolLimitParams  -> Vec<HistoricalRating>,
+  price_target_summary -> "/price-target-summary" -> SymbolLimitParams  -> Vec<PriceTargetSummary>,
+  price_target_consensus -> "/price-target-consensus" -> SymbolLimitParams  -> Vec<PriceTargetConsensus>,
+  price_target_news -> "/price-target-news" -> SymbolPageParams  -> Vec<PriceTargetNews>,
+  price_target_latest_news -> "/price-target-latest-news" -> PageParams  -> Vec<PriceTargetNews>,
+  grades -> "/grades" -> SymbolLimitParams  -> Vec<StockGrade>,
+  grades_historical -> "/grades-historical" -> SymbolLimitParams  -> Vec<HistoricalStockGrade>,
+  grades_consensus -> "/grades-consensus" -> SymbolLimitParams  -> Vec<StockGradeSummary>,
+  grades_news -> "/grades-news" -> SymbolPageParams  -> Vec<StockGradeNews>,
+  grades_latest_news -> "/grades-latest-news" -> PageParams  -> Vec<StockGradeNews>,
+);

@@ -1,76 +1,20 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
-use crate::types::form_13f::FilingExtractAnalytics;
-use crate::types::form_13f::Form13fFilingDate;
+use crate::macros::define_api_trait;
 use crate::types::form_13f::{
-  FilingDatesParams, FilingExtractAnalyticsByHolderParams, FilingExtractParams, HolderIndustryBreakdown,
-  HolderIndustryBreakdownParams, HolderPerformanceParams, HolderPerformanceSummary, IndustryPerformanceParams,
-  IndustryPerformanceSummary, InstitutionalOwnershipFiling, PaginationParams, PositionsSummary, PositionsSummaryParams,
-  SecFilingExtract,
+  FilingDatesParams, FilingExtractAnalytics, FilingExtractAnalyticsByHolderParams, FilingExtractParams,
+  Form13fFilingDate, HolderIndustryBreakdown, HolderIndustryBreakdownParams, HolderPerformanceParams,
+  HolderPerformanceSummary, IndustryPerformanceParams, IndustryPerformanceSummary, InstitutionalOwnershipFiling,
+  PaginationParams, PositionsSummary, PositionsSummaryParams, SecFilingExtract,
 };
 
-pub async fn institutional_ownership_latest(
-  http: &FmpHttpClient,
-  params: PaginationParams,
-) -> FmpResult<Vec<InstitutionalOwnershipFiling>> {
-  http.get_json("/institutional-ownership/latest", &params).await
-}
-
-pub async fn institutional_ownership_extract(
-  http: &FmpHttpClient,
-  params: FilingExtractParams,
-) -> FmpResult<Vec<SecFilingExtract>> {
-  http.get_json("/institutional-ownership/extract", &params).await
-}
-
-pub async fn institutional_ownership_dates(
-  http: &FmpHttpClient,
-  params: FilingDatesParams,
-) -> FmpResult<Vec<Form13fFilingDate>> {
-  http.get_json("/institutional-ownership/dates", &params).await
-}
-
-pub async fn institutional_ownership_extract_analytics_holder(
-  http: &FmpHttpClient,
-  params: FilingExtractAnalyticsByHolderParams,
-) -> FmpResult<Vec<FilingExtractAnalytics>> {
-  http
-    .get_json("/institutional-ownership/extract-analytics/holder", &params)
-    .await
-}
-
-pub async fn institutional_ownership_holder_performance_summary(
-  http: &FmpHttpClient,
-  params: HolderPerformanceParams,
-) -> FmpResult<Vec<HolderPerformanceSummary>> {
-  http
-    .get_json("/institutional-ownership/holder-performance-summary", &params)
-    .await
-}
-
-pub async fn institutional_ownership_holder_industry_breakdown(
-  http: &FmpHttpClient,
-  params: HolderIndustryBreakdownParams,
-) -> FmpResult<Vec<HolderIndustryBreakdown>> {
-  http
-    .get_json("/institutional-ownership/holder-industry-breakdown", &params)
-    .await
-}
-
-pub async fn institutional_ownership_symbol_positions_summary(
-  http: &FmpHttpClient,
-  params: PositionsSummaryParams,
-) -> FmpResult<Vec<PositionsSummary>> {
-  http
-    .get_json("/institutional-ownership/symbol-positions-summary", &params)
-    .await
-}
-
-pub async fn institutional_ownership_industry_summary(
-  http: &FmpHttpClient,
-  params: IndustryPerformanceParams,
-) -> FmpResult<Vec<IndustryPerformanceSummary>> {
-  http
-    .get_json("/institutional-ownership/industry-summary", &params)
-    .await
-}
+define_api_trait!(
+  /// API endpoints for Form 13F institutional ownership data.
+  Form13FApi,
+  institutional_ownership_latest -> "/institutional-ownership/latest" -> PaginationParams  -> Vec<InstitutionalOwnershipFiling>,
+  institutional_ownership_extract -> "/institutional-ownership/extract" -> FilingExtractParams  -> Vec<SecFilingExtract>,
+  institutional_ownership_dates -> "/institutional-ownership/dates" -> FilingDatesParams  -> Vec<Form13fFilingDate>,
+  institutional_ownership_extract_analytics_holder -> "/institutional-ownership/extract-analytics/holder" -> FilingExtractAnalyticsByHolderParams  -> Vec<FilingExtractAnalytics>,
+  institutional_ownership_holder_performance_summary -> "/institutional-ownership/holder-performance-summary" -> HolderPerformanceParams  -> Vec<HolderPerformanceSummary>,
+  institutional_ownership_holder_industry_breakdown -> "/institutional-ownership/holder-industry-breakdown" -> HolderIndustryBreakdownParams  -> Vec<HolderIndustryBreakdown>,
+  institutional_ownership_symbol_positions_summary -> "/institutional-ownership/symbol-positions-summary" -> PositionsSummaryParams  -> Vec<PositionsSummary>,
+  institutional_ownership_industry_summary -> "/institutional-ownership/industry-summary" -> IndustryPerformanceParams  -> Vec<IndustryPerformanceSummary>,
+);
