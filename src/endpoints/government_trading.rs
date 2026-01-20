@@ -1,27 +1,13 @@
-use crate::client::FmpHttpClient;
-use crate::errors::FmpResult;
+use crate::macros::define_api_trait;
 use crate::types::government_trading::{FinancialDisclosure, NameParams, PaginationParams, SymbolParams};
 
-pub async fn senate_latest(http: &FmpHttpClient, params: PaginationParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/senate-latest", &params).await
-}
-
-pub async fn house_latest(http: &FmpHttpClient, params: PaginationParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/house-latest", &params).await
-}
-
-pub async fn senate_trades(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/senate-trades", &params).await
-}
-
-pub async fn senate_trades_by_name(http: &FmpHttpClient, params: NameParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/senate-trades-by-name", &params).await
-}
-
-pub async fn house_trades(http: &FmpHttpClient, params: SymbolParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/house-trades", &params).await
-}
-
-pub async fn house_trades_by_name(http: &FmpHttpClient, params: NameParams) -> FmpResult<Vec<FinancialDisclosure>> {
-  http.get_json("/house-trades-by-name", &params).await
-}
+define_api_trait!(
+  /// API endpoints for government_trading.
+  GovernmentTradingApi,
+  senate_latest -> "/senate-latest" -> PaginationParams  -> Vec<FinancialDisclosure>,
+  house_latest -> "/house-latest" -> PaginationParams  -> Vec<FinancialDisclosure>,
+  senate_trades -> "/senate-trades" -> SymbolParams  -> Vec<FinancialDisclosure>,
+  senate_trades_by_name -> "/senate-trades-by-name" -> NameParams  -> Vec<FinancialDisclosure>,
+  house_trades -> "/house-trades" -> SymbolParams  -> Vec<FinancialDisclosure>,
+  house_trades_by_name -> "/house-trades-by-name" -> NameParams  -> Vec<FinancialDisclosure>,
+);

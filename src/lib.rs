@@ -2,6 +2,7 @@ mod client;
 mod config;
 pub mod endpoints;
 mod errors;
+mod macros;
 mod primitives;
 pub mod types;
 
@@ -9,6 +10,37 @@ pub use crate::client::FmpHttpClient;
 pub use crate::config::FmpConfig;
 pub use crate::errors::{FmpError, FmpResult};
 pub use crate::primitives::{FmpErrorPayload, FmpResponse};
+
+// Re-export all API traits for convenience
+pub use crate::endpoints::{
+  analyst::AnalystApi,
+  calendar::CalendarApi,
+  chart::{ChartApi, ChartIntervalApi},
+  commodity::CommodityApi,
+  company::CompanyApi,
+  cot::CotApi,
+  crypto::CryptoApi,
+  dcf::DcfApi,
+  directory::DirectoryApi,
+  earnings_transcript::EarningsTranscriptApi,
+  economics::EconomicsApi,
+  esg::EsgApi,
+  forex::ForexApi,
+  form_13f::Form13FApi,
+  fund::FundApi,
+  fundraisers::FundraisersApi,
+  government_trading::GovernmentTradingApi,
+  indexes::IndexesApi,
+  insider_trades::InsiderTradesApi,
+  market_hours::MarketHoursApi,
+  market_performance::MarketPerformanceApi,
+  news::NewsApi,
+  quotes::QuotesApi,
+  search::SearchApi,
+  sec_filings::SecFilingsApi,
+  statements::StatementsApi,
+  technical_indicators::TechnicalIndicatorsApi,
+};
 
 use http::{HeaderMap, header::CONTENT_TYPE};
 use reqwest_retry::{RetryTransientMiddleware, policies::ExponentialBackoff};

@@ -1,8 +1,8 @@
 use std::collections::HashMap;
 
-use serde::{Deserialize, Serialize};
 use serde::Deserializer;
 use serde::de::Error as DeError;
+use serde::{Deserialize, Serialize};
 
 use crate::primitives::{FmpDate, FmpDateTime};
 
