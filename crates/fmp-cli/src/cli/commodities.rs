@@ -6,6 +6,7 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum CommoditiesArgs {
+    /// List all available commodity contracts with current pricing data
     List(ListArgs),
 }
 

@@ -6,19 +6,33 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum ChartArgs {
+    /// End-of-day price history (OHLCV) with split/dividend adjustments (lightweight)
     EodLight(EodLightArgs),
+    /// End-of-day price history (OHLCV) with split/dividend adjustments (full data)
     EodFull(EodFullArgs),
+    /// End-of-day price history without split adjustments (raw prices)
     EodNonSplit(EodNonSplitArgs),
+    /// End-of-day price history adjusted for dividends only
     EodDividend(EodDividendArgs),
+    /// Intraday OHLCV bars at a specified interval (1min, 5min, 15min, 30min, 1hour, 4hour)
     Intraday(IntradayArgs),
+    /// Simple Moving Average (SMA) technical indicator
     Sma(TechnicalIndicatorArgs),
+    /// Exponential Moving Average (EMA) technical indicator
     Ema(TechnicalIndicatorArgs),
+    /// Weighted Moving Average (WMA) technical indicator
     Wma(TechnicalIndicatorArgs),
+    /// Double Exponential Moving Average (DEMA) technical indicator
     Dema(TechnicalIndicatorArgs),
+    /// Triple Exponential Moving Average (TEMA) technical indicator
     Tema(TechnicalIndicatorArgs),
+    /// Relative Strength Index (RSI) momentum oscillator
     Rsi(TechnicalIndicatorArgs),
+    /// Standard Deviation of price (volatility indicator)
     Stddev(TechnicalIndicatorArgs),
+    /// Williams %R momentum indicator (overbought/oversold)
     Williams(TechnicalIndicatorArgs),
+    /// Average Directional Index (ADX) trend strength indicator
     Adx(TechnicalIndicatorArgs),
 }
 
@@ -45,13 +59,13 @@ impl ChartArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodLightArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -83,13 +97,13 @@ impl EodLightArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodFullArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -121,13 +135,13 @@ impl EodFullArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodNonSplitArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -159,13 +173,13 @@ impl EodNonSplitArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodDividendArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -197,16 +211,16 @@ impl EodDividendArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IntradayArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, default_value = "1hour")]
+    #[arg(long, default_value = "1hour", help = "Bar interval: 1min, 5min, 15min, 30min, 1hour, 4hour")]
     pub interval: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -248,19 +262,19 @@ impl IntradayArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct TechnicalIndicatorArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, default_value = "20")]
+    #[arg(long, default_value = "20", help = "Lookback period in bars (e.g., 14 for RSI, 20 for SMA)")]
     pub period: u32,
 
-    #[arg(long, default_value = "daily")]
+    #[arg(long, default_value = "daily", help = "Timeframe: 1min, 5min, 15min, 30min, 1hour, 4hour, daily")]
     pub timeframe: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start datetime (ISO 8601, e.g., 2024-01-01T00:00:00Z)")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End datetime (ISO 8601, e.g., 2024-12-31T23:59:59Z)")]
     pub to: Option<String>,
 }
 

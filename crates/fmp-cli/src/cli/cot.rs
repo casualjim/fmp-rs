@@ -6,7 +6,9 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum CotArgs {
+    /// CFTC Commitment of Traders report: long/short positions by trader category
     Report(ReportArgs),
+    /// Analytical summary of COT positioning with trend signals
     Analysis(AnalysisArgs),
 }
 
@@ -21,13 +23,13 @@ impl CotArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ReportArgs {
-    #[arg(long)]
+    #[arg(long, help = "Commodity/futures symbol (e.g., GC for gold, CL for crude oil)")]
     pub symbol: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -69,13 +71,13 @@ impl ReportArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct AnalysisArgs {
-    #[arg(long)]
+    #[arg(long, help = "Commodity/futures symbol (e.g., GC for gold, CL for crude oil)")]
     pub symbol: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 

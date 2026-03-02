@@ -6,30 +6,55 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum StatementsArgs {
+    /// Annual or quarterly income statement (revenue, expenses, net income, EPS)
     Income(IncomeArgs),
+    /// Trailing twelve months income statement
     IncomeTtm(IncomeTtmArgs),
+    /// Year-over-year income statement growth rates
     IncomeGrowth(IncomeGrowthArgs),
+    /// Income statement as originally reported to the SEC (XBRL data)
     IncomeAsReported(IncomeAsReportedArgs),
+    /// Annual or quarterly balance sheet (assets, liabilities, equity)
     BalanceSheet(BalanceSheetArgs),
+    /// Trailing twelve months balance sheet
     BalanceSheetTtm(BalanceSheetTtmArgs),
+    /// Year-over-year balance sheet growth rates
     BalanceSheetGrowth(BalanceSheetGrowthArgs),
+    /// Balance sheet as originally reported to the SEC (XBRL data)
     BalanceSheetAsReported(BalanceSheetAsReportedArgs),
+    /// Annual or quarterly cash flow statement (operating, investing, financing)
     CashFlow(CashFlowArgs),
+    /// Trailing twelve months cash flow statement
     CashFlowTtm(CashFlowTtmArgs),
+    /// Year-over-year cash flow growth rates
     CashFlowGrowth(CashFlowGrowthArgs),
+    /// Cash flow statement as originally reported to the SEC (XBRL data)
     CashFlowAsReported(CashFlowAsReportedArgs),
+    /// Complete financial statement (income + balance sheet + cash flow) as reported
     FullAsReported(FullAsReportedArgs),
+    /// Latest financial statements across all companies (paginated)
     Latest(LatestArgs),
+    /// Multi-metric financial growth rates (revenue, earnings, FCF, etc.)
     FinancialGrowth(FinancialGrowthArgs),
+    /// List of dates when financial reports were filed
     ReportDates(ReportDatesArgs),
+    /// Full financial report data as JSON for a specific period
     ReportJson(ReportJsonArgs),
+    /// Revenue segmented by product/service category
     RevenueProduct(RevenueProductArgs),
+    /// Revenue segmented by geographic region
     RevenueGeographic(RevenueGeographicArgs),
+    /// Key financial metrics (P/E, EV/EBITDA, ROE, FCF yield, etc.)
     KeyMetrics(KeyMetricsArgs),
+    /// Trailing twelve months key financial metrics
     KeyMetricsTtm(KeyMetricsTtmArgs),
+    /// Financial ratios (current ratio, debt/equity, profit margin, etc.)
     Ratios(RatiosArgs),
+    /// Trailing twelve months financial ratios
     RatiosTtm(RatiosTtmArgs),
+    /// Altman Z-score, Piotroski F-score, and other financial health scores
     Scores(ScoresArgs),
+    /// Owner earnings (Buffett-style: net income + D&A - capex)
     OwnerEarnings(OwnerEarningsArgs),
 }
 
@@ -67,13 +92,13 @@ impl StatementsArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IncomeArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -104,13 +129,13 @@ impl IncomeArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct BalanceSheetArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -141,13 +166,13 @@ impl BalanceSheetArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CashFlowArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -178,10 +203,10 @@ impl CashFlowArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IncomeTtmArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -203,13 +228,13 @@ impl IncomeTtmArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IncomeGrowthArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -240,10 +265,10 @@ impl IncomeGrowthArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct BalanceSheetTtmArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -265,13 +290,13 @@ impl BalanceSheetTtmArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct BalanceSheetGrowthArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -302,13 +327,13 @@ impl BalanceSheetGrowthArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct BalanceSheetAsReportedArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -339,10 +364,10 @@ impl BalanceSheetAsReportedArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CashFlowTtmArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -364,13 +389,13 @@ impl CashFlowTtmArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CashFlowGrowthArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -401,13 +426,13 @@ impl CashFlowGrowthArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CashFlowAsReportedArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -438,13 +463,13 @@ impl CashFlowAsReportedArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct FinancialGrowthArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -475,7 +500,7 @@ impl FinancialGrowthArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ReportDatesArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -491,13 +516,13 @@ impl ReportDatesArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ReportJsonArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Fiscal year (e.g., 2023)")]
     pub year: i32,
 
-    #[arg(long, required = true, value_parser = ["Q1", "Q2", "Q3", "Q4", "FY"])]
+    #[arg(long, required = true, value_parser = ["Q1", "Q2", "Q3", "Q4", "FY"], help = "Fiscal period: Q1, Q2, Q3, Q4, or FY")]
     pub period: String,
 }
 
@@ -515,13 +540,13 @@ impl ReportJsonArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct RevenueProductArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Reporting period (e.g., annual, quarterly)")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Data structure format (flat or hierarchical)")]
     pub structure: Option<String>,
 }
 
@@ -552,13 +577,13 @@ impl RevenueProductArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct RevenueGeographicArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Reporting period (e.g., annual, quarterly)")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Data structure format (flat or hierarchical)")]
     pub structure: Option<String>,
 }
 
@@ -589,13 +614,13 @@ impl RevenueGeographicArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct KeyMetricsArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -626,13 +651,13 @@ impl KeyMetricsArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct RatiosArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -663,10 +688,10 @@ impl RatiosArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ScoresArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -688,13 +713,13 @@ impl ScoresArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IncomeAsReportedArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -725,13 +750,13 @@ impl IncomeAsReportedArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct FullAsReportedArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"])]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
     pub period: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of periods to return")]
     pub limit: Option<u32>,
 }
 
@@ -762,10 +787,10 @@ impl FullAsReportedArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct LatestArgs {
-    #[arg(long)]
+    #[arg(long, help = "Page number for pagination (0-indexed)")]
     pub page: Option<u32>,
 
-    #[arg(long)]
+    #[arg(long, help = "Number of results per page")]
     pub limit: Option<u32>,
 }
 
@@ -791,7 +816,7 @@ impl LatestArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct KeyMetricsTtmArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -807,7 +832,7 @@ impl KeyMetricsTtmArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct RatiosTtmArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -823,7 +848,7 @@ impl RatiosTtmArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct OwnerEarningsArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 

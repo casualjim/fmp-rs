@@ -13,6 +13,12 @@ pub mod market_hours;
 pub mod market_performance;
 pub mod search;
 pub mod directory;
+pub mod news;
+pub mod calendar;
+pub mod economics;
+pub mod analyst;
+pub mod filings;
+pub mod transcript;
 
 pub use quotes::QuotesArgs;
 pub use chart::ChartArgs;
@@ -29,6 +35,12 @@ pub use market_hours::MarketHoursArgs;
 pub use market_performance::MarketPerformanceArgs;
 pub use search::SearchArgs;
 pub use directory::DirectoryArgs;
+pub use news::NewsArgs;
+pub use calendar::CalendarArgs;
+pub use economics::EconomicsArgs;
+pub use analyst::AnalystArgs;
+pub use filings::FilingsArgs;
+pub use transcript::TranscriptArgs;
 
 use crate::config::Cli;
 use eyre::Result;
@@ -51,12 +63,18 @@ impl Context {
 }
 
 pub async fn dispatch(cli: Cli) -> Result<()> {
+    // Handle commands that don't require an API key
+    if let crate::config::Commands::Completions(args) = &cli.command {
+        args.handle();
+        return Ok(());
+    }
+
     let api_key = cli.api_key
         .ok_or_else(|| eyre::eyre!("API key required via --api-key or FMP_API_KEY"))?;
     let api_key = SecretString::new(api_key.into_boxed_str());
-    
+
     let ctx = Context::new(api_key, cli.base_url)?;
-    
+
     match cli.command {
         crate::config::Commands::Quotes(args) => args.handle(&ctx).await,
         crate::config::Commands::Chart(args) => args.handle(&ctx).await,
@@ -73,5 +91,12 @@ pub async fn dispatch(cli: Cli) -> Result<()> {
         crate::config::Commands::MarketPerformance(args) => args.handle(&ctx).await,
         crate::config::Commands::Search(args) => args.handle(&ctx).await,
         crate::config::Commands::Directory(args) => args.handle(&ctx).await,
+        crate::config::Commands::News(args) => args.handle(&ctx).await,
+        crate::config::Commands::Calendar(args) => args.handle(&ctx).await,
+        crate::config::Commands::Economics(args) => args.handle(&ctx).await,
+        crate::config::Commands::Analyst(args) => args.handle(&ctx).await,
+        crate::config::Commands::Filings(args) => args.handle(&ctx).await,
+        crate::config::Commands::Transcript(args) => args.handle(&ctx).await,
+        crate::config::Commands::Completions(_) => unreachable!("handled above"),
     }
 }

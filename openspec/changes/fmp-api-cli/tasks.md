@@ -68,14 +68,14 @@
 - [x] 8.1 Implement `crypto price` command for crypto quotes
 - [x] 8.2 Implement `crypto historical` with date range and interval support
 - [x] 8.3 Implement `crypto list` for available trading pairs
-- [ ] 8.4 Implement `crypto news` for crypto-specific news
+- [x] 8.4 Implement `crypto news` for crypto-specific news
 
 ## 9. Forex Namespace Implementation
 
 - [x] 9.1 Implement `forex rate` command for exchange rates
 - [x] 9.2 Implement `forex historical` with date range support
 - [x] 9.3 Implement `forex list` for available pairs
-- [ ] 9.4 Implement `forex news` for forex market news
+- [x] 9.4 Implement `forex news` for forex market news
 
 ## 10. Commodities Namespace Implementation
 
@@ -131,48 +131,48 @@
 
 ## 16. News Namespace Implementation
 
-- [ ] 16.1 Implement `news latest` for general market news
-- [ ] 16.2 Implement `news stock` for stock-specific news
-- [ ] 16.3 Implement `news crypto` for crypto news
-- [ ] 16.4 Implement `news forex` for forex news
-- [ ] 16.5 Add --tickers, --from, --to, --limit flags for filtering
-- [ ] 16.6 Implement `news search` for keyword search
+- [x] 16.1 Implement `news latest` for general market news
+- [x] 16.2 Implement `news stock` for stock-specific news
+- [x] 16.3 Implement `news crypto` for crypto news
+- [x] 16.4 Implement `news forex` for forex news
+- [x] 16.5 Add --tickers, --from, --to, --limit flags for filtering
+- [x] 16.6 Implement `news search` for keyword search
 
 ## 17. Calendar Namespace Implementation
 
-- [ ] 17.1 Implement `calendar earnings` with date range support
-- [ ] 17.2 Implement `calendar earnings-confirmed` for confirmed dates
-- [ ] 17.3 Implement `calendar ipos` for IPO calendar
-- [ ] 17.4 Implement `calendar splits` for stock split calendar
+- [x] 17.1 Implement `calendar earnings` with date range support
+- [x] 17.2 Implement `calendar earnings-confirmed` for confirmed dates
+- [x] 17.3 Implement `calendar ipos` for IPO calendar
+- [x] 17.4 Implement `calendar splits` for stock split calendar
 
 ## 18. Economics Namespace Implementation
 
-- [ ] 18.1 Implement `economics indicators` for key economic indicators
-- [ ] 18.2 Implement `economics treasury-rates` for yield curve
-- [ ] 18.3 Implement `economics federal-fund-rate` historical data
-- [ ] 18.4 Add --from and --to flags for historical data
+- [x] 18.1 Implement `economics indicators` for key economic indicators
+- [x] 18.2 Implement `economics treasury-rates` for yield curve
+- [x] 18.3 Implement `economics federal-fund-rate` historical data
+- [x] 18.4 Add --from and --to flags for historical data
 
 ## 19. Analyst Namespace Implementation
 
-- [ ] 19.1 Implement `analyst recommendations` for buy/sell ratings
-- [ ] 19.2 Implement `analyst price-target` for consensus targets
-- [ ] 19.3 Implement `analyst estimates` for earnings estimates
-- [ ] 19.4 Add --period and --limit flags
+- [x] 19.1 Implement `analyst recommendations` for buy/sell ratings
+- [x] 19.2 Implement `analyst price-target` for consensus targets
+- [x] 19.3 Implement `analyst estimates` for earnings estimates
+- [x] 19.4 Add --period and --limit flags
 
 ## 20. SEC Filings Namespace Implementation
 
-- [ ] 20.1 Implement `filings search` for SEC filing search
-- [ ] 20.2 Implement `filings by-type` filtered by form type (10-K, 10-Q, 8-K, etc.)
-- [ ] 20.3 Implement `filings by-symbol` for company-specific filings
-- [ ] 20.4 Implement `filings cik` for CIK number lookup
-- [ ] 20.5 Add --from, --to, --limit flags for filtering
+- [x] 20.1 Implement `filings search` for SEC filing search
+- [x] 20.2 Implement `filings by-type` filtered by form type (10-K, 10-Q, 8-K, etc.)
+- [x] 20.3 Implement `filings by-symbol` for company-specific filings
+- [x] 20.4 Implement `filings cik` for CIK number lookup
+- [x] 20.5 Add --from, --to, --limit flags for filtering
 
 ## 21. Earnings Transcript Namespace Implementation
 
-- [ ] 21.1 Implement `transcript latest` for most recent transcript
-- [ ] 21.2 Implement `transcript by-symbol` for company transcripts
-- [ ] 21.3 Implement `transcript search` for keyword search
-- [ ] 21.4 Add --quarter and --year flags for specific periods
+- [x] 21.1 Implement `transcript latest` for most recent transcript
+- [x] 21.2 Implement `transcript by-symbol` for company transcripts
+- [x] 21.3 Implement `transcript search` for keyword search
+- [x] 21.4 Add --quarter and --year flags for specific periods
 
 ## 22. ESG Namespace Implementation
 
@@ -192,7 +192,7 @@
 
 ## 30. Output Enhancement
 
-- [ ] 30.1 Implement JSON pretty-printing with optional color
+- [x] 30.1 Implement JSON pretty-printing with optional color
 - [ ] 30.2 Add summary statistics where appropriate
 
 ## 31. Testing
@@ -206,12 +206,12 @@
 
 ## 32. Documentation and Polish
 
-- [ ] 32.1 Write README.md with installation instructions
-- [ ] 32.2 Add usage examples for common workflows
-- [ ] 32.3 Generate shell completion scripts (bash, zsh, fish)
+- [x] 32.1 Write README.md with installation instructions
+- [x] 32.2 Add usage examples for common workflows
+- [x] 32.3 Generate shell completion scripts (bash, zsh, fish)
 - [ ] 32.4 Write CHANGELOG.md for version tracking
 - [ ] 32.5 Add inline code documentation for public APIs
-- [ ] 32.6 Create example config file template
+- [x] 32.6 Create example config file template
 
 ## 33. Release Preparation
 

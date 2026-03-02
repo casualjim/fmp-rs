@@ -6,14 +6,23 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum IndexesArgs {
+    /// List all available market indexes (optionally filter by symbol)
     List(ListArgs),
+    /// Full quote for a market index (value, change, volume)
     Quote(QuoteArgs),
+    /// Lightweight quote for a market index
     QuoteShort(QuoteShortArgs),
+    /// Batch quotes for all market indexes (optionally as lightweight format)
     QuoteBatch(QuoteBatchArgs),
+    /// End-of-day index value history lightweight format with optional date range
     EodLight(EodLightArgs),
+    /// End-of-day index value history full format with optional date range
     EodFull(EodFullArgs),
+    /// 1-minute intraday index value bars
     Intraday1min(Intraday1minArgs),
+    /// 5-minute intraday index value bars
     Intraday5min(Intraday5minArgs),
+    /// 1-hour intraday index value bars
     Intraday1hour(Intraday1hourArgs),
 }
 
@@ -35,7 +44,7 @@ impl IndexesArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ListArgs {
-    #[arg(long)]
+    #[arg(long, help = "Filter by index symbol (e.g., SPX, DJI, NDX)")]
     pub symbol: Option<String>,
 }
 
@@ -56,7 +65,7 @@ impl ListArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct QuoteArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX for S&P 500, DJI for Dow Jones)")]
     pub symbol: String,
 }
 
@@ -72,7 +81,7 @@ impl QuoteArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct QuoteShortArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 }
 
@@ -88,7 +97,7 @@ impl QuoteShortArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct QuoteBatchArgs {
-    #[arg(long)]
+    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -107,13 +116,13 @@ impl QuoteBatchArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodLightArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -144,13 +153,13 @@ impl EodLightArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EodFullArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -181,13 +190,13 @@ impl EodFullArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct Intraday1minArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -218,13 +227,13 @@ impl Intraday1minArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct Intraday5minArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -255,13 +264,13 @@ impl Intraday5minArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct Intraday1hourArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Index symbol (e.g., SPX)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 

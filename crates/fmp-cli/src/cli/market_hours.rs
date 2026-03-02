@@ -6,8 +6,11 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum MarketHoursArgs {
+    /// Trading hours for a specific exchange (open/close times, timezone)
     Exchange(ExchangeArgs),
+    /// Market holidays for a specific exchange with optional date range
     Holidays(HolidaysArgs),
+    /// Trading hours for all supported exchanges
     All(AllArgs),
 }
 
@@ -23,7 +26,7 @@ impl MarketHoursArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ExchangeArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Exchange code (e.g., NYSE, NASDAQ, LSE, TSX)")]
     pub exchange: String,
 }
 
@@ -39,13 +42,13 @@ impl ExchangeArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct HolidaysArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Exchange code (e.g., NYSE, NASDAQ)")]
     pub exchange: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 

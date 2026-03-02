@@ -6,12 +6,19 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum SearchArgs {
+    /// Search for ticker symbols by keyword query (company name or symbol prefix)
     Symbol(SymbolArgs),
+    /// Search for companies by full name with optional exchange filter
     Name(NameArgs),
+    /// Look up a company's ticker symbol by SEC CIK number
     Cik(CikArgs),
+    /// Look up a ticker symbol by CUSIP identifier
     Cusip(CusipArgs),
+    /// Look up a ticker symbol by ISIN (International Securities Identification Number)
     Isin(IsinArgs),
+    /// Find all exchange listings for a symbol (e.g., US + foreign exchanges)
     ExchangeVariants(ExchangeVariantsArgs),
+    /// Screen stocks by financial criteria (market cap, price, volume, sector, etc.)
     Screener(ScreenerArgs),
 }
 
@@ -31,13 +38,13 @@ impl SearchArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct SymbolArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Search query (ticker prefix or company name keyword)")]
     pub query: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum number of results to return")]
     pub limit: Option<u32>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter results to a specific exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
 }
 
@@ -68,13 +75,13 @@ impl SymbolArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct NameArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Company name or keyword to search for")]
     pub query: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum number of results to return")]
     pub limit: Option<u32>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter results to a specific exchange (e.g., NYSE)")]
     pub exchange: Option<String>,
 }
 
@@ -105,10 +112,10 @@ impl NameArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CikArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "SEC CIK number to look up")]
     pub cik: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum number of results to return")]
     pub limit: Option<u32>,
 }
 
@@ -130,7 +137,7 @@ impl CikArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CusipArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "9-character CUSIP identifier")]
     pub cusip: String,
 }
 
@@ -146,7 +153,7 @@ impl CusipArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IsinArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "12-character ISIN identifier (e.g., US0378331005)")]
     pub isin: String,
 }
 
@@ -162,7 +169,7 @@ impl IsinArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ExchangeVariantsArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol to find all exchange listings for")]
     pub symbol: String,
 }
 
@@ -178,58 +185,58 @@ impl ExchangeVariantsArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ScreenerArgs {
-    #[arg(long)]
+    #[arg(long, help = "Minimum market cap in USD (e.g., 1000000000 for $1B)")]
     pub market_cap_more_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum market cap in USD")]
     pub market_cap_less_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Minimum stock price in USD")]
     pub price_more_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum stock price in USD")]
     pub price_less_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Minimum beta (market sensitivity)")]
     pub beta_more_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum beta")]
     pub beta_less_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Minimum average trading volume")]
     pub volume_more_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum average trading volume")]
     pub volume_less_than: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Minimum dividend yield (e.g., 0.02 for 2%)")]
     pub dividend: Option<f64>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by sector (e.g., Technology, Healthcare, Financials)")]
     pub sector: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by industry name")]
     pub industry: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by country code (e.g., US, CA, GB)")]
     pub country: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter to ETFs only (true) or exclude ETFs (false)")]
     pub is_etf: Option<bool>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter to mutual funds only (true) or exclude (false)")]
     pub is_fund: Option<bool>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter to actively trading stocks only")]
     pub is_actively_trading: Option<bool>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum number of results to return")]
     pub limit: Option<u32>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Page number for pagination")]
     pub page: Option<u32>,
 }
 

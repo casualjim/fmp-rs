@@ -6,16 +6,27 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum DirectoryArgs {
+    /// Complete list of all listed stocks with basic metadata
     StockList(StockListArgs),
+    /// List of all symbols that have financial statement data available
     FinancialStatementSymbols(FinancialStatementSymbolsArgs),
+    /// List of all SEC CIK numbers with associated company names
     CikList(CikListArgs),
+    /// Historical ticker symbol changes (old symbol -> new symbol)
     SymbolChange(SymbolChangeArgs),
+    /// Complete list of all listed ETFs with basic metadata
     EtfList(EtfListArgs),
+    /// List of all stocks currently actively trading
     ActivelyTradingList(ActivelyTradingListArgs),
+    /// List of all companies with earnings call transcript data available
     EarningsTranscriptList(EarningsTranscriptListArgs),
+    /// List of all supported exchange codes and names
     AvailableExchanges(AvailableExchangesArgs),
+    /// List of all supported sector names for screening/filtering
     AvailableSectors(AvailableSectorsArgs),
+    /// List of all supported industry names for screening/filtering
     AvailableIndustries(AvailableIndustriesArgs),
+    /// List of all supported country codes for screening/filtering
     AvailableCountries(AvailableCountriesArgs),
 }
 
@@ -59,7 +70,7 @@ impl FinancialStatementSymbolsArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CikListArgs {
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of CIK entries to return")]
     pub limit: Option<u32>,
 }
 
@@ -75,10 +86,10 @@ impl CikListArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct SymbolChangeArgs {
-    #[arg(long)]
+    #[arg(long, help = "If true, include invalid/delisted symbol changes")]
     pub invalid: Option<bool>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 

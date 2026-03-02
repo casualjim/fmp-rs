@@ -6,16 +6,27 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum MarketPerformanceArgs {
+    /// Sector performance snapshot for all sectors on a given date
     SectorPerformanceSnapshot(SectorPerformanceSnapshotArgs),
+    /// Industry performance snapshot for all industries on a given date
     IndustryPerformanceSnapshot(IndustryPerformanceSnapshotArgs),
+    /// Historical daily performance for a specific market sector
     HistoricalSectorPerformance(HistoricalSectorPerformanceArgs),
+    /// Historical daily performance for a specific market industry
     HistoricalIndustryPerformance(HistoricalIndustryPerformanceArgs),
+    /// Sector P/E ratio snapshot for all sectors on a given date
     SectorPeSnapshot(SectorPeSnapshotArgs),
+    /// Industry P/E ratio snapshot for all industries on a given date
     IndustryPeSnapshot(IndustryPeSnapshotArgs),
+    /// Historical P/E ratios for a specific sector over time
     HistoricalSectorPe(HistoricalSectorPeArgs),
+    /// Historical P/E ratios for a specific industry over time
     HistoricalIndustryPe(HistoricalIndustryPeArgs),
+    /// Top stocks by price gain percentage today
     BiggestGainers(BiggestGainersArgs),
+    /// Top stocks by price loss percentage today
     BiggestLosers(BiggestLosersArgs),
+    /// Most actively traded stocks by volume today
     MostActives(MostActivesArgs),
 }
 
@@ -39,13 +50,13 @@ impl MarketPerformanceArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct SectorPerformanceSnapshotArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Date in YYYY-MM-DD format")]
     pub date: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by sector name (e.g., Technology, Healthcare)")]
     pub sector: Option<String>,
 }
 
@@ -77,13 +88,13 @@ impl SectorPerformanceSnapshotArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IndustryPerformanceSnapshotArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Date in YYYY-MM-DD format")]
     pub date: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by industry name")]
     pub industry: Option<String>,
 }
 
@@ -115,16 +126,16 @@ impl IndustryPerformanceSnapshotArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct HistoricalSectorPerformanceArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Sector name (e.g., Technology, Healthcare, Financials)")]
     pub sector: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
 }
 
@@ -175,16 +186,16 @@ impl HistoricalSectorPerformanceArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct HistoricalIndustryPerformanceArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Industry name")]
     pub industry: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
 }
 
@@ -235,13 +246,13 @@ impl HistoricalIndustryPerformanceArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct SectorPeSnapshotArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Date in YYYY-MM-DD format")]
     pub date: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by sector name")]
     pub sector: Option<String>,
 }
 
@@ -273,13 +284,13 @@ impl SectorPeSnapshotArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct IndustryPeSnapshotArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Date in YYYY-MM-DD format")]
     pub date: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange (e.g., NYSE, NASDAQ)")]
     pub exchange: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by industry name")]
     pub industry: Option<String>,
 }
 
@@ -311,16 +322,16 @@ impl IndustryPeSnapshotArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct HistoricalSectorPeArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Sector name")]
     pub sector: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange")]
     pub exchange: Option<String>,
 }
 
@@ -371,16 +382,16 @@ impl HistoricalSectorPeArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct HistoricalIndustryPeArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Industry name")]
     pub industry: String,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
-    
-    #[arg(long)]
+
+    #[arg(long, help = "Filter by exchange")]
     pub exchange: Option<String>,
 }
 

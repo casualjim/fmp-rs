@@ -6,9 +6,13 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum DcfArgs {
+    /// Standard DCF intrinsic value using FMP's default assumptions
     Valuation(ValuationArgs),
+    /// Levered DCF valuation accounting for company's actual debt structure
     LeveredValuation(LeveredValuationArgs),
+    /// Custom DCF with user-supplied growth rate, margins, and WACC inputs
     Custom(CustomArgs),
+    /// Levered custom DCF with user-supplied assumptions and debt structure
     CustomLevered(CustomLeveredArgs),
 }
 
@@ -25,7 +29,7 @@ impl DcfArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ValuationArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -41,7 +45,7 @@ impl ValuationArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct LeveredValuationArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -57,61 +61,61 @@ impl LeveredValuationArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CustomArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Revenue growth rate as percentage (e.g., 0.05 for 5%)")]
     pub revenue_growth_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "EBITDA as percentage of revenue")]
     pub ebitda_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "D&A as percentage of revenue")]
     pub depreciation_and_amortization_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Cash & short-term investments as percentage of revenue")]
     pub cash_and_short_term_investments_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Accounts receivable as percentage of revenue")]
     pub receivables_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Inventories as percentage of revenue")]
     pub inventories_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Accounts payable as percentage of revenue")]
     pub payable_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "EBIT as percentage of revenue")]
     pub ebit_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Capital expenditure as percentage of revenue")]
     pub capital_expenditure_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Operating cash flow as percentage of revenue")]
     pub operating_cash_flow_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "SG&A as percentage of revenue")]
     pub selling_general_and_administrative_expenses_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Effective tax rate (e.g., 0.21 for 21%)")]
     pub tax_rate: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Terminal/perpetuity growth rate (e.g., 0.03 for 3%)")]
     pub long_term_growth_rate: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Pre-tax cost of debt (e.g., 0.04 for 4%)")]
     pub cost_of_debt: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Cost of equity from CAPM (e.g., 0.10 for 10%)")]
     pub cost_of_equity: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Equity risk premium (e.g., 0.055 for 5.5%)")]
     pub market_risk_premium: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Company beta (systematic risk relative to market)")]
     pub beta: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Risk-free rate, typically 10Y treasury yield")]
     pub risk_free_rate: Option<f64>,
 }
 
@@ -145,61 +149,61 @@ impl CustomArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CustomLeveredArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Revenue growth rate as percentage (e.g., 0.05 for 5%)")]
     pub revenue_growth_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "EBITDA as percentage of revenue")]
     pub ebitda_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "D&A as percentage of revenue")]
     pub depreciation_and_amortization_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Cash & short-term investments as percentage of revenue")]
     pub cash_and_short_term_investments_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Accounts receivable as percentage of revenue")]
     pub receivables_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Inventories as percentage of revenue")]
     pub inventories_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Accounts payable as percentage of revenue")]
     pub payable_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "EBIT as percentage of revenue")]
     pub ebit_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Capital expenditure as percentage of revenue")]
     pub capital_expenditure_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Operating cash flow as percentage of revenue")]
     pub operating_cash_flow_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "SG&A as percentage of revenue")]
     pub selling_general_and_administrative_expenses_pct: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Effective tax rate (e.g., 0.21 for 21%)")]
     pub tax_rate: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Terminal/perpetuity growth rate (e.g., 0.03 for 3%)")]
     pub long_term_growth_rate: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Pre-tax cost of debt (e.g., 0.04 for 4%)")]
     pub cost_of_debt: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Cost of equity from CAPM (e.g., 0.10 for 10%)")]
     pub cost_of_equity: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Equity risk premium (e.g., 0.055 for 5.5%)")]
     pub market_risk_premium: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Company beta (systematic risk relative to market)")]
     pub beta: Option<f64>,
 
-    #[arg(long)]
+    #[arg(long, help = "Risk-free rate, typically 10Y treasury yield")]
     pub risk_free_rate: Option<f64>,
 }
 

@@ -6,19 +6,33 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum CompanyArgs {
+    /// Full company profile: sector, industry, description, CEO, employees, website, financials summary
     Profile(ProfileArgs),
+    /// Company profile lookup by SEC CIK number instead of ticker symbol
     ProfileCik(ProfileCikArgs),
+    /// List of peer companies (similar sector/size)
     Peers(PeersArgs),
+    /// Current market capitalization for a symbol
     MarketCap(MarketCapArgs),
+    /// Current market capitalization for multiple symbols in one request
     MarketCapBatch(MarketCapBatchArgs),
+    /// Historical daily market capitalization over a date range
     MarketCapHistory(MarketCapHistoryArgs),
+    /// Key executives: CEO, CFO, CTO with titles and compensation
     Executives(ExecutivesArgs),
+    /// Executive compensation data (governance/proxy statement)
     Compensation(CompensationArgs),
+    /// Current employee headcount
     Employees(EmployeesArgs),
+    /// Historical employee headcount over time
     EmployeesHistory(EmployeesHistoryArgs),
+    /// Shares float (tradeable shares) for a symbol
     Float(FloatArgs),
+    /// Shares float for all companies (paginated)
     FloatAll(FloatAllArgs),
+    /// Latest mergers and acquisitions announcements
     MaLatest(MaLatestArgs),
+    /// Search mergers and acquisitions by company name
     MaSearch(MaSearchArgs),
 }
 
@@ -45,7 +59,7 @@ impl CompanyArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ProfileArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -61,7 +75,7 @@ impl ProfileArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ProfileCikArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "SEC CIK number (e.g., 0000320193)")]
     pub cik: String,
 }
 
@@ -77,7 +91,7 @@ impl ProfileCikArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct PeersArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -93,7 +107,7 @@ impl PeersArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct MarketCapArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -109,7 +123,7 @@ impl MarketCapArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct MarketCapBatchArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Comma-separated symbols (e.g., \"AAPL,MSFT,GOOGL\")")]
     pub symbols: String,
 }
 
@@ -125,16 +139,16 @@ impl MarketCapBatchArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct MarketCapHistoryArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 
-    #[arg(long)]
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
     pub from: Option<String>,
 
-    #[arg(long)]
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
     pub to: Option<String>,
 }
 
@@ -185,10 +199,10 @@ impl MarketCapHistoryArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct ExecutivesArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Filter by active status (true/false)")]
     pub active: Option<String>,
 }
 
@@ -210,7 +224,7 @@ impl ExecutivesArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct CompensationArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -226,10 +240,10 @@ impl CompensationArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EmployeesArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -251,10 +265,10 @@ impl EmployeesArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct EmployeesHistoryArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long)]
+    #[arg(long, help = "Maximum number of records to return")]
     pub limit: Option<u32>,
 }
 
@@ -276,7 +290,7 @@ impl EmployeesHistoryArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct FloatArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -292,10 +306,10 @@ impl FloatArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct FloatAllArgs {
-    #[arg(long)]
+    #[arg(long, help = "Page number for pagination (0-indexed)")]
     pub page: Option<u32>,
 
-    #[arg(long)]
+    #[arg(long, help = "Number of results per page")]
     pub limit: Option<u32>,
 }
 
@@ -321,7 +335,7 @@ impl FloatAllArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct MaLatestArgs {
-    #[arg(long, default_value = "0")]
+    #[arg(long, default_value = "0", help = "Page number for pagination (0-indexed)")]
     pub page: u32,
 }
 
@@ -337,7 +351,7 @@ impl MaLatestArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct MaSearchArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Company name to search for")]
     pub name: String,
 }
 

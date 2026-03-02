@@ -6,8 +6,11 @@ use super::Context;
 
 #[derive(Subcommand, Debug, Clone)]
 pub enum EsgArgs {
+    /// ESG disclosure data: environmental, social, and governance metrics
     Disclosure(DisclosureArgs),
+    /// ESG ratings and scores from FMP's rating system
     Ratings(RatingsArgs),
+    /// ESG benchmark averages by sector/industry for a given year
     Benchmark(BenchmarkArgs),
 }
 
@@ -23,7 +26,7 @@ impl EsgArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct DisclosureArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -39,7 +42,7 @@ impl DisclosureArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct RatingsArgs {
-    #[arg(long, required = true)]
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 }
 
@@ -55,7 +58,7 @@ impl RatingsArgs {
 
 #[derive(Args, Debug, Clone)]
 pub struct BenchmarkArgs {
-    #[arg(long)]
+    #[arg(long, help = "Year to retrieve benchmark data for (e.g., 2023)")]
     pub year: Option<String>,
 }
 
