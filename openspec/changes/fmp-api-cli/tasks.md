@@ -91,35 +91,43 @@
 
 ## 12. Market Hours Namespace Implementation
 
-- [ ] 12.1 Implement `market-hours status` for current market open/close
-- [ ] 12.2 Implement `market-hours holidays` with --year flag
-- [ ] 12.3 Implement `market-hours is-open` for quick check
+- [x] 12.1 Implement `market-hours exchange` for market hours by exchange
+- [x] 12.2 Implement `market-hours holidays` with --from and --to flags
+- [x] 12.3 Implement `market-hours all` for all exchanges market hours
 
 ## 13. Market Performance Namespace Implementation
 
-- [ ] 13.1 Implement `market-performance sector` for sector performance
-- [ ] 13.2 Implement `market-performance industries` for industry breakdown
-- [ ] 13.3 Implement `market-performance gainers` and `losers` commands
-- [ ] 13.4 Add --limit flag for top N results
+- [x] 13.1 Implement `market-performance sector-performance-snapshot` for sector performance
+- [x] 13.2 Implement `market-performance industry-performance-snapshot` for industry breakdown
+- [x] 13.3 Implement `market-performance biggest-gainers` and `biggest-losers` commands
+- [x] 13.4 Implement `market-performance most-actives` command
+- [x] 13.5 Implement historical sector/industry performance commands
+- [x] 13.6 Implement sector/industry PE snapshot commands
 
 ## 14. Search Namespace Implementation
 
-- [ ] 14.1 Implement `search ticker` for symbol search
-- [ ] 14.2 Implement `search name` for company name search
-- [ ] 14.3 Implement `search isin` for ISIN lookup
-- [ ] 14.4 Implement `search cusip` for CUSIP lookup
-- [ ] 14.5 Implement `search symbol` for exact symbol match
-- [ ] 14.6 Add --limit flag for all search commands
+- [x] 14.1 Implement `search symbol` for symbol search
+- [x] 14.2 Implement `search name` for company name search
+- [x] 14.3 Implement `search cik` for CIK lookup
+- [x] 14.4 Implement `search cusip` for CUSIP lookup
+- [x] 14.5 Implement `search isin` for ISIN lookup
+- [x] 14.6 Implement `search exchange-variants` for exchange variant search
+- [x] 14.7 Implement `search screener` for stock screening with filters
+- [x] 14.8 Add --limit flag for all search commands
 
 ## 15. Directory Namespace Implementation
 
-- [ ] 15.1 Implement `directory companies` for company listings
-- [ ] 15.2 Implement `directory etfs` for ETF listings
-- [ ] 15.3 Implement `directory trades` for trading data
-- [ ] 15.4 Implement `directory index` for index listings
-- [ ] 15.5 Implement `directory commodities` for commodity listings
-- [ ] 15.6 Implement `directory etf-screener` for ETF screening
-- [ ] 15.7 Implement `directory crypto` for crypto listings
+- [x] 15.1 Implement `directory stock-list` for company listings
+- [x] 15.2 Implement `directory etf-list` for ETF listings
+- [x] 15.3 Implement `directory financial-statement-symbols` for financial statement symbols
+- [x] 15.4 Implement `directory cik-list` for CIK listings
+- [x] 15.5 Implement `directory symbol-change` for symbol changes
+- [x] 15.6 Implement `directory actively-trading-list` for actively trading stocks
+- [x] 15.7 Implement `directory earnings-transcript-list` for earnings transcript list
+- [x] 15.8 Implement `directory available-exchanges` for available exchanges
+- [x] 15.9 Implement `directory available-sectors` for sector listings
+- [x] 15.10 Implement `directory available-industries` for industry listings
+- [x] 15.11 Implement `directory available-countries` for country listings
 
 ## 16. News Namespace Implementation
 

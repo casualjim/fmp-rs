@@ -40,4 +40,12 @@ pub enum Commands {
     Cot(crate::cli::CotArgs),
     #[command(subcommand)]
     Esg(crate::cli::EsgArgs),
+    #[command(subcommand)]
+    MarketHours(crate::cli::MarketHoursArgs),
+    #[command(subcommand)]
+    MarketPerformance(crate::cli::MarketPerformanceArgs),
+    #[command(subcommand)]
+    Search(crate::cli::SearchArgs),
+    #[command(subcommand)]
+    Directory(crate::cli::DirectoryArgs),
 }

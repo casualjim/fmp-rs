@@ -9,6 +9,10 @@ pub mod indexes;
 pub mod dcf;
 pub mod cot;
 pub mod esg;
+pub mod market_hours;
+pub mod market_performance;
+pub mod search;
+pub mod directory;
 
 pub use quotes::QuotesArgs;
 pub use chart::ChartArgs;
@@ -21,6 +25,10 @@ pub use indexes::IndexesArgs;
 pub use dcf::DcfArgs;
 pub use cot::CotArgs;
 pub use esg::EsgArgs;
+pub use market_hours::MarketHoursArgs;
+pub use market_performance::MarketPerformanceArgs;
+pub use search::SearchArgs;
+pub use directory::DirectoryArgs;
 
 use crate::config::Cli;
 use eyre::Result;
@@ -61,5 +69,9 @@ pub async fn dispatch(cli: Cli) -> Result<()> {
         crate::config::Commands::Dcf(args) => args.handle(&ctx).await,
         crate::config::Commands::Cot(args) => args.handle(&ctx).await,
         crate::config::Commands::Esg(args) => args.handle(&ctx).await,
+        crate::config::Commands::MarketHours(args) => args.handle(&ctx).await,
+        crate::config::Commands::MarketPerformance(args) => args.handle(&ctx).await,
+        crate::config::Commands::Search(args) => args.handle(&ctx).await,
+        crate::config::Commands::Directory(args) => args.handle(&ctx).await,
     }
 }
