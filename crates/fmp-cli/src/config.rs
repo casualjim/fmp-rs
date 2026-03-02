@@ -24,4 +24,20 @@ pub enum Commands {
     Chart(crate::cli::ChartArgs),
     #[command(subcommand)]
     Company(crate::cli::CompanyArgs),
+    #[command(subcommand)]
+    Statements(crate::cli::StatementsArgs),
+    #[command(subcommand)]
+    Crypto(crate::cli::CryptoArgs),
+    #[command(subcommand)]
+    Forex(crate::cli::ForexArgs),
+    #[command(subcommand)]
+    Commodities(crate::cli::CommoditiesArgs),
+    #[command(subcommand)]
+    Indexes(crate::cli::IndexesArgs),
+    #[command(subcommand)]
+    Dcf(crate::cli::DcfArgs),
+    #[command(subcommand)]
+    Cot(crate::cli::CotArgs),
+    #[command(subcommand)]
+    Esg(crate::cli::EsgArgs),
 }

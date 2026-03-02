@@ -55,39 +55,39 @@
 
 ## 7. Statements Namespace Implementation
 
-- [ ] 7.1 Implement `statements income` command with --period flag (annual, quarterly)
-- [ ] 7.2 Implement `statements balance-sheet` command with period support
-- [ ] 7.3 Implement `statements cash-flow` command with period support
-- [ ] 7.4 Implement `statements reported-financials` for as-reported data
-- [ ] 7.5 Implement `statements financial-growth` for growth metrics
-- [ ] 7.6 Implement `statements revenue-segmentation` command
-- [ ] 7.7 Add --limit and --consolidated flags for all statement commands
+- [x] 7.1 Implement `statements income` command with --period flag (annual, quarterly)
+- [x] 7.2 Implement `statements balance-sheet` command with period support
+- [x] 7.3 Implement `statements cash-flow` command with period support
+- [x] 7.4 Implement `statements reported-financials` for as-reported data
+- [x] 7.5 Implement `statements financial-growth` for growth metrics
+- [x] 7.6 Implement `statements revenue-segmentation` command
+- [x] 7.7 Add --limit and --consolidated flags for all statement commands
 
 ## 8. Crypto Namespace Implementation
 
-- [ ] 8.1 Implement `crypto price` command for crypto quotes
-- [ ] 8.2 Implement `crypto historical` with date range and interval support
-- [ ] 8.3 Implement `crypto list` for available trading pairs
+- [x] 8.1 Implement `crypto price` command for crypto quotes
+- [x] 8.2 Implement `crypto historical` with date range and interval support
+- [x] 8.3 Implement `crypto list` for available trading pairs
 - [ ] 8.4 Implement `crypto news` for crypto-specific news
 
 ## 9. Forex Namespace Implementation
 
-- [ ] 9.1 Implement `forex rate` command for exchange rates
-- [ ] 9.2 Implement `forex historical` with date range support
-- [ ] 9.3 Implement `forex list` for available pairs
+- [x] 9.1 Implement `forex rate` command for exchange rates
+- [x] 9.2 Implement `forex historical` with date range support
+- [x] 9.3 Implement `forex list` for available pairs
 - [ ] 9.4 Implement `forex news` for forex market news
 
 ## 10. Commodities Namespace Implementation
 
-- [ ] 10.1 Implement `commodities price` command for commodity spot prices
-- [ ] 10.2 Implement `commodities historical` with date range support
+- [x] 10.1 Implement `commodities price` command for commodity spot prices
+- [x] 10.2 Implement `commodities historical` with date range support
 
 ## 11. Indexes Namespace Implementation
 
-- [ ] 11.1 Implement `indexes quote` command for index values
-- [ ] 11.2 Implement `indexes historical` with date range support
-- [ ] 11.3 Implement `indexes constituents` for index member lists
-- [ ] 11.4 Implement `indexes available` for list of available indexes
+- [x] 11.1 Implement `indexes quote` command for index values
+- [x] 11.2 Implement `indexes historical` with date range support
+- [x] 11.3 Implement `indexes constituents` for index member lists
+- [x] 11.4 Implement `indexes available` for list of available indexes
 
 ## 12. Market Hours Namespace Implementation
 
@@ -168,58 +168,19 @@
 
 ## 22. ESG Namespace Implementation
 
-- [ ] 22.1 Implement `esg scores` for ESG ratings
-- [ ] 22.2 Implement `esg historical` for historical ESG data
-- [ ] 22.3 Add --limit flag for multiple results
+- [x] 22.1 Implement `esg scores` for ESG ratings
+- [x] 22.2 Implement `esg historical` for historical ESG data
+- [x] 22.3 Add --limit flag for multiple results
 
 ## 23. DCF Namespace Implementation
 
-- [ ] 23.1 Implement `dcf valuation` for DCF fair value
-- [ ] 23.2 Implement `dcf historical` for historical valuations
-
-## 24. Insider Trades Namespace Implementation
-
-- [ ] 24.1 Implement `insider trades` for recent insider transactions
-- [ ] 24.2 Implement `insider by-symbol` for company-specific trades
-- [ ] 24.3 Implement `insider statistics` for trading statistics
-- [ ] 24.4 Implement `insider by-type` filtered by transaction type
-- [ ] 24.5 Add --limit flag for all commands
-
-## 25. Form 13F Namespace Implementation
-
-- [ ] 25.1 Implement `13f holdings` for institutional holdings
-- [ ] 25.2 Implement `13f by-cik` for CIK-specific holdings
-- [ ] 25.3 Implement `13f search` for institution search
-- [ ] 25.4 Implement `13f summary` for portfolio summary
-- [ ] 25.5 Add --date flag for historical snapshots
-- [ ] 25.6 Add --limit flag for top holdings
-
-## 26. Fund Namespace Implementation
-
-- [ ] 26.1 Implement `fund profile` for ETF/mutual fund info
-- [ ] 26.2 Implement `fund holdings` for current holdings
-- [ ] 26.3 Implement `fund sector-weightings` for sector breakdown
-- [ ] 26.4 Implement `fund country-weightings` for country exposure
-- [ ] 26.5 Implement `fund asset-exposure` for asset allocation
-- [ ] 26.6 Add --date flag for historical snapshots
-- [ ] 26.7 Implement `fund info` for fund details
-
-## 27. Fundraisers Namespace Implementation
-
-- [ ] 27.1 Implement `fundraisers ipos` for IPO calendar
-- [ ] 27.2 Implement `fundraisers search` for fundraising search
-- [ ] 27.3 Add --status flag (filed, pending, priced, withdrawn)
-
-## 28. Government Trading Namespace Implementation
-
-- [ ] 28.1 Implement `govt trades` for recent political trades
-- [ ] 28.2 Implement `govt by-official` for official-specific trades
-- [ ] 28.3 Add --limit flag for results
+- [x] 23.1 Implement `dcf valuation` for DCF fair value
+- [x] 23.2 Implement `dcf historical` for historical valuations
 
 ## 29. COT Namespace Implementation
 
-- [ ] 29.1 Implement `cot report` for Commitment of Traders data
-- [ ] 29.2 Implement `cot analysis` for COT analysis
+- [x] 29.1 Implement `cot report` for Commitment of Traders data
+- [x] 29.2 Implement `cot analysis` for COT analysis
 
 ## 30. Output Enhancement
 

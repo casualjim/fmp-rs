@@ -1,10 +1,26 @@
 pub mod quotes;
 pub mod chart;
 pub mod company;
+pub mod statements;
+pub mod crypto;
+pub mod forex;
+pub mod commodities;
+pub mod indexes;
+pub mod dcf;
+pub mod cot;
+pub mod esg;
 
 pub use quotes::QuotesArgs;
 pub use chart::ChartArgs;
 pub use company::CompanyArgs;
+pub use statements::StatementsArgs;
+pub use crypto::CryptoArgs;
+pub use forex::ForexArgs;
+pub use commodities::CommoditiesArgs;
+pub use indexes::IndexesArgs;
+pub use dcf::DcfArgs;
+pub use cot::CotArgs;
+pub use esg::EsgArgs;
 
 use crate::config::Cli;
 use eyre::Result;
@@ -37,5 +53,13 @@ pub async fn dispatch(cli: Cli) -> Result<()> {
         crate::config::Commands::Quotes(args) => args.handle(&ctx).await,
         crate::config::Commands::Chart(args) => args.handle(&ctx).await,
         crate::config::Commands::Company(args) => args.handle(&ctx).await,
+        crate::config::Commands::Statements(args) => args.handle(&ctx).await,
+        crate::config::Commands::Crypto(args) => args.handle(&ctx).await,
+        crate::config::Commands::Forex(args) => args.handle(&ctx).await,
+        crate::config::Commands::Commodities(args) => args.handle(&ctx).await,
+        crate::config::Commands::Indexes(args) => args.handle(&ctx).await,
+        crate::config::Commands::Dcf(args) => args.handle(&ctx).await,
+        crate::config::Commands::Cot(args) => args.handle(&ctx).await,
+        crate::config::Commands::Esg(args) => args.handle(&ctx).await,
     }
 }
