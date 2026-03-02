@@ -1,26 +1,20 @@
 [package]
-version = "0.1.6"
+version.workspace = true
 name = "fmp"
+
+[workspace]
+resolver = "3"
+members = [".", "crates/fmp-cli"]
+
+[workspace.package]
+version = "0.1.6"
 edition = "2024"
-description = "rust bindings for the FMP API"
 authors = ["Lbyl Team"]
 repository = "https://git.wagyu.icu//lbyl/fmp-rs"
 homepage = "https://git.wagyu.icu/lbyl"
-publish = ["forgejo"]
-keywords = [
-]
-categories = ["development-tools::debugging", "network-programming", "web-programming"]
-readme = "README.md"
 license = "none"
 
-[package.metadata.release]
-sign-commit = false
-tag = false
-registry = "forgejo"
-# Add [ci skip] to commit messages to prevent CI triggers
-pre-release-commit-message = "Release {{version}} [ci skip]"
-
-[dependencies]
+[workspace.dependencies]
 eyre = "0.6"
 http = "1"
 jiff = { version = "0.2.19", features = ["serde", "logging", "static"] }
@@ -46,6 +40,54 @@ thiserror = "2"
 tracing = { version = "0.1.44" }
 typed-builder = "0.23.2"
 serde_urlencoded = "0.7"
+tokio = { version = "1.42", features = ["full"] }
+clap = { version = "4.5", features = ["derive", "env"] }
+confique = { version = "0.4", features = ["toml"] }
+
+[workspace.lints.rust]
+warnings = "deny"
+
+[workspace.lints.clippy]
+all = "deny"
+pedantic = "deny"
+nursery = "deny"
+
+[package]
+version.workspace = true
+name = "fmp"
+edition.workspace = true
+description = "rust bindings for the FMP API"
+authors.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = ["gitea"]
+keywords = []
+categories = ["development-tools::debugging", "network-programming", "web-programming"]
+readme = "README.md"
+license.workspace = true
+
+[package.metadata.release]
+sign-commit = false
+tag = false
+registry = "gitea"
+pre-release-commit-message = "Release {{version}} [ci skip]"
+
+[dependencies]
+eyre.workspace = true
+http.workspace = true
+jiff.workspace = true
+reqwest.workspace = true
+reqwest-middleware.workspace = true
+reqwest-retry.workspace = true
+reqwest-tracing.workspace = true
+secrecy.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+serde_with.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+typed-builder.workspace = true
+serde_urlencoded.workspace = true
 
 [dev-dependencies]
-tokio = { version = "1.42", features = ["macros", "rt-multi-thread"] }
+tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }

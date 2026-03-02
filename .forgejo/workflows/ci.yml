@@ -7,12 +7,7 @@ on:
 
 jobs:
   build-and-publish:
-    runs-on:
-      - docker
-      - linux
-      - amd64
-    container:
-      image: ghcr.io/casualjim/rust-builder:24.04-1.93.0-1.3.9-18
+    runs-on: rust-builder
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -23,7 +18,7 @@ jobs:
         uses: https://github.com/jdx/mise-action@v3
         env:
           MISE_GITHUB_TOKEN: ${{ secrets.MISE_GITHUB_TOKEN }}
-          CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_FORGEJO_TOKEN }}"
+          CARGO_REGISTRIES_GITEA_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_GITEA_TOKEN }}"
         with:
           experimental: true
           install: true
@@ -38,8 +33,8 @@ jobs:
       - name: Publish to Cargo Registry
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         env:
-          CARGO_REGISTRIES_FORGEJO_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_FORGEJO_TOKEN }}"
+          CARGO_REGISTRIES_GITEA_TOKEN: "Bearer ${{ secrets.CARGO_REGISTRIES_GITEA_TOKEN }}"
         run: |-
-          git config user.name "forgejo-actions[bot]"
-          git config user.email "forgejo-actions[bot]@noreply.wagyu.icu"
+          git config user.name "gitea-actions[bot]"
+          git config user.email "gitea-actions[bot]@noreply.lotsa.ai"
           cargo release patch --execute --no-confirm --all-features
