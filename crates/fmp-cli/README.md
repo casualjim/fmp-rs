@@ -11,7 +11,7 @@ cargo install fmp-cli
 Or build from source:
 
 ```bash
-git clone https://git.wagyu.icu/lbyl/fmp-rs
+git clone https://code.lotsa.ai/lbyl/fmp-rs
 cd fmp-rs
 cargo build --release -p fmp-cli
 ```

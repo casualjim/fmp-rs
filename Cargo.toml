@@ -10,8 +10,8 @@ members = [".", "crates/fmp-cli"]
 version = "0.1.6"
 edition = "2024"
 authors = ["Lbyl Team"]
-repository = "https://git.wagyu.icu//lbyl/fmp-rs"
-homepage = "https://git.wagyu.icu/lbyl"
+repository = "https://code.lotsa.ai//lbyl/fmp-rs"
+homepage = "https://code.lotsa.ai/lbyl"
 license = "none"
 
 [workspace.dependencies]

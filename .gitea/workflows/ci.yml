@@ -10,7 +10,7 @@ jobs:
     runs-on: rust-builder
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 1
 
@@ -22,7 +22,13 @@ jobs:
         with:
           experimental: true
           install: true
-          cache: false
+          cache: true
+
+      - name: Cache Rust dependencies and build outputs
+        uses: https://github.com/Swatinem/rust-cache@v2
+        with:
+          shared-key: fmp-rs-ci
+          cache-on-failure: true
 
       - name: Run tests
         env:
