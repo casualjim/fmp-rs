@@ -1,7 +1,3 @@
-[package]
-version.workspace = true
-name = "fmp"
-
 [workspace]
 resolver = "3"
 members = [".", "crates/fmp-cli"]
