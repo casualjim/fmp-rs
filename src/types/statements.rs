@@ -44,31 +44,53 @@ where
   deserializer.deserialize_any(I32Visitor)
 }
 
+/// Fiscal reporting period for a financial statement.
 #[derive(Debug, Clone, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum Period {
+  /// First fiscal quarter (3 months ending ~March or company-specific).
   Q1,
+  /// Second fiscal quarter (3 months ending ~June or company-specific).
   Q2,
+  /// Third fiscal quarter (3 months ending ~September or company-specific).
   Q3,
+  /// Fourth fiscal quarter (3 months ending ~December or company-specific).
   Q4,
+  /// Full fiscal year (12 months; corresponds to 10-K annual report).
   FY,
 }
 
+/// Common metadata shared by all financial statement types.
+///
+/// Contains the period identification and SEC filing provenance for a
+/// financial statement. Flattened into each concrete statement struct.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct BaseStatement {
+  /// End date of the reporting period covered by this statement.
   pub date: FmpDate,
+  /// Ticker symbol of the reporting company.
   pub symbol: String,
+  /// ISO 4217 currency code in which amounts are reported (e.g., "USD").
   pub reported_currency: String,
+  /// SEC Central Index Key of the reporting company.
   pub cik: String,
+  /// Date the document was filed with the SEC.
   pub filing_date: FmpDate,
+  /// Date and time the SEC EDGAR system accepted the filing.
   pub accepted_date: FmpDateTime,
+  /// Fiscal year number (e.g., 2024). Deserialised from either an integer or string.
   #[serde(deserialize_with = "de_i32_string_or_number")]
   pub fiscal_year: i32,
+  /// Fiscal period (Q1, Q2, Q3, Q4, or FY for the full fiscal year).
   pub period: Period,
 }
 
-// Income Statement
+/// Standardised income statement (profit & loss) for one reporting period.
+///
+/// Sourced from SEC 10-K (annual) and 10-Q (quarterly) XBRL filings, normalised
+/// by FMP for comparability across companies and reporting standards (US GAAP,
+/// IFRS). All monetary amounts are in [`BaseStatement::reported_currency`].
 #[allow(clippy::too_many_fields)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -108,7 +130,10 @@ pub struct IncomeStatement {
   pub weighted_average_shs_out_dil: f64,
 }
 
-// Balance Sheet
+/// Standardised balance sheet (statement of financial position) for one reporting period.
+///
+/// All assets, liabilities, and equity amounts are in [`BaseStatement::reported_currency`].
+/// Sourced from SEC XBRL filings and normalised by FMP for cross-company comparability.
 #[allow(clippy::too_many_fields)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -169,7 +194,10 @@ pub struct BalanceSheetStatement {
   pub net_debt: f64,
 }
 
-// Cash Flow
+/// Standardised cash flow statement for one reporting period.
+///
+/// Cash flows are split into operating, investing, and financing activities.
+/// All amounts are in [`BaseStatement::reported_currency`].
 #[allow(clippy::too_many_fields)]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]

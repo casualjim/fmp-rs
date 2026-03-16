@@ -60,6 +60,14 @@ impl QuotesArgs {
     }
 }
 
+/// Fetch full real-time quotes for one or more symbols.
+///
+/// Returns price, change, change-percent, volume, market cap, 52-week high/low,
+/// 50/200-day moving averages, open, previous close, and last-update timestamp.
+///
+/// Examples:
+///   fmp quotes get AAPL
+///   fmp quotes get AAPL MSFT GOOGL
 #[derive(Args, Debug, Clone)]
 pub struct GetArgs {
     #[arg(required = true, help = "One or more ticker symbols (e.g., AAPL MSFT GOOGL)")]
@@ -77,9 +85,17 @@ impl GetArgs {
     }
 }
 
+/// Fetch lightweight quotes for one or more symbols.
+///
+/// Returns only symbol, price, change, and volume — much smaller payload than
+/// the full quote. Useful for dashboards that poll many symbols frequently.
+///
+/// Examples:
+///   fmp quotes short AAPL
+///   fmp quotes short AAPL MSFT GOOGL
 #[derive(Args, Debug, Clone)]
 pub struct ShortArgs {
-    #[arg(required = true, help = "One or more ticker symbols")]
+    #[arg(required = true, help = "One or more ticker symbols (e.g., AAPL MSFT)")]
     pub symbols: Vec<String>,
 }
 
@@ -94,6 +110,14 @@ impl ShortArgs {
     }
 }
 
+/// Fetch full quotes for multiple symbols in a single API request.
+///
+/// Pass symbols as a single comma-separated string. More efficient than calling
+/// `get` repeatedly when you need full quote data for many tickers at once.
+///
+/// Examples:
+///   fmp quotes batch "AAPL,MSFT,GOOGL"
+///   fmp quotes batch "SPY,QQQ,IWM,DIA"
 #[derive(Args, Debug, Clone)]
 pub struct BatchArgs {
     #[arg(required = true, help = "Comma-separated symbols (e.g., \"AAPL,MSFT,GOOGL\")")]
@@ -110,9 +134,16 @@ impl BatchArgs {
     }
 }
 
+/// Fetch lightweight quotes for multiple symbols in a single API request.
+///
+/// Returns only symbol, price, change, and volume. Combine this with `batch`
+/// when you want to minimise bandwidth while polling a large watchlist.
+///
+/// Example:
+///   fmp quotes batch-short "AAPL,MSFT,GOOGL,AMZN,META"
 #[derive(Args, Debug, Clone)]
 pub struct BatchShortArgs {
-    #[arg(required = true, help = "Comma-separated symbols (e.g., \"AAPL,MSFT\")")]
+    #[arg(required = true, help = "Comma-separated symbols (e.g., \"AAPL,MSFT,GOOGL\")")]
     pub symbols: String,
 }
 
@@ -126,9 +157,16 @@ impl BatchShortArgs {
     }
 }
 
+/// Fetch after-hours bid/ask quotes for multiple symbols in a single request.
+///
+/// Returns the best bid price/size and ask price/size during extended-hours
+/// trading, along with total extended-hours volume and timestamp.
+///
+/// Example:
+///   fmp quotes batch-aftermarket "AAPL,MSFT,NVDA"
 #[derive(Args, Debug, Clone)]
 pub struct BatchAftermarketArgs {
-    #[arg(required = true, help = "Comma-separated symbols")]
+    #[arg(required = true, help = "Comma-separated symbols (e.g., \"AAPL,MSFT,NVDA\")")]
     pub symbols: String,
 }
 
@@ -142,12 +180,23 @@ impl BatchAftermarketArgs {
     }
 }
 
+/// Fetch quotes for all securities listed on a given exchange.
+///
+/// Returns either full or lightweight quotes for every actively trading
+/// security on the specified exchange. Large exchanges (NYSE, NASDAQ) return
+/// thousands of records; use `--short` to reduce payload size.
+///
+/// Common exchange codes: NYSE, NASDAQ, AMEX, LSE, TSX, ASX, HKEX
+///
+/// Examples:
+///   fmp quotes exchange NASDAQ
+///   fmp quotes exchange NYSE --short true
 #[derive(Args, Debug, Clone)]
 pub struct ExchangeArgs {
-    #[arg(required = true, help = "Exchange name (e.g., NYSE, NASDAQ, AMEX)")]
+    #[arg(required = true, help = "Exchange code (e.g., NYSE, NASDAQ, AMEX, LSE, TSX)")]
     pub exchange: String,
 
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -167,9 +216,18 @@ impl ExchangeArgs {
     }
 }
 
+/// Fetch the most recent extended-hours trade for one or more symbols.
+///
+/// Returns the last executed trade price, share size, and timestamp for
+/// after-hours or pre-market sessions. Useful for monitoring overnight
+/// price movements before regular market open.
+///
+/// Examples:
+///   fmp quotes aftermarket-trade AAPL
+///   fmp quotes aftermarket-trade AAPL MSFT NVDA
 #[derive(Args, Debug, Clone)]
 pub struct AftermarketTradeArgs {
-    #[arg(required = true, help = "One or more ticker symbols")]
+    #[arg(required = true, help = "One or more ticker symbols (e.g., AAPL MSFT)")]
     pub symbols: Vec<String>,
 }
 
@@ -184,9 +242,18 @@ impl AftermarketTradeArgs {
     }
 }
 
+/// Fetch after-hours or pre-market bid/ask quotes for one or more symbols.
+///
+/// Returns the current best bid (price + size) and ask (price + size), total
+/// extended-hours volume, and a timestamp. The bid-ask spread during
+/// extended hours is typically wider than during regular session.
+///
+/// Examples:
+///   fmp quotes aftermarket-quote AAPL
+///   fmp quotes aftermarket-quote AAPL TSLA
 #[derive(Args, Debug, Clone)]
 pub struct AftermarketQuoteArgs {
-    #[arg(required = true, help = "One or more ticker symbols")]
+    #[arg(required = true, help = "One or more ticker symbols (e.g., AAPL TSLA)")]
     pub symbols: Vec<String>,
 }
 
@@ -201,9 +268,18 @@ impl AftermarketQuoteArgs {
     }
 }
 
+/// Fetch percentage price returns over standard time horizons.
+///
+/// Returns 1D, 5D, 1M, 3M, 6M, YTD, 1Y, 3Y, 5Y, 10Y, and max (since IPO)
+/// percentage changes for each symbol. All values are percentages
+/// (e.g., 5.23 means +5.23%).
+///
+/// Examples:
+///   fmp quotes price-change AAPL
+///   fmp quotes price-change AAPL MSFT GOOGL
 #[derive(Args, Debug, Clone)]
 pub struct PriceChangeArgs {
-    #[arg(required = true, help = "One or more ticker symbols")]
+    #[arg(required = true, help = "One or more ticker symbols (e.g., AAPL MSFT)")]
     pub symbols: Vec<String>,
 }
 
@@ -218,9 +294,17 @@ impl PriceChangeArgs {
     }
 }
 
+/// Fetch quotes for all mutual funds tracked by FMP.
+///
+/// Returns NAV-based pricing data for thousands of mutual fund share classes.
+/// Use `--short true` to get only symbol, price, change, and volume.
+///
+/// Example:
+///   fmp quotes mutual-fund
+///   fmp quotes mutual-fund --short true
 #[derive(Args, Debug, Clone)]
 pub struct MutualFundArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -237,9 +321,17 @@ impl MutualFundArgs {
     }
 }
 
+/// Fetch quotes for all ETFs tracked by FMP.
+///
+/// Covers equity, bond, commodity, currency, and leveraged/inverse ETFs
+/// listed globally. Use `--short true` to reduce payload size.
+///
+/// Example:
+///   fmp quotes etf
+///   fmp quotes etf --short true
 #[derive(Args, Debug, Clone)]
 pub struct EtfArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -256,9 +348,18 @@ impl EtfArgs {
     }
 }
 
+/// Fetch quotes for all commodity futures contracts tracked by FMP.
+///
+/// Covers energy (crude oil, natural gas), metals (gold, silver, copper),
+/// and agricultural commodities. Symbols typically follow the pattern GCUSD
+/// (gold), CLUSD (crude oil), SIUSD (silver).
+///
+/// Example:
+///   fmp quotes commodity
+///   fmp quotes commodity --short true
 #[derive(Args, Debug, Clone)]
 pub struct CommodityArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -275,9 +376,17 @@ impl CommodityArgs {
     }
 }
 
+/// Fetch quotes for all cryptocurrencies tracked by FMP.
+///
+/// Covers hundreds of crypto pairs priced in USD and other currencies.
+/// Symbols follow the pattern BTCUSD, ETHUSD, etc.
+///
+/// Example:
+///   fmp quotes crypto
+///   fmp quotes crypto --short true
 #[derive(Args, Debug, Clone)]
 pub struct CryptoArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -294,9 +403,18 @@ impl CryptoArgs {
     }
 }
 
+/// Fetch quotes for all forex currency pairs tracked by FMP.
+///
+/// Covers major, minor, and exotic FX pairs. Symbols follow the pattern
+/// EURUSD, GBPUSD, USDJPY, etc. Prices represent the exchange rate of
+/// the base currency in terms of the quote currency.
+///
+/// Example:
+///   fmp quotes forex
+///   fmp quotes forex --short true
 #[derive(Args, Debug, Clone)]
 pub struct ForexArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 
@@ -313,9 +431,18 @@ impl ForexArgs {
     }
 }
 
+/// Fetch quotes for all market indexes tracked by FMP.
+///
+/// Covers major global equity indexes (S&P 500, NASDAQ Composite, Dow Jones,
+/// FTSE 100, DAX, Nikkei 225, etc.) and sector indexes. Symbols typically
+/// start with ^ (e.g., ^GSPC for S&P 500, ^IXIC for NASDAQ).
+///
+/// Example:
+///   fmp quotes index
+///   fmp quotes index --short true
 #[derive(Args, Debug, Clone)]
 pub struct IndexArgs {
-    #[arg(long, help = "Return lightweight quotes instead of full quotes")]
+    #[arg(long, help = "Return lightweight quotes (symbol, price, change, volume) instead of full quotes")]
     pub short: Option<bool>,
 }
 

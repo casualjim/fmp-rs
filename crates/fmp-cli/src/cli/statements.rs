@@ -90,15 +90,29 @@ impl StatementsArgs {
     }
 }
 
+/// Fetch annual or quarterly income statements (profit & loss statements).
+///
+/// Returns standardised income statement data including: revenue, cost of revenue,
+/// gross profit, R&D expenses, SG&A expenses, operating income, EBITDA, EBIT,
+/// interest income/expense, pre-tax income, income tax expense, and net income.
+/// Also includes basic and diluted EPS.
+///
+/// Data is sourced from SEC 10-K (annual) and 10-Q (quarterly) filings,
+/// standardised and normalised by FMP across all companies.
+///
+/// Examples:
+///   fmp statements income --symbol AAPL
+///   fmp statements income --symbol AAPL --period annual --limit 5
+///   fmp statements income --symbol AAPL --period quarterly --limit 8
 #[derive(Args, Debug, Clone)]
 pub struct IncomeArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: \"annual\" (10-K) or \"quarterly\" (10-Q)")]
     pub period: Option<String>,
 
-    #[arg(long, help = "Maximum number of periods to return")]
+    #[arg(long, help = "Maximum number of periods to return (most recent first; default varies by plan)")]
     pub limit: Option<u32>,
 }
 
@@ -127,15 +141,26 @@ impl IncomeArgs {
     }
 }
 
+/// Fetch annual or quarterly balance sheets (statement of financial position).
+///
+/// Returns assets (current: cash, receivables, inventory; non-current: PP&E,
+/// intangibles, goodwill), liabilities (current: payables, short-term debt;
+/// non-current: long-term debt), and shareholders' equity (common stock,
+/// retained earnings, accumulated other comprehensive income).
+///
+/// Examples:
+///   fmp statements balance-sheet --symbol AAPL
+///   fmp statements balance-sheet --symbol AAPL --period annual --limit 5
+///   fmp statements balance-sheet --symbol AAPL --period quarterly --limit 8
 #[derive(Args, Debug, Clone)]
 pub struct BalanceSheetArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: \"annual\" (10-K) or \"quarterly\" (10-Q)")]
     pub period: Option<String>,
 
-    #[arg(long, help = "Maximum number of periods to return")]
+    #[arg(long, help = "Maximum number of periods to return (most recent first)")]
     pub limit: Option<u32>,
 }
 
@@ -164,15 +189,27 @@ impl BalanceSheetArgs {
     }
 }
 
+/// Fetch annual or quarterly cash flow statements.
+///
+/// Returns cash flows from three activities:
+///   Operating: net income, depreciation & amortisation, working capital changes
+///   Investing: capital expenditures, acquisitions, asset sales
+///   Financing: debt issuance/repayment, share buybacks, dividends paid
+/// Also includes free cash flow (operating CF - capex) and net change in cash.
+///
+/// Examples:
+///   fmp statements cash-flow --symbol AAPL
+///   fmp statements cash-flow --symbol AAPL --period annual --limit 5
+///   fmp statements cash-flow --symbol AAPL --period quarterly --limit 8
 #[derive(Args, Debug, Clone)]
 pub struct CashFlowArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: \"annual\" (10-K) or \"quarterly\" (10-Q)")]
     pub period: Option<String>,
 
-    #[arg(long, help = "Maximum number of periods to return")]
+    #[arg(long, help = "Maximum number of periods to return (most recent first)")]
     pub limit: Option<u32>,
 }
 
@@ -612,15 +649,30 @@ impl RevenueGeographicArgs {
     }
 }
 
+/// Fetch key financial metrics per reporting period.
+///
+/// Returns a comprehensive set of per-share and ratio metrics calculated from
+/// financial statements, including:
+///   Valuation: P/E ratio, P/B ratio, EV/EBITDA, EV/Revenue, P/FCF
+///   Profitability: ROE, ROA, ROIC, Net margin, Operating margin
+///   Leverage: Debt/Equity, Debt/Assets, Interest coverage
+///   Efficiency: Asset turnover, Inventory turnover, Days payable
+///   Per-share: Revenue/share, FCF/share, Book value/share, Tangible BV/share
+///   Yield: Dividend yield, FCF yield, Earnings yield
+///
+/// Examples:
+///   fmp statements key-metrics --symbol AAPL
+///   fmp statements key-metrics --symbol AAPL --period annual --limit 10
+///   fmp statements key-metrics --symbol AAPL --period quarterly
 #[derive(Args, Debug, Clone)]
 pub struct KeyMetricsArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: \"annual\" (10-K) or \"quarterly\" (10-Q)")]
     pub period: Option<String>,
 
-    #[arg(long, help = "Maximum number of periods to return")]
+    #[arg(long, help = "Maximum number of periods to return (most recent first)")]
     pub limit: Option<u32>,
 }
 
@@ -649,15 +701,29 @@ impl KeyMetricsArgs {
     }
 }
 
+/// Fetch financial ratios per reporting period.
+///
+/// Returns a comprehensive set of financial ratios calculated from statements:
+///   Liquidity: Current ratio, Quick ratio, Cash ratio
+///   Profitability: Gross/Net/Operating profit margins, Return on assets/equity
+///   Debt: Debt-to-equity, Debt-to-assets, Interest coverage, Debt service coverage
+///   Efficiency: Asset turnover, Inventory turnover, Days sales outstanding
+///   Valuation: P/E, P/B, P/S, EV/EBITDA, Price/FCF, Dividend yield
+///   Per-share: EPS (basic + diluted), Book value/share, Operating CF/share
+///
+/// Examples:
+///   fmp statements ratios --symbol AAPL
+///   fmp statements ratios --symbol AAPL --period annual --limit 5
+///   fmp statements ratios --symbol AAPL --period quarterly
 #[derive(Args, Debug, Clone)]
 pub struct RatiosArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: annual or quarterly")]
+    #[arg(long, value_parser = ["annual", "quarterly"], help = "Reporting period: \"annual\" (10-K) or \"quarterly\" (10-Q)")]
     pub period: Option<String>,
 
-    #[arg(long, help = "Maximum number of periods to return")]
+    #[arg(long, help = "Maximum number of periods to return (most recent first)")]
     pub limit: Option<u32>,
 }
 
@@ -686,12 +752,23 @@ impl RatiosArgs {
     }
 }
 
+/// Fetch composite financial health scores for a company.
+///
+/// Returns multiple scoring models per period:
+///   Altman Z-Score: bankruptcy prediction (>3.0 safe, <1.8 distress zone)
+///   Piotroski F-Score: 9-point financial strength (0–3 weak, 7–9 strong)
+///   Beneish M-Score: earnings manipulation detection (<-1.78 likely not manipulating)
+///   Intrinsic Value (DCF-based): estimated fair value vs. current price
+///
+/// Example:
+///   fmp statements scores --symbol AAPL
+///   fmp statements scores --symbol AAPL --limit 5
 #[derive(Args, Debug, Clone)]
 pub struct ScoresArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, help = "Maximum number of records to return")]
+    #[arg(long, help = "Maximum number of records to return (most recent first)")]
     pub limit: Option<u32>,
 }
 

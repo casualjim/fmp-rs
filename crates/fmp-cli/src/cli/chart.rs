@@ -57,15 +57,24 @@ impl ChartArgs {
     }
 }
 
+/// Fetch lightweight end-of-day price history (close price + volume only).
+///
+/// Returns a time series of adjusted closing prices and volume. Prices are
+/// adjusted for stock splits and dividends. Ideal when you only need closing
+/// prices for charting or return calculations — smaller payload than eod-full.
+///
+/// Examples:
+///   fmp chart eod-light --symbol AAPL
+///   fmp chart eod-light --symbol AAPL --from 2023-01-01 --to 2023-12-31
 #[derive(Args, Debug, Clone)]
 pub struct EodLightArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    #[arg(long, help = "Earliest date to return (YYYY-MM-DD, inclusive; defaults to 5 years ago)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    #[arg(long, help = "Latest date to return (YYYY-MM-DD, inclusive; defaults to today)")]
     pub to: Option<String>,
 }
 
@@ -95,15 +104,24 @@ impl EodLightArgs {
     }
 }
 
+/// Fetch full end-of-day OHLCV price history with split and dividend adjustments.
+///
+/// Returns open, high, low, close, volume, dollar change, percent change, and
+/// VWAP for each trading day. All prices are adjusted for stock splits and
+/// dividend distributions, making this suitable for backtesting.
+///
+/// Examples:
+///   fmp chart eod-full --symbol AAPL
+///   fmp chart eod-full --symbol AAPL --from 2023-01-01 --to 2023-12-31
 #[derive(Args, Debug, Clone)]
 pub struct EodFullArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    #[arg(long, help = "Earliest date to return (YYYY-MM-DD, inclusive; defaults to 5 years ago)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    #[arg(long, help = "Latest date to return (YYYY-MM-DD, inclusive; defaults to today)")]
     pub to: Option<String>,
 }
 
@@ -133,15 +151,24 @@ impl EodFullArgs {
     }
 }
 
+/// Fetch end-of-day price history without split adjustments (raw traded prices).
+///
+/// Prices reflect the actual transaction prices at the time — no split factor
+/// is applied. Dividend adjustments are also not applied. Use this when you
+/// need true historical transaction prices rather than backadjusted data.
+///
+/// Examples:
+///   fmp chart eod-non-split --symbol AAPL
+///   fmp chart eod-non-split --symbol AAPL --from 2020-01-01
 #[derive(Args, Debug, Clone)]
 pub struct EodNonSplitArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    #[arg(long, help = "Earliest date to return (YYYY-MM-DD, inclusive)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    #[arg(long, help = "Latest date to return (YYYY-MM-DD, inclusive)")]
     pub to: Option<String>,
 }
 
@@ -171,15 +198,24 @@ impl EodNonSplitArgs {
     }
 }
 
+/// Fetch end-of-day price history adjusted for dividends only (not splits).
+///
+/// Prices are adjusted for dividend distributions but not for stock splits.
+/// This preserves the effect of splits in the raw price series while still
+/// enabling accurate total-return calculations.
+///
+/// Examples:
+///   fmp chart eod-dividend --symbol AAPL
+///   fmp chart eod-dividend --symbol JNJ --from 2020-01-01
 #[derive(Args, Debug, Clone)]
 pub struct EodDividendArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    #[arg(long, help = "Earliest date to return (YYYY-MM-DD, inclusive)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    #[arg(long, help = "Latest date to return (YYYY-MM-DD, inclusive)")]
     pub to: Option<String>,
 }
 
@@ -209,6 +245,19 @@ impl EodDividendArgs {
     }
 }
 
+/// Fetch intraday OHLCV bars at a specified time interval.
+///
+/// Returns open, high, low, close, and volume for each bar. Available
+/// intervals range from 1-minute (finest granularity) to 4-hour. Data
+/// availability varies by plan — intraday history is typically limited
+/// to a rolling window (e.g., 30–90 days for 1-minute data).
+///
+/// Intervals: 1min, 5min, 15min, 30min, 1hour, 4hour
+///
+/// Examples:
+///   fmp chart intraday --symbol AAPL --interval 5min
+///   fmp chart intraday --symbol AAPL --interval 1hour --from 2024-01-15 --to 2024-01-19
+///   fmp chart intraday --symbol SPY  --interval 1min  --from 2024-06-03
 #[derive(Args, Debug, Clone)]
 pub struct IntradayArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
@@ -217,10 +266,10 @@ pub struct IntradayArgs {
     #[arg(long, default_value = "1hour", help = "Bar interval: 1min, 5min, 15min, 30min, 1hour, 4hour")]
     pub interval: String,
 
-    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    #[arg(long, help = "Earliest date to return (YYYY-MM-DD, inclusive)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    #[arg(long, help = "Latest date to return (YYYY-MM-DD, inclusive)")]
     pub to: Option<String>,
 }
 
@@ -260,21 +309,38 @@ impl IntradayArgs {
     }
 }
 
+/// Shared arguments for all technical indicator commands (SMA, EMA, RSI, etc.).
+///
+/// Each indicator returns a time series of (date, indicator_value) pairs
+/// calculated over `period` bars on the chosen `timeframe`.
+///
+/// Common period values:
+///   SMA/EMA: 20 (short), 50 (medium), 200 (long)
+///   RSI:     14 (standard), 9 (fast)
+///   ADX:     14 (standard)
+///   Williams %R: 14 (standard)
+///
+/// Timeframes: 1min, 5min, 15min, 30min, 1hour, 4hour, daily
+///
+/// Examples:
+///   fmp chart sma --symbol AAPL --period 50 --timeframe daily
+///   fmp chart rsi --symbol AAPL --period 14 --from 2024-01-01T00:00:00Z
+///   fmp chart ema --symbol SPY  --period 20 --timeframe 1hour
 #[derive(Args, Debug, Clone)]
 pub struct TechnicalIndicatorArgs {
     #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
     pub symbol: String,
 
-    #[arg(long, default_value = "20", help = "Lookback period in bars (e.g., 14 for RSI, 20 for SMA)")]
+    #[arg(long, default_value = "20", help = "Lookback period in bars (e.g., 14 for RSI, 20 or 50 for SMA/EMA, 14 for ADX)")]
     pub period: u32,
 
-    #[arg(long, default_value = "daily", help = "Timeframe: 1min, 5min, 15min, 30min, 1hour, 4hour, daily")]
+    #[arg(long, default_value = "daily", help = "Price timeframe: 1min, 5min, 15min, 30min, 1hour, 4hour, daily")]
     pub timeframe: String,
 
-    #[arg(long, help = "Start datetime (ISO 8601, e.g., 2024-01-01T00:00:00Z)")]
+    #[arg(long, help = "Earliest datetime to return (ISO 8601 / RFC 3339, e.g., 2024-01-01T00:00:00Z)")]
     pub from: Option<String>,
 
-    #[arg(long, help = "End datetime (ISO 8601, e.g., 2024-12-31T23:59:59Z)")]
+    #[arg(long, help = "Latest datetime to return (ISO 8601 / RFC 3339, e.g., 2024-12-31T23:59:59Z)")]
     pub to: Option<String>,
 }
 
