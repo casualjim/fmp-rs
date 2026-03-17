@@ -9,7 +9,7 @@ pub mod types;
 pub use crate::client::FmpHttpClient;
 pub use crate::config::FmpConfig;
 pub use crate::errors::{FmpError, FmpResult};
-pub use crate::primitives::{FmpErrorPayload, FmpResponse};
+pub use crate::primitives::{FmpDate, FmpDateTime, FmpErrorPayload, FmpResponse};
 
 // Re-export all API traits for convenience
 pub use crate::endpoints::{

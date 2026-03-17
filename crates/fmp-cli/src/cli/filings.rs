@@ -43,8 +43,8 @@ fn parse_date_range_params(
     page: Option<u32>,
 ) -> Result<fmp::types::sec_filings::DateRangeParams> {
     Ok(fmp::types::sec_filings::DateRangeParams {
-        from: from.map(str::parse::<jiff::civil::Date>).transpose()?,
-        to: to.map(str::parse::<jiff::civil::Date>).transpose()?,
+        from: from.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
+        to: to.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
         limit,
         page,
     })

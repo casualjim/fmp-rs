@@ -35,8 +35,8 @@ fn parse_date_range(
     to: Option<&str>,
 ) -> Result<fmp::types::economics::DateRangeParams> {
     Ok(fmp::types::economics::DateRangeParams {
-        from: from.map(str::parse::<jiff::civil::Date>).transpose()?,
-        to: to.map(str::parse::<jiff::civil::Date>).transpose()?,
+        from: from.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
+        to: to.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
     })
 }
 
@@ -56,8 +56,8 @@ impl IndicatorsArgs {
     pub async fn handle(&self, ctx: &Context) -> Result<()> {
         let params = fmp::types::economics::EconomicIndicatorParams {
             name: self.name.clone(),
-            from: self.from.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?,
-            to: self.to.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?,
+            from: self.from.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
+            to: self.to.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
         };
         let data = ctx.client.economic_indicator(params).await?;
         crate::output::output_json(&data)
@@ -94,8 +94,8 @@ impl FederalFundRateArgs {
     pub async fn handle(&self, ctx: &Context) -> Result<()> {
         let params = fmp::types::economics::EconomicIndicatorParams {
             name: "federalFundsEffectiveRate".to_string(),
-            from: self.from.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?,
-            to: self.to.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?,
+            from: self.from.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
+            to: self.to.as_deref().map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
         };
         let data = ctx.client.economic_indicator(params).await?;
         crate::output::output_json(&data)
