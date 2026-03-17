@@ -12,8 +12,8 @@ use crate::primitives::{FmpDate, FmpDateTime};
 pub struct ChartData {
   /// Ticker symbol.
   pub symbol: String,
-  /// Date and time of the bar (EOD bars use midnight UTC; intraday uses bar open time).
-  pub date: FmpDateTime,
+  /// Date of the bar (calendar date for EOD data).
+  pub date: FmpDate,
   /// Adjusted opening price.
   pub open: f64,
   /// Adjusted intraday high price.
@@ -46,10 +46,10 @@ pub struct ChartData {
 pub struct LightChartData {
   /// Ticker symbol.
   pub symbol: String,
-  /// Date of the bar (midnight UTC for EOD data).
-  pub date: FmpDateTime,
-  /// Adjusted closing price.
-  pub close: f64,
+  /// Date of the bar (calendar date for EOD data).
+  pub date: FmpDate,
+  /// Closing price (field is named `price` in the API response).
+  pub price: f64,
   /// Trading volume; absent for some non-equity instruments.
   #[serde(default)]
   pub volume: Option<f64>,
@@ -65,8 +65,8 @@ pub struct LightChartData {
 pub struct UnadjustedChartData {
   /// Ticker symbol.
   pub symbol: String,
-  /// Date of the bar (midnight UTC for EOD data).
-  pub date: FmpDateTime,
+  /// Date of the bar (calendar date for EOD data).
+  pub date: FmpDate,
   /// Unadjusted opening price (no split factor applied).
   pub adj_open: f64,
   /// Unadjusted intraday high price.
@@ -93,16 +93,16 @@ pub type IntradayChartData = OmitSymbolUnadjusted;
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct OmitSymbolUnadjusted {
-  /// Timestamp of the bar's open (ISO 8601 / RFC 3339 format).
+  /// Timestamp of the bar's open (space-separated "YYYY-MM-DD HH:MM:SS" format).
   pub date: FmpDateTime,
   /// Opening price for the interval.
-  pub adj_open: f64,
+  pub open: f64,
   /// Highest price reached during the interval.
-  pub adj_high: f64,
+  pub high: f64,
   /// Lowest price reached during the interval.
-  pub adj_low: f64,
+  pub low: f64,
   /// Closing price at the end of the interval.
-  pub adj_close: f64,
+  pub close: f64,
   /// Volume traded during the interval; absent for some instruments.
   #[serde(default)]
   pub volume: Option<f64>,
@@ -162,4 +162,33 @@ pub struct ChartIntradayParams {
   /// Latest date to return (inclusive).
   #[builder(default, setter(strip_option))]
   pub to: Option<FmpDate>,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{ChartData, IntradayChartData, LightChartData, UnadjustedChartData};
+
+  #[test]
+  fn chart_light_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/chart_light.json").unwrap();
+    let _: Vec<LightChartData> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn chart_full_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/chart_full.json").unwrap();
+    let _: Vec<ChartData> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn chart_unadjusted_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/chart_unadjusted.json").unwrap();
+    let _: Vec<UnadjustedChartData> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn chart_intraday_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/chart_intraday.json").unwrap();
+    let _: Vec<IntradayChartData> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

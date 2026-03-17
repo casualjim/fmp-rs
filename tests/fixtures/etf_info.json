@@ -1,0 +1,72 @@
+[
+  {
+    "symbol": "SPY",
+    "name": "State Street SPDR S&P 500 ETF Trust",
+    "description": "The State Street SPDR S&P 500 ETF Trust seeks to provide investment results that, before expenses, correspond generally to the price and yield performance of the S&P 500 Index (the “Index”)The S&P 500 Index is a diversified large cap U.S. index that holds companies across all eleven GICS sectorsLaunched in January 1993, SPY was the very first exchange traded fund listed in the United States",
+    "isin": "US78462F1030",
+    "assetClass": "Equity",
+    "securityCusip": "78462F103",
+    "domicile": "US",
+    "website": "https://www.ssga.com/us/en/institutional/etfs/state-street-spdr-sp-500-etf-trust-spy",
+    "etfCompany": "SPDR",
+    "expenseRatio": 0.0945,
+    "assetsUnderManagement": 669047300000,
+    "avgVolume": 73651172,
+    "inceptionDate": "1993-01-22",
+    "nav": 662.24,
+    "navCurrency": "USD",
+    "holdingsCount": 503,
+    "isActivelyTrading": true,
+    "updatedAt": "2026-03-16T18:25:00.043Z",
+    "sectorsList": [
+      {
+        "industry": "Basic Materials",
+        "exposure": 1.93
+      },
+      {
+        "industry": "Cash & Others",
+        "exposure": 0.009999999999990905
+      },
+      {
+        "industry": "Communication Services",
+        "exposure": 10.73
+      },
+      {
+        "industry": "Consumer Cyclical",
+        "exposure": 10.11
+      },
+      {
+        "industry": "Consumer Defensive",
+        "exposure": 5.43
+      },
+      {
+        "industry": "Energy",
+        "exposure": 3.48
+      },
+      {
+        "industry": "Financial Services",
+        "exposure": 12.26
+      },
+      {
+        "industry": "Healthcare",
+        "exposure": 9.84
+      },
+      {
+        "industry": "Industrials",
+        "exposure": 8.66
+      },
+      {
+        "industry": "Real Estate",
+        "exposure": 1.98
+      },
+      {
+        "industry": "Technology",
+        "exposure": 33.08
+      },
+      {
+        "industry": "Utilities",
+        "exposure": 2.49
+      }
+    ]
+  }
+]

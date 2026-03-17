@@ -62,6 +62,18 @@ impl Context {
     }
 }
 
+#[derive(serde::Deserialize)]
+struct Secrets {
+    #[serde(rename = "api-key")]
+    api_key: String,
+}
+
+fn load_secrets_api_key() -> Option<String> {
+    let path = dirs::config_dir()?.join("fmp").join("secrets.toml");
+    let content = std::fs::read_to_string(path).ok()?;
+    toml::from_str::<Secrets>(&content).ok().map(|s| s.api_key)
+}
+
 pub async fn dispatch(cli: Cli) -> Result<()> {
     // Handle commands that don't require an API key
     if let crate::config::Commands::Completions(args) = &cli.command {
@@ -70,7 +82,8 @@ pub async fn dispatch(cli: Cli) -> Result<()> {
     }
 
     let api_key = cli.api_key
-        .ok_or_else(|| eyre::eyre!("API key required via --api-key or FMP_API_KEY"))?;
+        .or_else(load_secrets_api_key)
+        .ok_or_else(|| eyre::eyre!("API key required via --api-key, FMP_API_KEY, or $CONFIG_DIR/fmp/secrets.toml"))?;
     let api_key = SecretString::new(api_key.into_boxed_str());
 
     let ctx = Context::new(api_key, cli.base_url)?;

@@ -1,0 +1,14 @@
+[
+  {
+    "date": "2024-12-31",
+    "sector": "Basic Materials",
+    "exchange": "NASDAQ",
+    "pe": 27.227372979216575
+  },
+  {
+    "date": "2024-12-31",
+    "sector": "Communication Services",
+    "exchange": "NASDAQ",
+    "pe": 26.442910124885092
+  }
+]

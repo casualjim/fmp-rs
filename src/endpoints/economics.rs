@@ -7,7 +7,7 @@ define_api_trait!(
   /// API endpoints for economics.
   EconomicsApi,
   treasury_rates -> "/treasury-rates" -> DateRangeParams  -> Vec<TreasuryRate>,
-  economic_indicator -> "/economic-indicator" -> EconomicIndicatorParams  -> Vec<EconomicIndicator>,
+  economic_indicator -> "/economic-indicators" -> EconomicIndicatorParams  -> Vec<EconomicIndicator>,
   economic_calendar -> "/economic-calendar" -> DateRangeParams  -> Vec<EconomicCalendar>,
   market_risk_premium -> "/market-risk-premium" -> () -> Vec<MarketRiskPremium>,
 );

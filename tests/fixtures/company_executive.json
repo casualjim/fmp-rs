@@ -1,0 +1,22 @@
+[
+  {
+    "title": "Senior Vice President of Worldwide Marketing",
+    "name": "Greg Joswiak",
+    "pay": null,
+    "currencyPay": "USD",
+    "gender": "male",
+    "yearBorn": null,
+    "titleSince": null,
+    "active": true
+  },
+  {
+    "title": "Senior Vice President of Design, Watch, & Health",
+    "name": "Jeffrey E. Williams",
+    "pay": 5020737,
+    "currencyPay": "USD",
+    "gender": "male",
+    "yearBorn": 1964,
+    "titleSince": null,
+    "active": true
+  }
+]

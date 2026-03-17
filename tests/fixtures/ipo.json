@@ -1,0 +1,24 @@
+[
+  {
+    "symbol": "AREA.JK",
+    "date": "2024-03-31",
+    "daa": "2024-04-01T00:00:00.000Z",
+    "company": "Dunia Virtual Online Tbk. ",
+    "exchange": "JSE",
+    "actions": "Priced",
+    "shares": 2944247787,
+    "priceRange": "113 - 131",
+    "marketCap": 332700000000
+  },
+  {
+    "symbol": "LEAS.ME",
+    "date": "2024-03-29",
+    "daa": "2024-03-29T04:00:00.000Z",
+    "company": "LC Europlan JSC",
+    "exchange": "MCX",
+    "actions": "Priced",
+    "shares": 15000000,
+    "priceRange": null,
+    "marketCap": null
+  }
+]

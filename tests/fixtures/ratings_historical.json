@@ -1,0 +1,26 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2026-03-16",
+    "rating": "B",
+    "overallScore": 3,
+    "discountedCashFlowScore": 3,
+    "returnOnEquityScore": 5,
+    "returnOnAssetsScore": 5,
+    "debtToEquityScore": 1,
+    "priceToEarningsScore": 2,
+    "priceToBookScore": 1
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2026-03-13",
+    "rating": "B",
+    "overallScore": 3,
+    "discountedCashFlowScore": 3,
+    "returnOnEquityScore": 5,
+    "returnOnAssetsScore": 5,
+    "debtToEquityScore": 1,
+    "priceToEarningsScore": 2,
+    "priceToBookScore": 1
+  }
+]

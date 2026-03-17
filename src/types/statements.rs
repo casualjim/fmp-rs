@@ -73,12 +73,15 @@ pub struct BaseStatement {
   pub symbol: String,
   /// ISO 4217 currency code in which amounts are reported (e.g., "USD").
   pub reported_currency: String,
-  /// SEC Central Index Key of the reporting company.
-  pub cik: String,
-  /// Date the document was filed with the SEC.
-  pub filing_date: FmpDate,
-  /// Date and time the SEC EDGAR system accepted the filing.
-  pub accepted_date: FmpDateTime,
+  /// SEC Central Index Key of the reporting company; absent from growth statements.
+  #[serde(default)]
+  pub cik: Option<String>,
+  /// Date the document was filed with the SEC; absent from growth statements.
+  #[serde(default)]
+  pub filing_date: Option<FmpDate>,
+  /// Date and time the SEC EDGAR system accepted the filing; absent from growth statements.
+  #[serde(default)]
+  pub accepted_date: Option<FmpDateTime>,
   /// Fiscal year number (e.g., 2024). Deserialised from either an integer or string.
   #[serde(deserialize_with = "de_i32_string_or_number")]
   pub fiscal_year: i32,
@@ -265,16 +268,20 @@ pub struct IncomeStatementGrowth {
   pub growth_interest_income: f64,
   pub growth_interest_expense: f64,
   pub growth_depreciation_and_amortization: f64,
-  pub growth_ebitda: f64,
+  #[serde(default)]
+  pub growth_ebitda: Option<f64>,
   pub growth_operating_income: f64,
   pub growth_income_before_tax: f64,
   pub growth_income_tax_expense: f64,
   pub growth_net_income: f64,
-  pub growth_eps: f64,
-  pub growth_eps_diluted: f64,
+  #[serde(default)]
+  pub growth_eps: Option<f64>,
+  #[serde(default)]
+  pub growth_eps_diluted: Option<f64>,
   pub growth_weighted_average_shs_out: f64,
   pub growth_weighted_average_shs_out_dil: f64,
-  pub growth_ebit: f64,
+  #[serde(default)]
+  pub growth_ebit: Option<f64>,
   pub growth_non_operating_income_excluding_interest: f64,
   pub growth_net_interest_income: f64,
   pub growth_total_other_income_expenses_net: f64,
@@ -414,18 +421,24 @@ pub struct FinancialStatementGrowth {
   pub ten_y_revenue_growth_per_share: f64,
   pub five_y_revenue_growth_per_share: f64,
   pub three_y_revenue_growth_per_share: f64,
-  pub ten_y_operating_cf_growth_per_share: f64,
-  pub five_y_operating_cf_growth_per_share: f64,
-  pub three_y_operating_cf_growth_per_share: f64,
+  #[serde(default)]
+  pub ten_y_operating_cf_growth_per_share: Option<f64>,
+  #[serde(default)]
+  pub five_y_operating_cf_growth_per_share: Option<f64>,
+  #[serde(default)]
+  pub three_y_operating_cf_growth_per_share: Option<f64>,
   pub ten_y_net_income_growth_per_share: f64,
   pub five_y_net_income_growth_per_share: f64,
   pub three_y_net_income_growth_per_share: f64,
   pub ten_y_shareholders_equity_growth_per_share: f64,
   pub five_y_shareholders_equity_growth_per_share: f64,
   pub three_y_shareholders_equity_growth_per_share: f64,
-  pub ten_y_dividend_per_share_growth_per_share: f64,
-  pub five_y_dividend_per_share_growth_per_share: f64,
-  pub three_y_dividend_per_share_growth_per_share: f64,
+  #[serde(default)]
+  pub ten_y_dividend_per_share_growth_per_share: Option<f64>,
+  #[serde(default)]
+  pub five_y_dividend_per_share_growth_per_share: Option<f64>,
+  #[serde(default)]
+  pub three_y_dividend_per_share_growth_per_share: Option<f64>,
   pub ebitda_growth: Option<f64>,
   pub growth_capital_expenditure: Option<f64>,
   pub ten_y_bottom_line_net_income_growth_per_share: Option<f64>,
@@ -465,9 +478,12 @@ pub struct FinancialReportItem {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct FinancialReport10K {
-  pub symbol: String,
-  pub period: String,
-  pub year: String,
+  #[serde(default)]
+  pub symbol: Option<String>,
+  #[serde(default)]
+  pub period: Option<String>,
+  #[serde(default)]
+  pub year: Option<String>,
   #[serde(flatten)]
   pub rest: HashMap<String, serde_json::Value>,
 }
@@ -526,7 +542,9 @@ pub struct KeyMetrics {
   pub ev_to_sales: f64,
   pub ev_to_operating_cash_flow: f64,
   pub ev_to_free_cash_flow: f64,
+  #[serde(rename = "evToEBITDA")]
   pub ev_to_ebitda: f64,
+  #[serde(rename = "netDebtToEBITDA")]
   pub net_debt_to_ebitda: f64,
   pub current_ratio: f64,
   pub income_quality: f64,
@@ -625,7 +643,8 @@ pub struct Ratios {
   pub operating_cash_flow_per_share: f64,
   pub capex_per_share: f64,
   pub free_cash_flow_per_share: f64,
-  pub net_income_per_ebt: f64,
+  #[serde(default)]
+  pub net_income_per_ebt: Option<f64>,
   pub ebt_per_ebit: f64,
   pub price_to_fair_value: f64,
   pub debt_to_market_cap: f64,
@@ -633,119 +652,225 @@ pub struct Ratios {
   pub enterprise_value_multiple: f64,
 }
 
+// The FMP API uses all-caps "TTM" and "EBITDA" in JSON field names, which
+// camelCase rename_all cannot produce. Every TTM field needs an explicit rename.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct KeyMetricsTtm {
   pub symbol: String,
   pub market_cap: f64,
+  #[serde(rename = "enterpriseValueTTM")]
   pub enterprise_value_ttm: f64,
+  #[serde(rename = "evToSalesTTM")]
   pub ev_to_sales_ttm: f64,
+  #[serde(rename = "evToOperatingCashFlowTTM")]
   pub ev_to_operating_cash_flow_ttm: f64,
+  #[serde(rename = "evToFreeCashFlowTTM")]
   pub ev_to_free_cash_flow_ttm: f64,
-  pub ev_to_ebitdat_ttm: f64,
-  pub net_debt_to_ebitdat_ttm: f64,
+  #[serde(rename = "evToEBITDATTM")]
+  pub ev_to_ebitda_ttm: f64,
+  #[serde(rename = "netDebtToEBITDATTM")]
+  pub net_debt_to_ebitda_ttm: f64,
+  #[serde(rename = "currentRatioTTM")]
   pub current_ratio_ttm: f64,
+  #[serde(rename = "incomeQualityTTM")]
   pub income_quality_ttm: f64,
+  #[serde(rename = "grahamNumberTTM")]
   pub graham_number_ttm: f64,
+  #[serde(rename = "grahamNetNetTTM")]
   pub graham_net_net_ttm: f64,
+  #[serde(rename = "taxBurdenTTM")]
   pub tax_burden_ttm: f64,
+  #[serde(rename = "interestBurdenTTM")]
   pub interest_burden_ttm: f64,
+  #[serde(rename = "workingCapitalTTM")]
   pub working_capital_ttm: f64,
+  #[serde(rename = "investedCapitalTTM")]
   pub invested_capital_ttm: f64,
+  #[serde(rename = "returnOnAssetsTTM")]
   pub return_on_assets_ttm: f64,
+  #[serde(rename = "operatingReturnOnAssetsTTM")]
   pub operating_return_on_assets_ttm: f64,
+  #[serde(rename = "returnOnTangibleAssetsTTM")]
   pub return_on_tangible_assets_ttm: f64,
+  #[serde(rename = "returnOnEquityTTM")]
   pub return_on_equity_ttm: f64,
+  #[serde(rename = "returnOnInvestedCapitalTTM")]
   pub return_on_invested_capital_ttm: f64,
+  #[serde(rename = "returnOnCapitalEmployedTTM")]
   pub return_on_capital_employed_ttm: f64,
+  #[serde(rename = "earningsYieldTTM")]
   pub earnings_yield_ttm: f64,
+  #[serde(rename = "freeCashFlowYieldTTM")]
   pub free_cash_flow_yield_ttm: f64,
+  #[serde(rename = "capexToOperatingCashFlowTTM")]
   pub capex_to_operating_cash_flow_ttm: f64,
+  #[serde(rename = "capexToDepreciationTTM")]
   pub capex_to_depreciation_ttm: f64,
+  #[serde(rename = "capexToRevenueTTM")]
   pub capex_to_revenue_ttm: f64,
+  #[serde(rename = "salesGeneralAndAdministrativeToRevenueTTM")]
   pub sales_general_and_administrative_to_revenue_ttm: f64,
+  #[serde(rename = "researchAndDevelopementToRevenueTTM")]
   pub research_and_developement_to_revenue_ttm: f64,
+  #[serde(rename = "stockBasedCompensationToRevenueTTM")]
   pub stock_based_compensation_to_revenue_ttm: f64,
+  #[serde(rename = "intangiblesToTotalAssetsTTM")]
   pub intangibles_to_total_assets_ttm: f64,
+  #[serde(rename = "averageReceivablesTTM")]
   pub average_receivables_ttm: f64,
+  #[serde(rename = "averagePayablesTTM")]
   pub average_payables_ttm: f64,
+  #[serde(rename = "averageInventoryTTM")]
   pub average_inventory_ttm: f64,
+  #[serde(rename = "daysOfSalesOutstandingTTM")]
   pub days_of_sales_outstanding_ttm: f64,
+  #[serde(rename = "daysOfPayablesOutstandingTTM")]
   pub days_of_payables_outstanding_ttm: f64,
+  #[serde(rename = "daysOfInventoryOutstandingTTM")]
   pub days_of_inventory_outstanding_ttm: f64,
+  #[serde(rename = "operatingCycleTTM")]
   pub operating_cycle_ttm: f64,
+  #[serde(rename = "cashConversionCycleTTM")]
   pub cash_conversion_cycle_ttm: f64,
+  #[serde(rename = "freeCashFlowToEquityTTM")]
   pub free_cash_flow_to_equity_ttm: f64,
+  #[serde(rename = "freeCashFlowToFirmTTM")]
   pub free_cash_flow_to_firm_ttm: f64,
+  #[serde(rename = "tangibleAssetValueTTM")]
   pub tangible_asset_value_ttm: f64,
+  #[serde(rename = "netCurrentAssetValueTTM")]
   pub net_current_asset_value_ttm: f64,
 }
 
+// FMP uses all-caps "TTM" in JSON keys; camelCase rename_all produces "Ttm".
+// Every field needs an explicit rename.
 #[derive(Debug, Clone, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
 pub struct FinancialRatiosTtm {
   pub symbol: String,
-  pub date: FmpDate,
-  pub fiscal_year: String,
-  pub period: String,
-  pub reported_currency: String,
+  #[serde(default)]
+  pub date: Option<FmpDate>,
+  #[serde(default, rename = "fiscalYear")]
+  pub fiscal_year: Option<String>,
+  #[serde(default)]
+  pub period: Option<String>,
+  #[serde(default, rename = "reportedCurrency")]
+  pub reported_currency: Option<String>,
+  #[serde(rename = "grossProfitMarginTTM")]
   pub gross_profit_margin_ttm: f64,
+  #[serde(rename = "ebitMarginTTM")]
   pub ebit_margin_ttm: f64,
+  #[serde(rename = "ebitdaMarginTTM")]
   pub ebitda_margin_ttm: f64,
+  #[serde(rename = "operatingProfitMarginTTM")]
   pub operating_profit_margin_ttm: f64,
+  #[serde(rename = "pretaxProfitMarginTTM")]
   pub pretax_profit_margin_ttm: f64,
+  #[serde(rename = "continuousOperationsProfitMarginTTM")]
   pub continuous_operations_profit_margin_ttm: f64,
+  #[serde(rename = "netProfitMarginTTM")]
   pub net_profit_margin_ttm: f64,
+  #[serde(rename = "bottomLineProfitMarginTTM")]
   pub bottom_line_profit_margin_ttm: f64,
+  #[serde(rename = "receivablesTurnoverTTM")]
   pub receivables_turnover_ttm: f64,
+  #[serde(rename = "payablesTurnoverTTM")]
   pub payables_turnover_ttm: f64,
+  #[serde(rename = "inventoryTurnoverTTM")]
   pub inventory_turnover_ttm: f64,
+  #[serde(rename = "fixedAssetTurnoverTTM")]
   pub fixed_asset_turnover_ttm: f64,
+  #[serde(rename = "assetTurnoverTTM")]
   pub asset_turnover_ttm: f64,
+  #[serde(rename = "currentRatioTTM")]
   pub current_ratio_ttm: f64,
+  #[serde(rename = "quickRatioTTM")]
   pub quick_ratio_ttm: f64,
+  #[serde(rename = "solvencyRatioTTM")]
   pub solvency_ratio_ttm: f64,
+  #[serde(rename = "cashRatioTTM")]
   pub cash_ratio_ttm: f64,
+  #[serde(rename = "priceToEarningsRatioTTM")]
   pub price_to_earnings_ratio_ttm: f64,
+  #[serde(rename = "priceToEarningsGrowthRatioTTM")]
   pub price_to_earnings_growth_ratio_ttm: f64,
+  #[serde(rename = "forwardPriceToEarningsGrowthRatioTTM")]
   pub forward_price_to_earnings_growth_ratio_ttm: f64,
+  #[serde(rename = "priceToBookRatioTTM")]
   pub price_to_book_ratio_ttm: f64,
+  #[serde(rename = "priceToSalesRatioTTM")]
   pub price_to_sales_ratio_ttm: f64,
+  #[serde(rename = "priceToFreeCashFlowRatioTTM")]
   pub price_to_free_cash_flow_ratio_ttm: f64,
+  #[serde(rename = "priceToOperatingCashFlowRatioTTM")]
   pub price_to_operating_cash_flow_ratio_ttm: f64,
+  #[serde(rename = "debtToAssetsRatioTTM")]
   pub debt_to_assets_ratio_ttm: f64,
+  #[serde(rename = "debtToEquityRatioTTM")]
   pub debt_to_equity_ratio_ttm: f64,
+  #[serde(rename = "debtToCapitalRatioTTM")]
   pub debt_to_capital_ratio_ttm: f64,
+  #[serde(rename = "longTermDebtToCapitalRatioTTM")]
   pub long_term_debt_to_capital_ratio_ttm: f64,
+  #[serde(rename = "financialLeverageRatioTTM")]
   pub financial_leverage_ratio_ttm: f64,
+  #[serde(rename = "workingCapitalTurnoverRatioTTM")]
   pub working_capital_turnover_ratio_ttm: f64,
+  #[serde(rename = "operatingCashFlowRatioTTM")]
   pub operating_cash_flow_ratio_ttm: f64,
+  #[serde(rename = "operatingCashFlowSalesRatioTTM")]
   pub operating_cash_flow_sales_ratio_ttm: f64,
+  #[serde(rename = "freeCashFlowOperatingCashFlowRatioTTM")]
   pub free_cash_flow_operating_cash_flow_ratio_ttm: f64,
+  #[serde(rename = "debtServiceCoverageRatioTTM")]
   pub debt_service_coverage_ratio_ttm: f64,
+  #[serde(rename = "interestCoverageRatioTTM")]
   pub interest_coverage_ratio_ttm: f64,
+  #[serde(rename = "shortTermOperatingCashFlowCoverageRatioTTM")]
   pub short_term_operating_cash_flow_coverage_ratio_ttm: f64,
+  #[serde(rename = "operatingCashFlowCoverageRatioTTM")]
   pub operating_cash_flow_coverage_ratio_ttm: f64,
+  #[serde(rename = "capitalExpenditureCoverageRatioTTM")]
   pub capital_expenditure_coverage_ratio_ttm: f64,
+  #[serde(rename = "dividendPaidAndCapexCoverageRatioTTM")]
   pub dividend_paid_and_capex_coverage_ratio_ttm: f64,
+  #[serde(rename = "dividendPayoutRatioTTM")]
   pub dividend_payout_ratio_ttm: f64,
+  #[serde(rename = "dividendYieldTTM")]
   pub dividend_yield_ttm: f64,
+  #[serde(rename = "enterpriseValueTTM")]
   pub enterprise_value_ttm: f64,
+  #[serde(rename = "revenuePerShareTTM")]
   pub revenue_per_share_ttm: f64,
+  #[serde(rename = "netIncomePerShareTTM")]
   pub net_income_per_share_ttm: f64,
+  #[serde(rename = "interestDebtPerShareTTM")]
   pub interest_debt_per_share_ttm: f64,
+  #[serde(rename = "cashPerShareTTM")]
   pub cash_per_share_ttm: f64,
+  #[serde(rename = "bookValuePerShareTTM")]
   pub book_value_per_share_ttm: f64,
+  #[serde(rename = "tangibleBookValuePerShareTTM")]
   pub tangible_book_value_per_share_ttm: f64,
+  #[serde(rename = "shareholdersEquityPerShareTTM")]
   pub shareholders_equity_per_share_ttm: f64,
+  #[serde(rename = "operatingCashFlowPerShareTTM")]
   pub operating_cash_flow_per_share_ttm: f64,
+  #[serde(rename = "capexPerShareTTM")]
   pub capex_per_share_ttm: f64,
+  #[serde(rename = "freeCashFlowPerShareTTM")]
   pub free_cash_flow_per_share_ttm: f64,
+  #[serde(rename = "netIncomePerEBTTTM")]
   pub net_income_per_ebt_tttm: f64,
+  #[serde(rename = "ebtPerEbitTTM")]
   pub ebt_per_ebit_ttm: f64,
+  #[serde(rename = "priceToFairValueTTM")]
   pub price_to_fair_value_ttm: f64,
+  #[serde(rename = "debtToMarketCapTTM")]
   pub debt_to_market_cap_ttm: f64,
+  #[serde(rename = "effectiveTaxRateTTM")]
   pub effective_tax_rate_ttm: f64,
+  #[serde(rename = "enterpriseValueMultipleTTM")]
   pub enterprise_value_multiple_ttm: f64,
 }
 
@@ -773,7 +898,8 @@ pub struct OwnerEarnings {
   pub fiscal_year: String,
   pub period: String,
   pub date: FmpDate,
-  pub average_ppe: f64,
+  #[serde(default)]
+  pub average_ppe: Option<f64>,
   pub maintenance_capex: f64,
   pub owners_earnings: f64,
   pub growth_capex: f64,
@@ -844,4 +970,161 @@ pub struct FinancialScoresParams {
   pub symbol: String,
   #[builder(default, setter(strip_option))]
   pub limit: Option<u32>,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    AsReportedBalanceSheet, AsReportedCashFlowStatement, AsReportedIncomeStatement, BalanceSheetStatement,
+    BalanceSheetStatementGrowth, CashFlowStatement, CashFlowStatementGrowth, FinancialRatiosTtm, FinancialReport10K,
+    FinancialReportDate, FinancialScores, FinancialStatementGrowth, IncomeStatement, IncomeStatementGrowth, KeyMetrics,
+    KeyMetricsTtm, LatestFinancialStatement, OwnerEarnings, Ratios, RevenueGeographicSegmentation,
+    RevenueProductSegmentation,
+  };
+
+  #[test]
+  fn income_statement_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/income_statement.json").unwrap();
+    let _: Vec<IncomeStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn balance_sheet_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/balance_sheet.json").unwrap();
+    let _: Vec<BalanceSheetStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn cash_flow_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cash_flow.json").unwrap();
+    let _: Vec<CashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn latest_financial_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/latest_financial.json").unwrap();
+    let _: Vec<LatestFinancialStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn income_statement_ttm_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/income_statement_ttm.json").unwrap();
+    let _: Vec<IncomeStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn balance_sheet_ttm_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/balance_sheet_ttm.json").unwrap();
+    let _: Vec<BalanceSheetStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn cash_flow_ttm_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cash_flow_ttm.json").unwrap();
+    let _: Vec<CashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn income_growth_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/income_growth.json").unwrap();
+    let _: Vec<IncomeStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn balance_sheet_growth_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/balance_sheet_growth.json").unwrap();
+    let _: Vec<BalanceSheetStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn cash_flow_growth_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cash_flow_growth.json").unwrap();
+    let _: Vec<CashFlowStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn financial_growth_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/financial_growth.json").unwrap();
+    let _: Vec<FinancialStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn financial_report_dates_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/financial_report_dates.json").unwrap();
+    let _: Vec<FinancialReportDate> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn financial_report_10k_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/financial_report_10k.json").unwrap();
+    let _: FinancialReport10K = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn revenue_product_seg_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/revenue_product_seg.json").unwrap();
+    let _: Vec<RevenueProductSegmentation> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn revenue_geo_seg_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/revenue_geo_seg.json").unwrap();
+    let _: Vec<RevenueGeographicSegmentation> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn income_as_reported_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/income_as_reported.json").unwrap();
+    let _: Vec<AsReportedIncomeStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn balance_sheet_as_reported_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/balance_sheet_as_reported.json").unwrap();
+    let _: Vec<AsReportedBalanceSheet> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn cash_flow_as_reported_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cash_flow_as_reported.json").unwrap();
+    let _: Vec<AsReportedCashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn key_metrics_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/key_metrics.json").unwrap();
+    let _: Vec<KeyMetrics> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ratios_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ratios.json").unwrap();
+    let _: Vec<Ratios> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn key_metrics_ttm_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/key_metrics_ttm.json").unwrap();
+    let items: Vec<KeyMetricsTtm> = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(items[0].symbol, "AAPL");
+    assert!(items[0].market_cap > 0.0);
+  }
+
+  #[test]
+  fn ratios_ttm_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ratios_ttm.json").unwrap();
+    let _: Vec<FinancialRatiosTtm> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn financial_scores_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/financial_scores.json").unwrap();
+    let _: Vec<FinancialScores> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn owner_earnings_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/owner_earnings.json").unwrap();
+    let _: Vec<OwnerEarnings> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

@@ -1,0 +1,11 @@
+[
+  {
+    "symbol": "AAPL",
+    "bidSize": 4,
+    "bidPrice": 252.32,
+    "askSize": 2,
+    "askPrice": 252.6,
+    "volume": 30091880,
+    "timestamp": 1773705585000
+  }
+]

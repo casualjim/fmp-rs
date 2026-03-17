@@ -106,3 +106,44 @@ pub struct CalendarRangeParams {
   pub from: Option<FmpDate>,
   pub to: Option<FmpDate>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{Dividend, EarningsReport, Ipo, IpoDisclosure, IpoProspectus, StockSplit};
+
+  #[test]
+  fn dividends_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/dividends.json").unwrap();
+    let _: Vec<Dividend> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn earnings_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/earnings.json").unwrap();
+    let _: Vec<EarningsReport> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ipo_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ipo.json").unwrap();
+    let _: Vec<Ipo> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ipo_disclosure_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ipo_disclosure.json").unwrap();
+    let _: Vec<IpoDisclosure> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ipo_prospectus_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ipo_prospectus.json").unwrap();
+    let _: Vec<IpoProspectus> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_split_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_split.json").unwrap();
+    let _: Vec<StockSplit> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

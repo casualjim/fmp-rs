@@ -313,12 +313,14 @@ impl NewsArgs {
                 .from
                 .as_ref()
                 .map(|s| s.parse::<jiff::civil::Date>())
-                .transpose()?,
+                .transpose()?
+                .map(fmp::FmpDate),
             to: self
                 .to
                 .as_ref()
                 .map(|s| s.parse::<jiff::civil::Date>())
-                .transpose()?,
+                .transpose()?
+                .map(fmp::FmpDate),
             limit: self.limit,
             page: self.page,
         };

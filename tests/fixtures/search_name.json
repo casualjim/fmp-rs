@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "APC.F",
+    "name": "Apple Inc.",
+    "currency": "EUR",
+    "exchangeFullName": "Frankfurt Stock Exchange",
+    "exchange": "FSX"
+  },
+  {
+    "symbol": "APC.DE",
+    "name": "Apple Inc.",
+    "currency": "EUR",
+    "exchangeFullName": "Deutsche Börse",
+    "exchange": "XETRA"
+  }
+]

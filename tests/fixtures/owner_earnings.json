@@ -1,0 +1,26 @@
+[
+  {
+    "symbol": "AAPL",
+    "reportedCurrency": "USD",
+    "fiscalYear": "2026",
+    "period": "Q1",
+    "date": "2025-12-27",
+    "averagePPE": 0.13466,
+    "maintenanceCapex": 246944960,
+    "ownersEarnings": 54171944960,
+    "growthCapex": -2619944960,
+    "ownersEarningsPerShare": 3.66
+  },
+  {
+    "symbol": "AAPL",
+    "reportedCurrency": "USD",
+    "fiscalYear": "2025",
+    "period": "Q4",
+    "date": "2025-09-27",
+    "averagePPE": 0.13466,
+    "maintenanceCapex": -2227202240,
+    "ownersEarnings": 27500797760,
+    "growthCapex": -1014797760,
+    "ownersEarningsPerShare": 1.83
+  }
+]

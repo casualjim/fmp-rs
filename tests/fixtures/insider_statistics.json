@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "year": 2026,
+    "quarter": 1,
+    "acquiredTransactions": 14,
+    "disposedTransactions": 8,
+    "acquiredDisposedRatio": 1.75,
+    "totalAcquired": 16488,
+    "totalDisposed": 9756,
+    "averageAcquired": 1177.7143,
+    "averageDisposed": 1219.5,
+    "totalPurchases": 0,
+    "totalSales": 0
+  },
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "year": 2025,
+    "quarter": 4,
+    "acquiredTransactions": 6,
+    "disposedTransactions": 33,
+    "acquiredDisposedRatio": 0.1818,
+    "totalAcquired": 578243,
+    "totalDisposed": 1113027,
+    "averageAcquired": 96373.8333,
+    "averageDisposed": 33728.0909,
+    "totalPurchases": 0,
+    "totalSales": 15
+  }
+]

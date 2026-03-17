@@ -6,8 +6,8 @@ members = [".", "crates/fmp-cli"]
 version = "0.1.7"
 edition = "2024"
 authors = ["Lbyl Team"]
-repository = "https://code.lotsa.ai//lbyl/fmp-rs"
-homepage = "https://code.lotsa.ai/lbyl"
+repository = "https://github.com/casualjim/fmp-rs"
+homepage = "https://github.com/casualjim/fmp-rs"
 license = "none"
 
 [workspace.dependencies]
@@ -64,9 +64,10 @@ license.workspace = true
 
 [package.metadata.release]
 sign-commit = false
-tag = false
-registry = "gitea"
-pre-release-commit-message = "Release {{version}} [ci skip]"
+sign-tag = false
+publish = false
+allow-branch = ["main"]
+pre-release-commit-message = "chore: Release {{crate_name}} version {{version}}"
 
 [dependencies]
 eyre.workspace = true
@@ -87,3 +88,8 @@ serde_urlencoded.workspace = true
 
 [dev-dependencies]
 tokio = { workspace = true, features = ["macros", "rt-multi-thread"] }
+
+# The profile that 'dist' will build with
+[profile.dist]
+inherits = "release"
+lto = "thin"

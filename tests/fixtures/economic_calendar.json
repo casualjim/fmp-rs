@@ -1,0 +1,28 @@
+[
+  {
+    "date": "2024-01-15 23:50:00",
+    "country": "JP",
+    "event": "Producer Price Index MoM (Dec)",
+    "currency": "JPY",
+    "previous": 0.3,
+    "estimate": 0.1,
+    "actual": 0.3,
+    "change": 0,
+    "impact": "Low",
+    "changePercentage": 0,
+    "unit": "%"
+  },
+  {
+    "date": "2024-01-15 23:50:00",
+    "country": "JP",
+    "event": "Producer Price Index YoY (Dec)",
+    "currency": "JPY",
+    "previous": 0.3,
+    "estimate": -0.3,
+    "actual": 0,
+    "change": -0.3,
+    "impact": "Low",
+    "changePercentage": -100,
+    "unit": "%"
+  }
+]

@@ -1,0 +1,28 @@
+[
+  {
+    "symbol": "DLTR",
+    "publishedDate": "2026-03-16T21:29:00.000Z",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/Dollar+Tree+%28DLTR%29+PT+Raised+to+%2489+at+BofA+Securities/26168285.html",
+    "newsTitle": "Dollar Tree (DLTR) PT Raised to $89 at BofA Securities",
+    "newsBaseURL": "streetinsider.com",
+    "newsPublisher": "StreetInsider",
+    "newGrade": "Underperform",
+    "previousGrade": "Underperform",
+    "gradingCompany": "Bank of America Securities",
+    "action": "hold",
+    "priceWhenPosted": 114.36
+  },
+  {
+    "symbol": "ZBIO",
+    "publishedDate": "2026-03-16T20:59:00.000Z",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/Zenas+Biopharma+%28ZBIO%29+PT+Raised+to+%2455+at+Guggenheim/26167861.html",
+    "newsTitle": "Zenas Biopharma (ZBIO) PT Raised to $55 at Guggenheim",
+    "newsBaseURL": "streetinsider.com",
+    "newsPublisher": "StreetInsider",
+    "newGrade": "Buy",
+    "previousGrade": "Buy",
+    "gradingCompany": "Guggenheim",
+    "action": "hold",
+    "priceWhenPosted": 23.23
+  }
+]

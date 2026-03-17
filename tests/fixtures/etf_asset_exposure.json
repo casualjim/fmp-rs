@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "XCHG",
+    "asset": "SPY",
+    "sharesNumber": 3203,
+    "weightPercentage": 0.33338944,
+    "marketValue": 2197225.97
+  },
+  {
+    "symbol": "VWNFX",
+    "asset": "SPY",
+    "sharesNumber": 760120,
+    "weightPercentage": 0.80801,
+    "marketValue": 518341030.4
+  }
+]

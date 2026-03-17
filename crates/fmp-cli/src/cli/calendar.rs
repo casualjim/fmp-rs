@@ -35,8 +35,8 @@ fn parse_range_params(
     to: Option<&str>,
 ) -> Result<fmp::types::calendar::CalendarRangeParams> {
     Ok(fmp::types::calendar::CalendarRangeParams {
-        from: from.map(str::parse::<jiff::civil::Date>).transpose()?,
-        to: to.map(str::parse::<jiff::civil::Date>).transpose()?,
+        from: from.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
+        to: to.map(str::parse::<jiff::civil::Date>).transpose()?.map(fmp::FmpDate),
     })
 }
 

@@ -97,3 +97,50 @@ pub struct IndustryHistoryParams {
   #[builder(default, setter(strip_option))]
   pub exchange: Option<String>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{IndustryPe, IndustryPerformance, SectorPe, SectorPerformance, StockMovement};
+
+  #[test]
+  fn biggest_gainers_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/biggest_gainers.json").unwrap();
+    let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn biggest_losers_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/biggest_losers.json").unwrap();
+    let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn most_actives_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/most_actives.json").unwrap();
+    let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn sector_performance_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sector_performance.json").unwrap();
+    let _: Vec<SectorPerformance> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn industry_performance_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/industry_performance.json").unwrap();
+    let _: Vec<IndustryPerformance> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn sector_pe_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sector_pe.json").unwrap();
+    let _: Vec<SectorPe> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn industry_pe_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/industry_pe.json").unwrap();
+    let _: Vec<IndustryPe> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

@@ -64,3 +64,26 @@ pub struct EsgSymbolParams {
 pub struct EsgBenchmarkParams {
   pub year: Option<String>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{EsgBenchmark, EsgDisclosure, EsgRating};
+
+  #[test]
+  fn esg_disclosure_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/esg_disclosure.json").unwrap();
+    let _: Vec<EsgDisclosure> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn esg_rating_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/esg_rating.json").unwrap();
+    let _: Vec<EsgRating> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn esg_benchmark_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/esg_benchmark.json").unwrap();
+    let _: Vec<EsgBenchmark> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

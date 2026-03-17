@@ -175,3 +175,20 @@ pub struct CotRangeParams {
   pub from: Option<FmpDate>,
   pub to: Option<FmpDate>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{CotAnalysis, CotReport};
+
+  #[test]
+  fn cot_report_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cot_report.json").unwrap();
+    let _: Vec<CotReport> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn cot_analysis_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cot_analysis.json").unwrap();
+    let _: Vec<CotAnalysis> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

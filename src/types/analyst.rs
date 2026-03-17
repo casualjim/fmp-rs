@@ -114,6 +114,7 @@ pub struct PriceTargetConsensus {
 pub struct PriceTargetNews {
   pub symbol: String,
   pub published_date: FmpDate,
+  #[serde(rename = "newsURL")]
   pub news_url: String,
   pub news_title: String,
   pub analyst_name: String,
@@ -124,6 +125,7 @@ pub struct PriceTargetNews {
   #[serde(default)]
   pub price_when_posted: Option<f64>,
   pub news_publisher: String,
+  #[serde(rename = "newsBaseURL")]
   pub news_base_url: String,
   pub analyst_company: String,
 }
@@ -172,8 +174,10 @@ pub struct StockGradeSummary {
 pub struct StockGradeNews {
   pub symbol: String,
   pub published_date: FmpDate,
+  #[serde(rename = "newsURL")]
   pub news_url: String,
   pub news_title: String,
+  #[serde(rename = "newsBaseURL")]
   pub news_base_url: String,
   pub news_publisher: String,
   pub new_grade: String,
@@ -221,4 +225,72 @@ pub struct SymbolPageParams {
 pub struct PageParams {
   pub page: Option<u32>,
   pub limit: Option<u32>,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    AnalystEstimate, HistoricalRating, HistoricalStockGrade, PriceTargetConsensus, PriceTargetNews, PriceTargetSummary,
+    RatingsSnapshot, StockGrade, StockGradeNews, StockGradeSummary,
+  };
+
+  #[test]
+  fn analyst_estimate_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/analyst_estimate.json").unwrap();
+    let _: Vec<AnalystEstimate> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ratings_snapshot_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ratings_snapshot.json").unwrap();
+    let _: Vec<RatingsSnapshot> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ratings_historical_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ratings_historical.json").unwrap();
+    let _: Vec<HistoricalRating> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn price_target_summary_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/price_target_summary.json").unwrap();
+    let _: Vec<PriceTargetSummary> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn price_target_consensus_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/price_target_consensus.json").unwrap();
+    let _: Vec<PriceTargetConsensus> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn price_target_news_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/price_target_news.json").unwrap();
+    let _: Vec<PriceTargetNews> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_grade_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_grade.json").unwrap();
+    let _: Vec<StockGrade> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_grade_historical_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_grade_historical.json").unwrap();
+    let _: Vec<HistoricalStockGrade> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_grade_summary_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_grade_summary.json").unwrap();
+    let _: Vec<StockGradeSummary> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_grade_news_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_grade_news.json").unwrap();
+    let _: Vec<StockGradeNews> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

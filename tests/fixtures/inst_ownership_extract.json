@@ -1,0 +1,34 @@
+[
+  {
+    "date": "2024-03-31",
+    "filingDate": "2024-05-15",
+    "acceptedDate": "2024-05-15",
+    "cik": "0001067983",
+    "securityCusip": "G0403H108",
+    "symbol": "AON",
+    "nameOfIssuer": "AON PLC",
+    "shares": 4100000,
+    "titleOfClass": "SHS CL A",
+    "sharesType": "SH",
+    "putCallShare": "",
+    "value": 1368252000,
+    "link": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/0000950123-24-005622-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/32398.xml"
+  },
+  {
+    "date": "2024-03-31",
+    "filingDate": "2024-05-15",
+    "acceptedDate": "2024-05-15",
+    "cik": "0001067983",
+    "securityCusip": "922908363",
+    "symbol": "VOO",
+    "nameOfIssuer": "VANGUARD INDEX FDS",
+    "shares": 43000,
+    "titleOfClass": "S&P 500 ETF SHS",
+    "sharesType": "SH",
+    "putCallShare": "",
+    "value": 20670100,
+    "link": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/0000950123-24-005622-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/1067983/000095012324005622/32398.xml"
+  }
+]

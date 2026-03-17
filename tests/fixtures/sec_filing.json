@@ -1,0 +1,20 @@
+[
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "filingDate": "2024-12-18 00:00:00",
+    "acceptedDate": "2024-12-18 18:30:20",
+    "formType": "4",
+    "link": "https://www.sec.gov/Archives/edgar/data/320193/000032019324000132/0000320193-24-000132-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/320193/000032019324000132/xslF345X05/wk-form4_1734564614.xml"
+  },
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "filingDate": "2024-12-16 00:00:00",
+    "acceptedDate": "2024-12-16 16:15:02",
+    "formType": "144",
+    "link": "https://www.sec.gov/Archives/edgar/data/320193/000197314124000617/0001973141-24-000617-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/320193/000197314124000617/xsl144X01/primary_doc.xml"
+  }
+]

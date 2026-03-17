@@ -1,0 +1,22 @@
+[
+  {
+    "cik": "0001870761",
+    "name": "BANK OF NEW HAMPSHIRE",
+    "date": "2025-12-31",
+    "filingDate": "2026-03-16 00:00:00",
+    "acceptedDate": "2026-03-16 15:49:47",
+    "formType": "13F-HR",
+    "link": "https://www.sec.gov/Archives/edgar/data/1870761/000187076126000001/0001870761-26-000001-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/1870761/000187076126000001/schedule13fa.xml"
+  },
+  {
+    "cik": "0001842096",
+    "name": "WFG CAPITAL ADVISORS LLC",
+    "date": "2025-12-31",
+    "filingDate": "2026-03-16 00:00:00",
+    "acceptedDate": "2026-03-16 11:30:46",
+    "formType": "13F-NT",
+    "link": "https://www.sec.gov/Archives/edgar/data/1842096/000108514626000272/0001085146-26-000272-index.htm",
+    "finalLink": "https://www.sec.gov/Archives/edgar/data/1842096/000108514626000272/xslForm13F_X02/primary_doc.xml"
+  }
+]

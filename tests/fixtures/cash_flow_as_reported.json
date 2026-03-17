@@ -1,0 +1,39 @@
+[
+  {
+    "symbol": "AAPL",
+    "fiscalYear": 2025,
+    "period": "FY",
+    "reportedCurrency": null,
+    "date": "2025-09-26",
+    "data": {
+      "cashcashequivalentsrestrictedcashandrestrictedcashequivalents": 35934000000,
+      "netincomeloss": 112010000000,
+      "depreciationdepletionandamortization": 11698000000,
+      "sharebasedcompensation": 12863000000,
+      "othernoncashincomeexpense": 89000000,
+      "increasedecreaseinaccountsreceivable": 6682000000,
+      "increasedecreaseinotherreceivables": 347000000,
+      "increasedecreaseininventories": -1400000000,
+      "increasedecreaseinotheroperatingassets": 9197000000,
+      "increasedecreaseinaccountspayable": 902000000,
+      "increasedecreaseinotheroperatingliabilities": -11076000000,
+      "netcashprovidedbyusedinoperatingactivities": 111482000000,
+      "paymentstoacquireavailableforsalesecuritiesdebt": 24407000000,
+      "proceedsfrommaturitiesprepaymentsandcallsofavailableforsalesecurities": 40907000000,
+      "proceedsfromsaleofavailableforsalesecuritiesdebt": 12890000000,
+      "paymentstoacquirepropertyplantandequipment": 12715000000,
+      "paymentsforproceedsfromotherinvestingactivities": 1480000000,
+      "netcashprovidedbyusedininvestingactivities": 15195000000,
+      "paymentsrelatedtotaxwithholdingforsharebasedcompensation": 6100000000,
+      "paymentsofdividends": 15421000000,
+      "paymentsforrepurchaseofcommonstock": 90711000000,
+      "proceedsfromissuanceoflongtermdebt": 4481000000,
+      "repaymentsoflongtermdebt": 10932000000,
+      "proceedsfromrepaymentsofcommercialpaper": -2032000000,
+      "proceedsfrompaymentsforotherfinancingactivities": -111000000,
+      "netcashprovidedbyusedinfinancingactivities": -120686000000,
+      "cashcashequivalentsrestrictedcashandrestrictedcashequivalentsperiodincreasedecreaseincludingexchangerateeffect": 5991000000,
+      "incometaxespaidnet": 43369000000
+    }
+  }
+]

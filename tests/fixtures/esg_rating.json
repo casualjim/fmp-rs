@@ -1,0 +1,20 @@
+[
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "companyName": "Apple Inc.",
+    "industry": "CONSUMER ELECTRONICS",
+    "fiscalYear": 2001,
+    "ESGRiskRating": "B",
+    "industryRank": "4 out of 6"
+  },
+  {
+    "symbol": "AAPL",
+    "cik": "0000320193",
+    "companyName": "Apple Inc.",
+    "industry": "CONSUMER ELECTRONICS",
+    "fiscalYear": 1998,
+    "ESGRiskRating": "B",
+    "industryRank": "3 out of 5"
+  }
+]

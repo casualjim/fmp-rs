@@ -1,0 +1,21 @@
+[
+  {
+    "symbol": "EURUSD",
+    "name": "EUR/USD",
+    "price": 1.14782,
+    "changePercentage": -0.23814,
+    "change": -0.00274,
+    "volume": 28803,
+    "dayLow": 1.14662,
+    "dayHigh": 1.15129,
+    "yearHigh": 1.20831,
+    "yearLow": 1.0733,
+    "marketCap": null,
+    "priceAvg50": 1.17583,
+    "priceAvg200": 1.16829,
+    "exchange": "FOREX",
+    "open": 1.1506,
+    "previousClose": 1.15056,
+    "timestamp": 1773729694
+  }
+]

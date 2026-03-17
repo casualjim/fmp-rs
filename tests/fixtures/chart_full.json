@@ -1,0 +1,26 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2024-01-31",
+    "open": 187.04,
+    "high": 187.1,
+    "low": 184.35,
+    "close": 184.4,
+    "volume": 55467803,
+    "change": -2.64,
+    "changePercent": -1.41,
+    "vwap": 185.7225
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2024-01-30",
+    "open": 190.94,
+    "high": 191.8,
+    "low": 187.47,
+    "close": 188.04,
+    "volume": 55859400,
+    "change": -2.9,
+    "changePercent": -1.52,
+    "vwap": 189.5625
+  }
+]

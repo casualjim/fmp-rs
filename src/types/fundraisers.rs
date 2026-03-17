@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
-use crate::primitives::{FmpDate, FmpDateTime};
+use crate::primitives::{de_opt_fmpdate, FmpDate, FmpDateTime};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -27,7 +27,8 @@ pub struct CrowdfundingCampaign {
   pub compensation_amount: String,
   pub financial_interest: String,
   pub security_offered_type: String,
-  pub security_offered_other_description: String,
+  #[serde(default)]
+  pub security_offered_other_description: Option<String>,
   pub number_of_security_offered: f64,
   pub offering_price: f64,
   pub offering_amount: f64,
@@ -97,9 +98,11 @@ pub struct EquityOffering {
   pub revenue_range: Option<String>,
   pub federal_exemptions_exclusions: String,
   pub is_amendment: bool,
-  pub date_of_first_sale: FmpDate,
+  #[serde(deserialize_with = "de_opt_fmpdate")]
+  pub date_of_first_sale: Option<FmpDate>,
   pub duration_of_offering_is_more_than_year: bool,
-  pub securities_offered_are_of_equity_type: bool,
+  #[serde(default)]
+  pub securities_offered_are_of_equity_type: Option<bool>,
   pub is_business_combination_transaction: bool,
   pub minimum_investment_accepted: f64,
   pub total_offering_amount: f64,
@@ -163,4 +166,21 @@ pub struct EquitySearchParams {
 #[serde(rename_all = "camelCase")]
 pub struct EquityCikParams {
   pub cik: String,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{CrowdfundingCampaign, EquityOffering};
+
+  #[test]
+  fn crowdfunding_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crowdfunding.json").unwrap();
+    let _: Vec<CrowdfundingCampaign> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn equity_offering_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/equity_offering.json").unwrap();
+    let _: Vec<EquityOffering> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

@@ -1,0 +1,18 @@
+[
+  {
+    "symbol": "MIOTAUSD",
+    "name": "IOTA USD",
+    "exchange": "CCC",
+    "icoDate": "2017-11-09",
+    "circulatingSupply": 4232705124,
+    "totalSupply": 4788606639
+  },
+  {
+    "symbol": "EVMOSUSD",
+    "name": "Evmos USD",
+    "exchange": "CCC",
+    "icoDate": "2022-05-04",
+    "circulatingSupply": 512693177.850936,
+    "totalSupply": 1000000000
+  }
+]

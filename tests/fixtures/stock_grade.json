@@ -1,0 +1,18 @@
+[
+  {
+    "symbol": "AAPL",
+    "date": "2026-03-05",
+    "gradingCompany": "Rosenblatt",
+    "previousGrade": "Neutral",
+    "newGrade": "Neutral",
+    "action": "maintain"
+  },
+  {
+    "symbol": "AAPL",
+    "date": "2026-03-05",
+    "gradingCompany": "Wedbush",
+    "previousGrade": "Outperform",
+    "newGrade": "Outperform",
+    "action": "maintain"
+  }
+]

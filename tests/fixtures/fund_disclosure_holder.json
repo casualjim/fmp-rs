@@ -1,0 +1,20 @@
+[
+  {
+    "cik": "0001650149",
+    "holder": "Series Portfolios Trust",
+    "securityCusip": "78462F103",
+    "shares": 275000,
+    "dateReported": "2026-01-31",
+    "change": 4882,
+    "weightPercent": 1.27192619
+  },
+  {
+    "cik": "0000835663",
+    "holder": "GLENMEDE FUND INC",
+    "securityCusip": "78462F103",
+    "shares": 22100,
+    "dateReported": "2026-01-31",
+    "change": 0,
+    "weightPercent": 0.01100603
+  }
+]
