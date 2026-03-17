@@ -20,6 +20,16 @@ pub enum AnalystArgs {
     Grades(GradesArgs),
     /// Analyst grades consensus summary
     GradesConsensus(GradesConsensusArgs),
+    /// Price target news articles for a symbol
+    PriceTargetNews(PriceTargetNewsArgs),
+    /// Latest price target news across all symbols (paginated)
+    PriceTargetLatestNews(PriceTargetLatestNewsArgs),
+    /// Grade change news articles for a symbol
+    GradesNews(GradesNewsArgs),
+    /// Latest grade change news across all symbols (paginated)
+    GradesLatestNews(GradesLatestNewsArgs),
+    /// Historical analyst grades buy/hold/sell counts for a symbol
+    GradesHistorical(GradesHistoricalArgs),
 }
 
 impl AnalystArgs {
@@ -32,6 +42,11 @@ impl AnalystArgs {
             Self::Estimates(args) => args.handle(ctx).await,
             Self::Grades(args) => args.handle(ctx).await,
             Self::GradesConsensus(args) => args.handle(ctx).await,
+            Self::PriceTargetNews(args) => args.handle(ctx).await,
+            Self::PriceTargetLatestNews(args) => args.handle(ctx).await,
+            Self::GradesNews(args) => args.handle(ctx).await,
+            Self::GradesLatestNews(args) => args.handle(ctx).await,
+            Self::GradesHistorical(args) => args.handle(ctx).await,
         }
     }
 }
@@ -177,6 +192,114 @@ impl GradesConsensusArgs {
             limit: self.limit,
         };
         let data = ctx.client.grades_consensus(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct PriceTargetNewsArgs {
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: String,
+
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl PriceTargetNewsArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::analyst::SymbolPageParams {
+            symbol: self.symbol.clone(),
+            page: self.page,
+            limit: self.limit,
+        };
+        let data = ctx.client.price_target_news(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct PriceTargetLatestNewsArgs {
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl PriceTargetLatestNewsArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::analyst::PageParams {
+            page: self.page,
+            limit: self.limit,
+        };
+        let data = ctx.client.price_target_latest_news(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct GradesNewsArgs {
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: String,
+
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl GradesNewsArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::analyst::SymbolPageParams {
+            symbol: self.symbol.clone(),
+            page: self.page,
+            limit: self.limit,
+        };
+        let data = ctx.client.grades_news(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct GradesLatestNewsArgs {
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl GradesLatestNewsArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::analyst::PageParams {
+            page: self.page,
+            limit: self.limit,
+        };
+        let data = ctx.client.grades_latest_news(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct GradesHistoricalArgs {
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: String,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl GradesHistoricalArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::analyst::SymbolLimitParams {
+            symbol: self.symbol.clone(),
+            limit: self.limit,
+        };
+        let data = ctx.client.grades_historical(params).await?;
         crate::output::output_json(&data)
     }
 }

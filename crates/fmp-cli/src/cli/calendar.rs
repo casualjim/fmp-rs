@@ -16,6 +16,10 @@ pub enum CalendarArgs {
     Splits(SplitsArgs),
     /// Dividend calendar: upcoming and historical dividend payments
     Dividends(DividendsArgs),
+    /// IPO S-1 and S-11 disclosure filings calendar
+    IposDisclosure(IposDisclosureArgs),
+    /// IPO prospectus filings calendar with pricing details
+    IposProspectus(IposProspectusArgs),
 }
 
 impl CalendarArgs {
@@ -26,6 +30,8 @@ impl CalendarArgs {
             Self::Ipos(args) => args.handle(ctx).await,
             Self::Splits(args) => args.handle(ctx).await,
             Self::Dividends(args) => args.handle(ctx).await,
+            Self::IposDisclosure(args) => args.handle(ctx).await,
+            Self::IposProspectus(args) => args.handle(ctx).await,
         }
     }
 }
@@ -124,6 +130,40 @@ impl DividendsArgs {
     pub async fn handle(&self, ctx: &Context) -> Result<()> {
         let params = parse_range_params(self.from.as_deref(), self.to.as_deref())?;
         let data = ctx.client.dividends_calendar(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct IposDisclosureArgs {
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    pub from: Option<String>,
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    pub to: Option<String>,
+}
+
+impl IposDisclosureArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = parse_range_params(self.from.as_deref(), self.to.as_deref())?;
+        let data = ctx.client.ipos_disclosure(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct IposProspectusArgs {
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    pub from: Option<String>,
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    pub to: Option<String>,
+}
+
+impl IposProspectusArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = parse_range_params(self.from.as_deref(), self.to.as_deref())?;
+        let data = ctx.client.ipos_prospectus(params).await?;
         crate::output::output_json(&data)
     }
 }

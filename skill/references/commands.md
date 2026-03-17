@@ -72,6 +72,9 @@ fmp [--api-key KEY] [--base-url URL] <namespace> <subcommand> [args...]
 | `float-all` | — | `--page`, `--limit` | All companies float (paginated) |
 | `ma-latest` | — | `--page` (default: 0) | Latest M&A announcements |
 | `ma-search` | `--name` | — | Search M&A by company name |
+| `notes` | `--symbol` | — | Company notes/disclosures |
+| `delisted` | — | `--page`, `--limit` | Delisted companies (paginated) |
+| `executive-compensation-benchmark` | `--symbol` | — | Executive compensation benchmark by industry |
 
 ---
 
@@ -115,8 +118,13 @@ fmp [--api-key KEY] [--base-url URL] <namespace> <subcommand> [args...]
 | `ratings-historical` | `--symbol` | `--limit` | Historical rating changes |
 | `price-target` | `--symbol` | — | Price target consensus |
 | `price-target-summary` | `--symbol` | `--limit` | Target summary (avg/high/low) |
+| `price-target-news` | `--symbol` | `--page`, `--limit` | Price target news articles for a symbol |
+| `price-target-latest-news` | — | `--page`, `--limit` | Latest price target news across all symbols |
 | `estimates` | `--symbol`, `--period` (annual/quarterly) | `--limit`, `--page` | EPS & revenue estimates |
 | `grades` | `--symbol` | `--limit` | Grade changes (upgrade/downgrade) |
+| `grades-news` | `--symbol` | `--page`, `--limit` | Grade change news articles for a symbol |
+| `grades-latest-news` | — | `--page`, `--limit` | Latest grade change news across all symbols |
+| `grades-historical` | `--symbol` | `--limit` | Historical buy/hold/sell counts |
 | `grades-consensus` | `--symbol` | `--limit` | Grades consensus summary |
 
 ---
@@ -129,9 +137,12 @@ fmp [--api-key KEY] [--base-url URL] <namespace> <subcommand> [args...]
 | `stock` | — | `--from`, `--to`, `--limit`, `--page` | Stock-specific news |
 | `crypto` | — | `--from`, `--to`, `--limit`, `--page` | Crypto news |
 | `forex` | — | `--from`, `--to`, `--limit`, `--page` | Forex news |
-| `search` | `--symbols` (comma-sep) | `--from`, `--to`, `--limit`, `--page` | News for specific symbols |
+| `search` | `--symbols` (comma-sep) | `--from`, `--to`, `--limit`, `--page` | Stock news for specific symbols |
 | `fmp-articles` | — | `--from`, `--to`, `--limit`, `--page` | FMP editorial articles |
 | `press-releases` | — | `--from`, `--to`, `--limit`, `--page` | Company press releases |
+| `search-press-releases` | `--symbols` (comma-sep) | `--from`, `--to`, `--limit`, `--page` | Press releases for specific symbols |
+| `search-crypto` | `--symbols` (comma-sep) | `--from`, `--to`, `--limit`, `--page` | Crypto news for specific symbols |
+| `search-forex` | `--symbols` (comma-sep) | `--from`, `--to`, `--limit`, `--page` | Forex news for specific symbols |
 
 ---
 
@@ -142,6 +153,8 @@ fmp [--api-key KEY] [--base-url URL] <namespace> <subcommand> [args...]
 | `earnings` | — | `--from`, `--to` | Earnings announcements + EPS estimates |
 | `earnings-confirmed` | `--symbol` | `--limit` | Confirmed dates for a company |
 | `ipos` | — | `--from`, `--to` | IPO calendar |
+| `ipos-disclosure` | — | `--from`, `--to` | IPO S-1/S-11 disclosure filings calendar |
+| `ipos-prospectus` | — | `--from`, `--to` | IPO prospectus filings with pricing details |
 | `splits` | — | `--from`, `--to` | Stock split calendar |
 | `dividends` | — | `--from`, `--to` | Dividend payment calendar |
 
@@ -158,6 +171,10 @@ fmp [--api-key KEY] [--base-url URL] <namespace> <subcommand> [args...]
 | `by-cik` | `--cik` | `--from`, `--to`, `--limit`, `--page` | All filings for a CIK |
 | `search-by-name` | `--name` | — | Search filings by company name |
 | `search-by-symbol` | `--symbol` | — | Search filings by ticker |
+| `sec-profile` | — | `--symbol`, `--cik` | SEC registrant profile (SIC, addresses) |
+| `industry-classification-list` | — | `--industry-title`, `--sic-code` | SIC code list filtered by industry or code |
+| `industry-classification-search` | — | `--symbol`, `--cik`, `--sic-code` | Search companies by SIC classification |
+| `industry-classification-all` | — | `--page`, `--limit` | All industry classifications (paginated) |
 
 ---
 
@@ -339,3 +356,96 @@ Custom DCF params: `--revenue-growth-pct`, `--ebitda-pct`, `--depreciation-and-a
 |-----------|---------|---------|-------------|
 | `report` | — | `--symbol`, `--from`, `--to` | CFTC COT long/short positioning |
 | `analysis` | — | `--symbol`, `--from`, `--to` | COT trend analysis |
+
+---
+
+## insider-trades
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `latest` | — | `--date`, `--page`, `--limit` | Latest insider transactions across all companies |
+| `search` | — | `--symbol`, `--reporting-cik`, `--company-cik`, `--transaction-type`, `--page`, `--limit` | Search by symbol, CIK, or transaction type |
+| `by-name` | `--name` | — | Transactions by reporting person name |
+| `transaction-types` | `--symbol` | — | Transaction types filed for a company |
+| `statistics` | `--symbol` | — | Insider trading statistics by quarter |
+| `beneficial-ownership` | `--symbol` | `--limit` | Beneficial owners with 5%+ holdings |
+
+Common `--transaction-type` values: `P-Purchase`, `S-Sale`, `A-Grant`, `D-Return`, `M-ExerciseOrConversion`
+
+---
+
+## government-trading
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `senate-latest` | — | `--page`, `--limit` | Latest Senate financial disclosure trades |
+| `house-latest` | — | `--page`, `--limit` | Latest House financial disclosure trades |
+| `senate-by-symbol` | `--symbol` | — | Senate trades for a ticker symbol |
+| `senate-by-name` | `--name` | — | Senate trades by senator name |
+| `house-by-symbol` | `--symbol` | — | House trades for a ticker symbol |
+| `house-by-name` | `--name` | — | House trades by representative name |
+
+---
+
+## form13-f
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `latest` | — | `--page`, `--limit` | Latest 13F filings across all institutions |
+| `extract` | `--cik`, `--year`, `--quarter` | — | Extract holdings from a specific filing |
+| `dates` | `--cik` | — | Available filing dates for an institution |
+| `holder-analytics` | `--symbol`, `--year`, `--quarter` | `--page`, `--limit` | Institutional holders for a symbol |
+| `holder-performance` | `--cik` | `--page` | Performance summary for an institution |
+| `holder-industry` | `--cik`, `--year`, `--quarter` | — | Industry breakdown for an institution |
+| `symbol-positions` | `--symbol`, `--year`, `--quarter` | — | All 13F positions in a symbol |
+| `industry-summary` | `--year`, `--quarter` | — | Industry performance across all 13F filers |
+
+---
+
+## fund
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `etf-holdings` | `--symbol` | — | ETF holdings list |
+| `etf-info` | `--symbol` | — | ETF info (AUM, NAV, expense ratio, description) |
+| `etf-countries` | `--symbol` | — | ETF country allocation weightings |
+| `etf-assets` | `--symbol` | — | ETF individual asset exposures |
+| `etf-sectors` | `--symbol` | — | ETF sector weightings |
+| `disclosure-holders-latest` | `--symbol` | — | Latest fund disclosure holders |
+| `disclosure-holders-search` | `--name` | — | Search fund disclosure holders by name |
+| `disclosure-dates` | `--symbol` | — | Available disclosure dates for a fund |
+| `disclosure` | `--symbol`, `--year`, `--quarter` | `--cik` | Fund portfolio disclosure for a period |
+
+---
+
+## fundraisers
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `crowdfunding-latest` | — | `--page`, `--limit` | Latest Reg CF crowdfunding filings |
+| `crowdfunding-search` | `--name` | — | Search crowdfunding offerings by company name |
+| `crowdfunding-by-cik` | `--cik` | — | Crowdfunding filings for a specific company |
+| `equity-latest` | — | `--page`, `--limit` | Latest Reg D/Reg A equity fundraising filings |
+| `equity-search` | `--name` | — | Search equity offerings by company name |
+| `equity-by-cik` | `--cik` | — | Equity fundraising filings for a specific company |
+
+---
+
+## technical-indicators
+
+All subcommands share the same argument set:
+
+| Subcommand | Required | Optional | Description |
+|-----------|---------|---------|-------------|
+| `sma` | `--symbol` | `--period` (default: 20), `--timeframe` (default: daily), `--from`, `--to` | Simple Moving Average |
+| `ema` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Exponential Moving Average |
+| `wma` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Weighted Moving Average |
+| `dema` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Double Exponential Moving Average |
+| `tema` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Triple Exponential Moving Average |
+| `rsi` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Relative Strength Index |
+| `std-dev` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Standard Deviation (volatility) |
+| `williams` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Williams %R (overbought/oversold) |
+| `adx` | `--symbol` | `--period`, `--timeframe`, `--from`, `--to` | Average Directional Index (trend strength) |
+
+`--from`/`--to` accept ISO 8601 datetime strings (e.g., `2024-01-01T00:00:00Z`).
+`--timeframe` values: `1min`, `5min`, `15min`, `30min`, `1hour`, `4hour`, `daily`

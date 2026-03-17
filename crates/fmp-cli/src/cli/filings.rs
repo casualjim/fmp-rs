@@ -20,6 +20,14 @@ pub enum FilingsArgs {
     SearchByName(SearchByNameArgs),
     /// Search SEC filings by ticker symbol
     SearchBySymbol(SearchBySymbolArgs),
+    /// SEC company profile (registrant info, SIC code, addresses)
+    SecProfile(SecProfileArgs),
+    /// Standard Industrial Classification (SIC) list filtered by industry or SIC code
+    IndustryClassificationList(IndustryClassificationListArgs),
+    /// Search companies by industry classification (symbol, CIK, or SIC code)
+    IndustryClassificationSearch(IndustryClassificationSearchArgs),
+    /// All industry classifications (paginated)
+    IndustryClassificationAll(IndustryClassificationAllArgs),
 }
 
 impl FilingsArgs {
@@ -32,6 +40,10 @@ impl FilingsArgs {
             Self::ByCik(args) => args.handle(ctx).await,
             Self::SearchByName(args) => args.handle(ctx).await,
             Self::SearchBySymbol(args) => args.handle(ctx).await,
+            Self::SecProfile(args) => args.handle(ctx).await,
+            Self::IndustryClassificationList(args) => args.handle(ctx).await,
+            Self::IndustryClassificationSearch(args) => args.handle(ctx).await,
+            Self::IndustryClassificationAll(args) => args.handle(ctx).await,
         }
     }
 }
@@ -211,6 +223,90 @@ impl SearchBySymbolArgs {
             symbol: self.symbol.clone(),
         };
         let data = ctx.client.company_search_by_symbol(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct SecProfileArgs {
+    #[arg(long, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: Option<String>,
+
+    #[arg(long, help = "SEC CIK number (e.g., 0000320193)")]
+    pub cik: Option<String>,
+}
+
+impl SecProfileArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::sec_filings::CompanyProfileParams {
+            symbol: self.symbol.clone(),
+            cik: self.cik.clone(),
+        };
+        let data = ctx.client.sec_profile(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct IndustryClassificationListArgs {
+    #[arg(long, help = "Filter by industry title (e.g., \"Technology\")")]
+    pub industry_title: Option<String>,
+
+    #[arg(long, help = "Filter by SIC code (e.g., 7372)")]
+    pub sic_code: Option<String>,
+}
+
+impl IndustryClassificationListArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::sec_filings::IndustrySearchParams {
+            industry_title: self.industry_title.clone(),
+            sic_code: self.sic_code.clone(),
+        };
+        let data = ctx.client.industry_classification_list(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct IndustryClassificationSearchArgs {
+    #[arg(long, help = "Ticker symbol to search by")]
+    pub symbol: Option<String>,
+
+    #[arg(long, help = "SEC CIK number to search by")]
+    pub cik: Option<String>,
+
+    #[arg(long, help = "SIC code to search by")]
+    pub sic_code: Option<String>,
+}
+
+impl IndustryClassificationSearchArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::sec_filings::IndustryClassificationSearchParams {
+            symbol: self.symbol.clone(),
+            cik: self.cik.clone(),
+            sic_code: self.sic_code.clone(),
+        };
+        let data = ctx.client.industry_classification_search(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct IndustryClassificationAllArgs {
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl IndustryClassificationAllArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::sec_filings::AllIndustryClassificationParams {
+            page: self.page,
+            limit: self.limit,
+        };
+        let data = ctx.client.all_industry_classification(params).await?;
         crate::output::output_json(&data)
     }
 }

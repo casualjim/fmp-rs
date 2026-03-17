@@ -82,6 +82,24 @@ pub enum Commands {
     /// Earnings call transcripts by company, quarter, and year
     #[command(subcommand)]
     Transcript(crate::cli::TranscriptArgs),
+    /// Insider trading transactions, beneficial ownership, and statistics
+    #[command(subcommand)]
+    InsiderTrades(crate::cli::InsiderTradesArgs),
+    /// Senate and House financial disclosure trades
+    #[command(subcommand)]
+    GovernmentTrading(crate::cli::GovernmentTradingArgs),
+    /// Form 13F institutional ownership filings and analytics
+    #[command(subcommand)]
+    Form13F(crate::cli::Form13FArgs),
+    /// ETF holdings, info, sector/country weightings, and fund disclosures
+    #[command(subcommand)]
+    Fund(crate::cli::FundArgs),
+    /// Crowdfunding offerings and equity fundraising (Reg D/Reg A) filings
+    #[command(subcommand)]
+    Fundraisers(crate::cli::FundraisersArgs),
+    /// Technical indicators: SMA, EMA, WMA, DEMA, TEMA, RSI, StdDev, Williams, ADX
+    #[command(subcommand)]
+    TechnicalIndicators(crate::cli::TechnicalIndicatorsArgs),
     /// Generate shell completion scripts (bash, zsh, fish)
     Completions(CompletionsArgs),
 }

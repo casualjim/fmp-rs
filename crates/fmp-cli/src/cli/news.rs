@@ -20,6 +20,12 @@ pub enum NewsArgs {
     FmpArticles(FmpArticlesArgs),
     /// Company press releases
     PressReleases(PressReleasesArgs),
+    /// Search press releases by ticker symbols
+    SearchPressReleases(SearchPressReleasesArgs),
+    /// Search cryptocurrency news by symbols
+    SearchCrypto(SearchCryptoArgs),
+    /// Search forex news by symbols
+    SearchForex(SearchForexArgs),
 }
 
 impl NewsArgs {
@@ -32,6 +38,9 @@ impl NewsArgs {
             Self::Search(args) => args.handle(ctx).await,
             Self::FmpArticles(args) => args.handle(ctx).await,
             Self::PressReleases(args) => args.handle(ctx).await,
+            Self::SearchPressReleases(args) => args.handle(ctx).await,
+            Self::SearchCrypto(args) => args.handle(ctx).await,
+            Self::SearchForex(args) => args.handle(ctx).await,
         }
     }
 }
@@ -213,6 +222,93 @@ impl PressReleasesArgs {
     pub async fn handle(&self, ctx: &Context) -> Result<()> {
         let params = parse_news_params(self.from.as_deref(), self.to.as_deref(), self.limit, self.page)?;
         let data = ctx.client.press_releases(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct SearchPressReleasesArgs {
+    #[arg(long, required = true, help = "Comma-separated ticker symbols to filter press releases (e.g., AAPL,MSFT)")]
+    pub symbols: String,
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    pub from: Option<String>,
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    pub to: Option<String>,
+
+    #[arg(long, help = "Maximum number of articles to return")]
+    pub limit: Option<u32>,
+
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+}
+
+impl SearchPressReleasesArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::news::NewsSearchParams {
+            symbols: self.symbols.clone(),
+            params: parse_news_params(self.from.as_deref(), self.to.as_deref(), self.limit, self.page)?,
+        };
+        let data = ctx.client.search_press_releases(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct SearchCryptoArgs {
+    #[arg(long, required = true, help = "Comma-separated crypto symbols to filter news (e.g., BTCUSD,ETHUSD)")]
+    pub symbols: String,
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    pub from: Option<String>,
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    pub to: Option<String>,
+
+    #[arg(long, help = "Maximum number of articles to return")]
+    pub limit: Option<u32>,
+
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+}
+
+impl SearchCryptoArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::news::NewsSearchParams {
+            symbols: self.symbols.clone(),
+            params: parse_news_params(self.from.as_deref(), self.to.as_deref(), self.limit, self.page)?,
+        };
+        let data = ctx.client.search_crypto_news(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct SearchForexArgs {
+    #[arg(long, required = true, help = "Comma-separated forex pair symbols to filter news (e.g., EURUSD,GBPUSD)")]
+    pub symbols: String,
+
+    #[arg(long, help = "Start date in YYYY-MM-DD format")]
+    pub from: Option<String>,
+
+    #[arg(long, help = "End date in YYYY-MM-DD format")]
+    pub to: Option<String>,
+
+    #[arg(long, help = "Maximum number of articles to return")]
+    pub limit: Option<u32>,
+
+    #[arg(long, help = "Page number for pagination")]
+    pub page: Option<u32>,
+}
+
+impl SearchForexArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::news::NewsSearchParams {
+            symbols: self.symbols.clone(),
+            params: parse_news_params(self.from.as_deref(), self.to.as_deref(), self.limit, self.page)?,
+        };
+        let data = ctx.client.search_forex_news(params).await?;
         crate::output::output_json(&data)
     }
 }
