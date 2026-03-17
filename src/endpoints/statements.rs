@@ -3,7 +3,7 @@ use crate::types::statements::{
   AsReportedBalanceSheet, AsReportedCashFlowStatement, AsReportedFinancialStatement, AsReportedIncomeStatement,
   BalanceSheetStatement, BalanceSheetStatementGrowth, CashFlowStatement, CashFlowStatementGrowth, FinancialReport10K,
   FinancialReportDate, FinancialReportParams, FinancialScores, FinancialScoresParams, FinancialStatementGrowth,
-  IncomeStatement, IncomeStatementGrowth, KeyMetrics, LatestFinancialStatement, OwnerEarnings, Ratios,
+  IncomeStatement, IncomeStatementGrowth, KeyMetrics, KeyMetricsTtm, LatestFinancialStatement, OwnerEarnings, Ratios,
   RevenueGeographicSegmentation, RevenueProductSegmentation, SegmentationParams, StatementCommonParams,
   StatementLimitParams, StatementPaginationParams, SymbolParam,
 };
@@ -32,7 +32,7 @@ define_api_trait!(
   financial_statement_full_as_reported -> "/financial-statement-full-as-reported" -> StatementCommonParams  -> Vec<AsReportedFinancialStatement>,
   key_metrics -> "/key-metrics" -> StatementCommonParams  -> Vec<KeyMetrics>,
   ratios -> "/ratios" -> StatementCommonParams  -> Vec<Ratios>,
-  key_metrics_ttm -> "/key-metrics-ttm" -> SymbolParam  -> Vec<KeyMetrics>,
+  key_metrics_ttm -> "/key-metrics-ttm" -> SymbolParam  -> Vec<KeyMetricsTtm>,
   ratios_ttm -> "/ratios-ttm" -> SymbolParam  -> Vec<Ratios>,
   financial_scores -> "/financial-scores" -> FinancialScoresParams  -> Vec<FinancialScores>,
   owner_earnings -> "/owner-earnings" -> SymbolParam  -> Vec<OwnerEarnings>,

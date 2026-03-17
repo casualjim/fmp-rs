@@ -184,3 +184,32 @@ pub struct AllIndustryClassificationParams {
   pub page: Option<u32>,
   pub limit: Option<u32>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{CompanySearchResult, IndustryClassification, SecCompanyProfile, SecFiling};
+
+  #[test]
+  fn sec_filing_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sec_filing.json").unwrap();
+    let _: Vec<SecFiling> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn sec_company_search_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sec_company_search.json").unwrap();
+    let _: Vec<CompanySearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn sec_company_profile_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sec_company_profile.json").unwrap();
+    let _: Vec<SecCompanyProfile> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn industry_classification_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/industry_classification.json").unwrap();
+    let _: Vec<IndustryClassification> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

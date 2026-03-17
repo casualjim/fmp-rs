@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "ZQUSD",
+    "name": "30 Day Fed Fund Futures",
+    "exchange": null,
+    "tradeMonth": "Nov",
+    "currency": "USD"
+  },
+  {
+    "symbol": "ALIUSD",
+    "name": "Aluminum Futures",
+    "exchange": null,
+    "tradeMonth": "Nov",
+    "currency": "USD"
+  }
+]

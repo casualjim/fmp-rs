@@ -1,0 +1,24 @@
+[
+  {
+    "symbol": "SPY",
+    "asset": "NVDA",
+    "name": "NVIDIA CORP",
+    "isin": "",
+    "securityCusip": "67066G104",
+    "sharesNumber": 284362308,
+    "weightPercentage": 7.712,
+    "marketValue": 51567804147,
+    "updatedAt": "2026-03-17 04:03:11"
+  },
+  {
+    "symbol": "SPY",
+    "asset": "AAPL",
+    "name": "APPLE INC",
+    "isin": "",
+    "securityCusip": "037833100",
+    "sharesNumber": 172914390,
+    "weightPercentage": 6.507,
+    "marketValue": 43512186964,
+    "updatedAt": "2026-03-17 04:03:11"
+  }
+]

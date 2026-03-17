@@ -4,7 +4,7 @@ use crate::types::esg::{EsgBenchmark, EsgBenchmarkParams, EsgDisclosure, EsgRati
 define_api_trait!(
   /// API endpoints for esg.
   EsgApi,
-  esg_disclosure -> "/esg-disclosure" -> EsgSymbolParams  -> Vec<EsgDisclosure>,
+  esg_disclosure -> "/esg-disclosures" -> EsgSymbolParams  -> Vec<EsgDisclosure>,
   esg_ratings -> "/esg-ratings" -> EsgSymbolParams  -> Vec<EsgRating>,
   esg_benchmark -> "/esg-benchmark" -> EsgBenchmarkParams  -> Vec<EsgBenchmark>,
 );

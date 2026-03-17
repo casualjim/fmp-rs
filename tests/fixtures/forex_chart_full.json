@@ -1,0 +1,26 @@
+[
+  {
+    "symbol": "EURUSD",
+    "date": "2024-01-05",
+    "open": 1.09444,
+    "high": 1.09984,
+    "low": 1.08767,
+    "close": 1.09409,
+    "volume": 265276,
+    "change": -0.00035,
+    "changePercent": -0.03197983,
+    "vwap": 1.09401
+  },
+  {
+    "symbol": "EURUSD",
+    "date": "2024-01-04",
+    "open": 1.09214,
+    "high": 1.09722,
+    "low": 1.09141,
+    "close": 1.09444,
+    "volume": 194655,
+    "change": 0.0023,
+    "changePercent": 0.2106,
+    "vwap": 1.0938
+  }
+]

@@ -107,3 +107,47 @@ pub struct CryptoHistoryParams {
   #[builder(default, setter(strip_option))]
   pub to: Option<FmpDate>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    Cryptocurrency, CryptocurrencyHistoricalChart, CryptocurrencyIntradayPrice, CryptocurrencyLightChart,
+    CryptocurrencyQuote, CryptocurrencyShortQuote,
+  };
+
+  #[test]
+  fn cryptocurrency_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/cryptocurrency.json").unwrap();
+    let _: Vec<Cryptocurrency> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn crypto_quote_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crypto_quote.json").unwrap();
+    let _: Vec<CryptocurrencyQuote> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn crypto_quote_short_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crypto_quote_short.json").unwrap();
+    let _: Vec<CryptocurrencyShortQuote> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn crypto_chart_light_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crypto_chart_light.json").unwrap();
+    let _: Vec<CryptocurrencyLightChart> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn crypto_chart_full_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crypto_chart_full.json").unwrap();
+    let _: Vec<CryptocurrencyHistoricalChart> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn crypto_chart_intraday_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/crypto_chart_intraday.json").unwrap();
+    let _: Vec<CryptocurrencyIntradayPrice> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

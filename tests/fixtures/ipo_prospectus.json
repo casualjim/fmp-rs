@@ -1,0 +1,32 @@
+[
+  {
+    "symbol": "GRPH",
+    "acceptedDate": "2024-03-29",
+    "filingDate": "2024-03-29",
+    "ipoDate": "2021-06-22",
+    "cik": "0001815776",
+    "pricePublicPerShare": 814495,
+    "pricePublicTotal": 92712,
+    "discountsAndCommissionsPerShare": 0,
+    "discountsAndCommissionsTotal": 0,
+    "proceedsBeforeExpensesPerShare": 814495,
+    "proceedsBeforeExpensesTotal": 0,
+    "form": "S-1",
+    "url": "https://www.sec.gov/Archives/edgar/data/1815776/000162828024013816/lenz-20240329.htm"
+  },
+  {
+    "symbol": "AKAN",
+    "acceptedDate": "2024-03-26",
+    "filingDate": "2024-03-26",
+    "ipoDate": "2022-03-15",
+    "cik": "0001888014",
+    "pricePublicPerShare": 0.12,
+    "pricePublicTotal": 5000000,
+    "discountsAndCommissionsPerShare": 0,
+    "discountsAndCommissionsTotal": 200000,
+    "proceedsBeforeExpensesPerShare": 0.12,
+    "proceedsBeforeExpensesTotal": 4800000,
+    "form": "424B4",
+    "url": "https://www.sec.gov/Archives/edgar/data/1888014/000121390024025987/ea0200030-04.htm"
+  }
+]

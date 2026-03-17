@@ -317,3 +317,41 @@ pub struct IndustryPerformanceParams {
   pub year: i32,
   pub quarter: i32,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    Form13fFilingDate, HolderPerformanceSummary, IndustryPerformanceSummary, InstitutionalOwnershipFiling,
+    SecFilingExtract,
+  };
+
+  #[test]
+  fn inst_ownership_latest_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/inst_ownership_latest.json").unwrap();
+    let _: Vec<InstitutionalOwnershipFiling> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn inst_ownership_extract_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/inst_ownership_extract.json").unwrap();
+    let _: Vec<SecFilingExtract> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn inst_ownership_dates_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/inst_ownership_dates.json").unwrap();
+    let _: Vec<Form13fFilingDate> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn inst_ownership_holder_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/inst_ownership_holder.json").unwrap();
+    let _: Vec<HolderPerformanceSummary> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn inst_ownership_industry_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/inst_ownership_industry.json").unwrap();
+    let _: Vec<IndustryPerformanceSummary> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

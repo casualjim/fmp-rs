@@ -1,0 +1,14 @@
+[
+  {
+    "symbol": "AAPL.NE",
+    "companyName": "Apple Inc.",
+    "cusip": "037833100",
+    "marketCap": 5043203997696
+  },
+  {
+    "symbol": "AAPL",
+    "companyName": "Apple Inc.",
+    "cusip": "037833100",
+    "marketCap": 3715929735003.42
+  }
+]

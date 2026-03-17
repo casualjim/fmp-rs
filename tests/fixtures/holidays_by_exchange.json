@@ -1,0 +1,19 @@
+[
+  {
+    "exchange": "NYSE",
+    "date": "2024-12-25",
+    "name": "Christmas",
+    "isClosed": true,
+    "adjOpenTime": null,
+    "adjCloseTime": null
+  },
+  {
+    "exchange": "NYSE",
+    "date": "2024-12-24",
+    "name": "Christmas",
+    "isClosed": null,
+    "adjOpenTime": null,
+    "adjCloseTime": "13:00",
+    "isFullyClosed": false
+  }
+]

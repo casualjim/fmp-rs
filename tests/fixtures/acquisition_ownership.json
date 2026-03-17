@@ -1,0 +1,36 @@
+[
+  {
+    "cik": "0000320193",
+    "symbol": "AAPL",
+    "filingDate": "2024-02-14",
+    "acceptedDate": "2024-02-14",
+    "cusip": "037833100",
+    "nameOfReportingPerson": "Berkshire Hathaway Assurance Corporation",
+    "citizenshipOrPlaceOfOrganization": "State of New York",
+    "soleVotingPower": "0",
+    "sharedVotingPower": "3764000",
+    "soleDispositivePower": "0",
+    "sharedDispositivePower": "3764000",
+    "amountBeneficiallyOwned": "3764000",
+    "percentOfClass": "0.1",
+    "typeOfReportingPerson": "IC, CO",
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000119312524036431/d751537dsc13ga.htm"
+  },
+  {
+    "cik": "0000320193",
+    "symbol": "AAPL",
+    "filingDate": "2024-02-14",
+    "acceptedDate": "2024-02-14",
+    "cusip": "037833100",
+    "nameOfReportingPerson": "Oak River Insurance Company",
+    "citizenshipOrPlaceOfOrganization": "State of Nebraska",
+    "soleVotingPower": "0",
+    "sharedVotingPower": "1084000",
+    "soleDispositivePower": "0",
+    "sharedDispositivePower": "1084000",
+    "amountBeneficiallyOwned": "1084000",
+    "percentOfClass": "0.1",
+    "typeOfReportingPerson": "IC, CO",
+    "url": "https://www.sec.gov/Archives/edgar/data/320193/000119312524036431/d751537dsc13ga.htm"
+  }
+]

@@ -63,3 +63,26 @@ pub struct TranscriptParams {
 pub struct TranscriptDatesParams {
   pub symbol: String,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{EarningTranscript, LatestEarningTranscript, TranscriptDate};
+
+  #[test]
+  fn transcript_latest_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/transcript_latest.json").unwrap();
+    let _: Vec<LatestEarningTranscript> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn transcript_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/transcript.json").unwrap();
+    let _: Vec<EarningTranscript> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn transcript_dates_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/transcript_dates.json").unwrap();
+    let _: Vec<TranscriptDate> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

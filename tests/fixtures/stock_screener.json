@@ -1,0 +1,36 @@
+[
+  {
+    "symbol": "WIMA",
+    "companyName": "WisdomTree International Adaptive Moving Average Fund",
+    "marketCap": null,
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "beta": null,
+    "price": 39.3317,
+    "lastAnnualDividend": null,
+    "volume": 1069,
+    "exchange": "NASDAQ Global Market",
+    "exchangeShortName": "NASDAQ",
+    "country": "US",
+    "isEtf": false,
+    "isFund": true,
+    "isActivelyTrading": true
+  },
+  {
+    "symbol": "WAMA",
+    "companyName": "WisdomTree US Adaptive Moving Average Fund",
+    "marketCap": null,
+    "sector": "Financial Services",
+    "industry": "Asset Management",
+    "beta": null,
+    "price": 24.7108,
+    "lastAnnualDividend": null,
+    "volume": 2932,
+    "exchange": "NASDAQ Global Select",
+    "exchangeShortName": "NASDAQ",
+    "country": "US",
+    "isEtf": false,
+    "isFund": true,
+    "isActivelyTrading": true
+  }
+]

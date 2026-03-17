@@ -1,0 +1,24 @@
+[
+  {
+    "symbol": "MCFT",
+    "companyName": "MasterCraft Boat Holdings, Inc.",
+    "cik": "0001638290",
+    "targetedCompanyName": "Marine Products Corporation",
+    "targetedCik": "0001129155",
+    "targetedSymbol": "MPX",
+    "transactionDate": "2026-03-16",
+    "acceptedDate": "2026-03-16 08:04:49",
+    "link": "https://www.sec.gov/Archives/edgar/data/1638290/000119312526107270/d46819ds4.htm"
+  },
+  {
+    "symbol": "AVO",
+    "companyName": "Mission Produce, Inc.",
+    "cik": "0001802974",
+    "targetedCompanyName": "Calavo Growers, Inc.",
+    "targetedCik": "0001133470",
+    "targetedSymbol": "CVGW",
+    "transactionDate": "2026-03-09",
+    "acceptedDate": "2026-03-09 06:16:22",
+    "link": "https://www.sec.gov/Archives/edgar/data/1802974/000119312526097490/d26307ds4.htm"
+  }
+]

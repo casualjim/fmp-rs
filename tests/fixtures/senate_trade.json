@@ -1,0 +1,36 @@
+[
+  {
+    "symbol": "AAPL",
+    "disclosureDate": "2026-02-15",
+    "transactionDate": "2026-01-15",
+    "firstName": "John",
+    "lastName": "Boozman",
+    "office": "John Boozman",
+    "district": "AR",
+    "owner": "Joint",
+    "assetDescription": "Apple Inc",
+    "assetType": "Stock",
+    "type": "Purchase",
+    "amount": "$1,001 - $15,000",
+    "capitalGainsOver200USD": "False",
+    "comment": "",
+    "link": "https://efdsearch.senate.gov/search/view/ptr/135ebfe9-099e-4d58-ba46-f739b90d61da/"
+  },
+  {
+    "symbol": "AAPL",
+    "disclosureDate": "2026-02-15",
+    "transactionDate": "2026-01-15",
+    "firstName": "John",
+    "lastName": "Boozman",
+    "office": "John Boozman",
+    "district": "AR",
+    "owner": "Joint",
+    "assetDescription": "Apple Inc",
+    "assetType": "Stock",
+    "type": "Purchase",
+    "amount": "$1,001 - $15,000",
+    "capitalGainsOver200USD": "False",
+    "comment": "--",
+    "link": "https://efdsearch.senate.gov/search/view/ptr/135ebfe9-099e-4d58-ba46-f739b90d61da/"
+  }
+]

@@ -1,0 +1,36 @@
+[
+  {
+    "symbol": "AAPL",
+    "disclosureDate": "2026-03-16",
+    "transactionDate": "2026-02-12",
+    "firstName": "Ed",
+    "lastName": "Case",
+    "office": "Ed Case",
+    "district": "HI01",
+    "owner": "Spouse",
+    "assetDescription": "Apple Inc",
+    "assetType": "Stock",
+    "type": "Purchase",
+    "amount": "$1,001 - $15,000",
+    "capitalGainsOver200USD": "False",
+    "comment": "",
+    "link": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034176.pdf"
+  },
+  {
+    "symbol": "AAPL",
+    "disclosureDate": "2026-03-13",
+    "transactionDate": "2026-02-02",
+    "firstName": "Julia",
+    "lastName": "Letlow",
+    "office": "Julia Letlow",
+    "district": "",
+    "owner": "",
+    "assetDescription": "Apple Inc",
+    "assetType": "Stock",
+    "type": "Purchase",
+    "amount": "$1,001 - $15,000",
+    "capitalGainsOver200USD": "False",
+    "comment": "",
+    "link": "https://disclosures-clerk.house.gov/public_disc/ptr-pdfs/2026/20034106.pdf"
+  }
+]

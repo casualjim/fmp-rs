@@ -99,3 +99,65 @@ pub struct TechnicalIndicatorParams {
   #[builder(setter(strip_option))]
   pub to: Option<FmpDateTime>,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    AdxIndicator, DemaIndicator, EmaIndicator, RsiIndicator, SmaIndicator, StandardDeviationIndicator, TemaIndicator,
+    WilliamsIndicator, WmaIndicator,
+  };
+
+  #[test]
+  fn sma_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/sma_indicator.json").unwrap();
+    let _: Vec<SmaIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn ema_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/ema_indicator.json").unwrap();
+    let _: Vec<EmaIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn wma_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/wma_indicator.json").unwrap();
+    let _: Vec<WmaIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn dema_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/dema_indicator.json").unwrap();
+    let _: Vec<DemaIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn tema_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/tema_indicator.json").unwrap();
+    let _: Vec<TemaIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn rsi_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/rsi_indicator.json").unwrap();
+    let _: Vec<RsiIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stddev_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stddev_indicator.json").unwrap();
+    let _: Vec<StandardDeviationIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn williams_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/williams_indicator.json").unwrap();
+    let _: Vec<WilliamsIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn adx_indicator_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/adx_indicator.json").unwrap();
+    let _: Vec<AdxIndicator> = serde_json::from_slice(&bytes).unwrap();
+  }
+}

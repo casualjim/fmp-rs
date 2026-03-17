@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "FLNT",
+    "filingDate": "2026-03-16",
+    "transactionDate": "2026-03-12",
+    "reportingCik": "0001569866",
+    "companyCik": "0001460329",
+    "transactionType": "P-Purchase",
+    "securitiesOwned": 3024528,
+    "reportingName": "GLOBAL VALUE INVESTMENT CORP.",
+    "typeOfOwner": "10 percent owner",
+    "acquisitionOrDisposition": "A",
+    "directOrIndirect": "I",
+    "formType": "4",
+    "securitiesTransacted": 17207,
+    "price": 3.4858,
+    "securityName": "Common Stock",
+    "url": "https://www.sec.gov/Archives/edgar/data/1460329/000119312526108980/0001193125-26-108980-index.htm"
+  },
+  {
+    "symbol": "FLNT",
+    "filingDate": "2026-03-16",
+    "transactionDate": "2026-03-13",
+    "reportingCik": "0001569866",
+    "companyCik": "0001460329",
+    "transactionType": "P-Purchase",
+    "securitiesOwned": 3089676,
+    "reportingName": "GLOBAL VALUE INVESTMENT CORP.",
+    "typeOfOwner": "10 percent owner",
+    "acquisitionOrDisposition": "A",
+    "directOrIndirect": "I",
+    "formType": "4",
+    "securitiesTransacted": 65148,
+    "price": 3.4712,
+    "securityName": "Common Stock",
+    "url": "https://www.sec.gov/Archives/edgar/data/1460329/000119312526108980/0001193125-26-108980-index.htm"
+  }
+]

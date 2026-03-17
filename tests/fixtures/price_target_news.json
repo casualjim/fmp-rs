@@ -1,0 +1,28 @@
+[
+  {
+    "symbol": "VNET",
+    "publishedDate": "2026-03-16T16:32:00.000Z",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/VNET+Group+Inc+%28VNET%29+PT+Raised+to+%2423.55+at+Jefferies%2C+%27Growth+to+Accelerate%27%2C+%27Still+our+top+pick%27/26165161.html",
+    "newsTitle": "VNET Group Inc (VNET) PT Raised to $23.55 at Jefferies, 'Growth to Accelerate', 'Still our top pick'",
+    "analystName": "Edison Lee",
+    "priceTarget": 23.55,
+    "adjPriceTarget": 23.55,
+    "priceWhenPosted": 9.45,
+    "newsPublisher": "StreetInsider",
+    "newsBaseURL": "streetinsider.com",
+    "analystCompany": "Jefferies"
+  },
+  {
+    "symbol": "INTU",
+    "publishedDate": "2026-03-16T16:28:00.000Z",
+    "newsURL": "https://www.streetinsider.com/Analyst+Comments/Barclays+on+Intuit+%28INTU%29%3A+buybacks+and+paused+mgmt+stock+sales+%27positive+move%27/26165143.html",
+    "newsTitle": "Barclays on Intuit (INTU): buybacks and paused mgmt stock sales 'positive move'",
+    "analystName": "Raimo Lenschow",
+    "priceTarget": 540,
+    "adjPriceTarget": 540,
+    "priceWhenPosted": 451.5696,
+    "newsPublisher": "StreetInsider",
+    "newsBaseURL": "streetinsider.com",
+    "analystCompany": "Barclays"
+  }
+]

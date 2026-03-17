@@ -57,12 +57,17 @@ pub struct IsinSearchResult {
 pub struct StockScreenerResult {
   pub symbol: String,
   pub company_name: String,
-  pub market_cap: f64,
-  pub sector: String,
-  pub industry: String,
-  pub beta: f64,
+  #[serde(default)]
+  pub market_cap: Option<f64>,
+  #[serde(default)]
+  pub sector: Option<String>,
+  #[serde(default)]
+  pub industry: Option<String>,
+  #[serde(default)]
+  pub beta: Option<f64>,
   pub price: f64,
-  pub last_annual_dividend: f64,
+  #[serde(default)]
+  pub last_annual_dividend: Option<f64>,
   pub volume: f64,
   pub exchange: String,
   pub exchange_short_name: String,
@@ -163,9 +168,12 @@ pub struct ExchangeVariantResult {
   pub changes: f64,
   pub company_name: String,
   pub currency: String,
-  pub cik: String,
-  pub isin: String,
-  pub cusip: String,
+  #[serde(default)]
+  pub cik: Option<String>,
+  #[serde(default)]
+  pub isin: Option<String>,
+  #[serde(default)]
+  pub cusip: Option<String>,
   pub exchange: String,
   pub exchange_short_name: String,
   pub industry: String,
@@ -189,4 +197,54 @@ pub struct ExchangeVariantResult {
   pub is_actively_trading: bool,
   pub is_adr: bool,
   pub is_fund: bool,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    CikSearchResult, CusipSearchResult, ExchangeVariantResult, IsinSearchResult, NameSearchResult,
+    StockScreenerResult, SymbolSearchResult,
+  };
+
+  #[test]
+  fn search_symbol_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/search_symbol.json").unwrap();
+    let _: Vec<SymbolSearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn search_name_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/search_name.json").unwrap();
+    let _: Vec<NameSearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn search_cik_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/search_cik.json").unwrap();
+    let _: Vec<CikSearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn search_cusip_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/search_cusip.json").unwrap();
+    let _: Vec<CusipSearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn search_isin_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/search_isin.json").unwrap();
+    let _: Vec<IsinSearchResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_screener_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_screener.json").unwrap();
+    let _: Vec<StockScreenerResult> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn exchange_variants_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/exchange_variants.json").unwrap();
+    let _: Vec<ExchangeVariantResult> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

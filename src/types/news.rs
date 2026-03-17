@@ -1,21 +1,7 @@
 use serde::{Deserialize, Serialize};
-use std::str::FromStr;
 use typed_builder::TypedBuilder;
 
 use crate::primitives::{FmpDate, FmpDateTime};
-
-fn deserialize_news_datetime<'de, D>(deserializer: D) -> Result<FmpDateTime, D::Error>
-where
-  D: serde::Deserializer<'de>,
-{
-  let raw = String::deserialize(deserializer)?;
-  jiff::Timestamp::from_str(&raw)
-    .or_else(|_| {
-      let normalized = format!("{}Z", raw.replace(' ', "T"));
-      jiff::Timestamp::from_str(&normalized)
-    })
-    .map_err(serde::de::Error::custom)
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -35,7 +21,6 @@ pub struct FmpArticle {
 pub struct NewsArticle {
   #[serde(default)]
   pub symbol: Option<String>,
-  #[serde(deserialize_with = "deserialize_news_datetime")]
   pub published_date: FmpDateTime,
   pub publisher: String,
   pub title: String,
@@ -63,4 +48,21 @@ pub struct NewsSearchParams {
   #[serde(flatten)]
   #[builder(default)]
   pub params: NewsParams,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{FmpArticle, NewsArticle};
+
+  #[test]
+  fn fmp_article_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/fmp_article.json").unwrap();
+    let _: Vec<FmpArticle> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_news_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_news.json").unwrap();
+    let _: Vec<NewsArticle> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

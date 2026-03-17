@@ -1,0 +1,21 @@
+[
+  {
+    "symbol": "^GSPC",
+    "name": "S&P 500",
+    "price": 6699.38,
+    "changePercentage": 1.01309,
+    "change": 67.19,
+    "volume": 3025489000,
+    "dayLow": 6674.37,
+    "dayHigh": 6729.79,
+    "yearHigh": 7002.28,
+    "yearLow": 4835.04,
+    "marketCap": 0,
+    "priceAvg50": 6884.136,
+    "priceAvg200": 6604.0615,
+    "exchange": "INDEX",
+    "open": 6674.37,
+    "previousClose": 6632.19,
+    "timestamp": 1773693700
+  }
+]

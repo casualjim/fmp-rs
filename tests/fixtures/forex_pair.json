@@ -1,0 +1,16 @@
+[
+  {
+    "symbol": "ARSMXN",
+    "fromCurrency": "ARS",
+    "toCurrency": "MXN",
+    "fromName": "Argentine Peso",
+    "toName": "Mexican Peso"
+  },
+  {
+    "symbol": "TNDZAR",
+    "fromCurrency": "TND",
+    "toCurrency": "ZAR",
+    "fromName": "Tunisian Dinar",
+    "toName": "South African Rand"
+  }
+]

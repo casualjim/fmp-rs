@@ -1,0 +1,38 @@
+[
+  {
+    "symbol": "GC",
+    "date": "2024-03-26 00:00:00",
+    "name": "Gold (GC)",
+    "sector": "METALS",
+    "exchange": "GOLD - COMMODITY EXCHANGE INC.",
+    "currentLongMarketSituation": 80.01,
+    "currentShortMarketSituation": 19.99,
+    "marketSituation": "Bullish",
+    "previousLongMarketSituation": 78.33,
+    "previousShortMarketSituation": 21.67,
+    "previousMarketSituation": "Bullish",
+    "netPostion": 199294,
+    "previousNetPosition": 201602,
+    "changeInNetPosition": -1.14,
+    "marketSentiment": "Increasing Bearish",
+    "reversalTrend": false
+  },
+  {
+    "symbol": "GC",
+    "date": "2024-03-19 00:00:00",
+    "name": "Gold (GC)",
+    "sector": "METALS",
+    "exchange": "GOLD - COMMODITY EXCHANGE INC.",
+    "currentLongMarketSituation": 78.33,
+    "currentShortMarketSituation": 21.67,
+    "marketSituation": "Bullish",
+    "previousLongMarketSituation": 77.65,
+    "previousShortMarketSituation": 22.35,
+    "previousMarketSituation": "Bullish",
+    "netPostion": 201602,
+    "previousNetPosition": 201602,
+    "changeInNetPosition": 0,
+    "marketSentiment": "Bearish",
+    "reversalTrend": false
+  }
+]

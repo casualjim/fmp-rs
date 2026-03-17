@@ -1,0 +1,14 @@
+[
+  {
+    "symbol": "^TTIN",
+    "name": "S&P/TSX Capped Industrials Index",
+    "exchange": "TSX",
+    "currency": "CAD"
+  },
+  {
+    "symbol": "^TSE50",
+    "name": "FTSE TWSE Taiwan 50 Index",
+    "exchange": "TAI",
+    "currency": "TWD"
+  }
+]

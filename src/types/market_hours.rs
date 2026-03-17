@@ -20,7 +20,8 @@ pub struct HolidayByExchange {
   pub exchange: String,
   pub date: FmpDate,
   pub name: String,
-  pub is_closed: bool,
+  #[serde(default)]
+  pub is_closed: Option<bool>,
   #[serde(default, alias = "adjOpenTime")]
   pub adj_open_time: Option<String>,
   #[serde(default, alias = "adjCloseTime")]
@@ -43,4 +44,21 @@ pub struct HolidaysByExchangeParams {
   pub from: Option<FmpDate>,
   #[builder(default, setter(strip_option))]
   pub to: Option<FmpDate>,
+}
+
+#[cfg(test)]
+mod tests {
+  use super::{ExchangeMarketHours, HolidayByExchange};
+
+  #[test]
+  fn exchange_market_hours_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/exchange_market_hours.json").unwrap();
+    let _: Vec<ExchangeMarketHours> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn holidays_by_exchange_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/holidays_by_exchange.json").unwrap();
+    let _: Vec<HolidayByExchange> = serde_json::from_slice(&bytes).unwrap();
+  }
 }

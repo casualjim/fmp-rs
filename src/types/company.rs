@@ -426,3 +426,77 @@ pub struct MnaSearchParams {
   /// Partial or full company name to search for (acquiring or target company).
   pub name: String,
 }
+
+#[cfg(test)]
+mod tests {
+  use super::{
+    CompanyExecutive, CompanyNote, CompanyProfile, DelistedCompany, EmployeeCount, ExecutiveCompensation,
+    ExecutiveCompensationBenchmark, MarketCap, MergerAcquisition, ShareFloat, StockPeer,
+  };
+
+  #[test]
+  fn company_profile_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/company_profile.json").unwrap();
+    let _: Vec<CompanyProfile> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn company_notes_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/company_notes.json").unwrap();
+    let _: Vec<CompanyNote> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_peers_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/stock_peers.json").unwrap();
+    let _: Vec<StockPeer> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn delisted_companies_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/delisted_companies.json").unwrap();
+    let _: Vec<DelistedCompany> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn employee_count_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/employee_count.json").unwrap();
+    let _: Vec<EmployeeCount> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn market_cap_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/market_cap.json").unwrap();
+    let _: Vec<MarketCap> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn share_float_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/share_float.json").unwrap();
+    let _: Vec<ShareFloat> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn merger_acquisition_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/merger_acquisition.json").unwrap();
+    let _: Vec<MergerAcquisition> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn company_executive_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/company_executive.json").unwrap();
+    let _: Vec<CompanyExecutive> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn executive_compensation_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/executive_compensation.json").unwrap();
+    let _: Vec<ExecutiveCompensation> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn executive_compensation_benchmark_fixture_deserializes() {
+    let bytes = std::fs::read("tests/fixtures/executive_compensation_benchmark.json").unwrap();
+    let _: Vec<ExecutiveCompensationBenchmark> = serde_json::from_slice(&bytes).unwrap();
+  }
+}
