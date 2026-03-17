@@ -108,16 +108,16 @@ let client = FmpHttpClient::new(config)?.into_arc();
 
 ## Tests
 
-Fixture-based serde tests live in `tests/serde_tests.rs` and require no API key:
+Fixture-based serde unit tests are co-located in each type module and require no API key:
 
 ```bash
-cargo nextest run
+cargo test
 ```
 
 Live integration tests hit the real API and require `FMP_API_KEY`:
 
 ```bash
-FMP_API_KEY=your-key cargo nextest run --all-features
+FMP_API_KEY=your-key cargo test --all-features
 ```
 
 Regenerate fixtures (requires API key):
