@@ -19,6 +19,12 @@ pub mod economics;
 pub mod analyst;
 pub mod filings;
 pub mod transcript;
+pub mod insider_trades;
+pub mod government_trading;
+pub mod form_13f;
+pub mod fund;
+pub mod fundraisers;
+pub mod technical_indicators;
 
 pub use quotes::QuotesArgs;
 pub use chart::ChartArgs;
@@ -41,6 +47,12 @@ pub use economics::EconomicsArgs;
 pub use analyst::AnalystArgs;
 pub use filings::FilingsArgs;
 pub use transcript::TranscriptArgs;
+pub use insider_trades::InsiderTradesArgs;
+pub use government_trading::GovernmentTradingArgs;
+pub use form_13f::Form13FArgs;
+pub use fund::FundArgs;
+pub use fundraisers::FundraisersArgs;
+pub use technical_indicators::TechnicalIndicatorsArgs;
 
 use crate::config::Cli;
 use eyre::Result;
@@ -110,6 +122,12 @@ pub async fn dispatch(cli: Cli) -> Result<()> {
         crate::config::Commands::Analyst(args) => args.handle(&ctx).await,
         crate::config::Commands::Filings(args) => args.handle(&ctx).await,
         crate::config::Commands::Transcript(args) => args.handle(&ctx).await,
+        crate::config::Commands::InsiderTrades(args) => args.handle(&ctx).await,
+        crate::config::Commands::GovernmentTrading(args) => args.handle(&ctx).await,
+        crate::config::Commands::Form13F(args) => args.handle(&ctx).await,
+        crate::config::Commands::Fund(args) => args.handle(&ctx).await,
+        crate::config::Commands::Fundraisers(args) => args.handle(&ctx).await,
+        crate::config::Commands::TechnicalIndicators(args) => args.handle(&ctx).await,
         crate::config::Commands::Completions(_) => unreachable!("handled above"),
     }
 }

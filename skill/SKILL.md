@@ -5,10 +5,12 @@ description: >
   prices, quotes, historical price charts, financial statements (income/balance sheet/
   cash flow), analyst ratings, earnings transcripts, SEC filings, crypto prices,
   forex rates, commodity data, market indexes, economic indicators, treasury rates,
-  ESG scores, insider trades, COT reports, IPO calendars, dividend calendars, or
-  any other financial market data. Also trigger when the user wants to screen stocks,
-  search for companies by name or CIK, look up market hours, or get sector/industry
-  performance. The fmp binary reads FMP_API_KEY from the environment.
+  ESG scores, insider trades, government/congressional trading disclosures, COT reports,
+  IPO calendars, dividend calendars, Form 13F institutional ownership filings, ETF and
+  fund data, crowdfunding or equity fundraising filings, technical indicators (SMA, EMA,
+  RSI, ADX, etc.), or any other financial market data. Also trigger when the user wants
+  to screen stocks, search for companies by name or CIK, look up market hours, or get
+  sector/industry performance. The fmp binary reads FMP_API_KEY from the environment.
 metadata:
   version: "1.0.0"
   binary: fmp
@@ -33,14 +35,20 @@ fmp <namespace> <subcommand> --help # show args for a specific command
 Use `fmp` when the user wants:
 - **Prices / quotes**: current or historical stock, crypto, forex, commodity, index prices
 - **Financials**: income statements, balance sheets, cash flow, ratios, key metrics
-- **Analyst data**: ratings, price targets, EPS estimates, grade changes
-- **News**: market news, stock/crypto/forex news, press releases
-- **Calendars**: earnings dates, IPOs, stock splits, dividends
-- **SEC filings**: 10-K, 10-Q, 8-K by symbol, CIK, or form type
+- **Analyst data**: ratings, price targets, EPS estimates, grade changes, analyst news
+- **News**: market news, stock/crypto/forex news, press releases (including by-symbol search)
+- **Calendars**: earnings dates, IPOs, IPO disclosures/prospectus, stock splits, dividends
+- **SEC filings**: 10-K, 10-Q, 8-K by symbol, CIK, or form type; SEC company profile; SIC industry classification
 - **Transcripts**: earnings call transcripts
 - **Macro**: economic indicators, treasury rates, Fed funds rate
 - **Screening**: filter stocks by market cap, sector, price, volume, etc.
 - **Market structure**: sector/industry performance, movers, market hours
+- **Insider trading**: latest transactions, search by symbol/CIK/type, beneficial ownership (5%+ holders), statistics
+- **Government trading**: Senate and House financial disclosure trades by symbol or name
+- **Institutional ownership**: Form 13F filings, holdings extraction, holder analytics/performance/industry, symbol positions
+- **Funds / ETFs**: ETF holdings, info, sector/country weightings, fund portfolio disclosures
+- **Fundraising**: crowdfunding offerings (Reg CF), equity fundraising (Reg D/Reg A) filings
+- **Technical indicators**: SMA, EMA, WMA, DEMA, TEMA, RSI, StdDev, Williams %R, ADX — standalone with configurable period/timeframe
 
 ## Command Map
 
@@ -50,10 +58,10 @@ Use `fmp` when the user wants:
 | `chart` | Historical OHLCV + indicators | `eod-full`, `eod-light`, `intraday`, `sma`, `ema`, `rsi`, `adx` |
 | `company` | Profiles & corporate data | `profile`, `executives`, `market-cap`, `employees`, `peers`, `float` |
 | `statements` | Financial statements | `income`, `balance-sheet`, `cash-flow`, `key-metrics`, `ratios`, `scores` |
-| `analyst` | Analyst coverage | `ratings`, `price-target`, `estimates`, `grades` |
-| `news` | Financial news | `latest`, `stock`, `crypto`, `forex`, `search --symbols` |
-| `calendar` | Event calendars | `earnings`, `ipos`, `splits`, `dividends` |
-| `filings` | SEC filings | `by-symbol`, `by-type`, `latest-8k`, `by-cik` |
+| `analyst` | Analyst coverage | `ratings`, `price-target`, `estimates`, `grades`, `price-target-news`, `grades-news` |
+| `news` | Financial news | `latest`, `stock`, `crypto`, `forex`, `search --symbols`, `search-press-releases`, `search-crypto`, `search-forex` |
+| `calendar` | Event calendars | `earnings`, `ipos`, `ipos-disclosure`, `ipos-prospectus`, `splits`, `dividends` |
+| `filings` | SEC filings | `by-symbol`, `by-type`, `latest-8k`, `by-cik`, `sec-profile`, `industry-classification-list` |
 | `transcript` | Earnings call transcripts | `get --symbol --year --quarter`, `dates`, `latest` |
 | `search` | Symbol/company lookup | `symbol --query`, `name --query`, `cik`, `cusip`, `isin`, `screener` |
 | `economics` | Macro indicators | `indicators --name GDP`, `treasury-rates`, `federal-fund-rate`, `calendar-events` |
@@ -67,6 +75,12 @@ Use `fmp` when the user wants:
 | `dcf` | Valuation models | `valuation --symbol`, `levered-valuation`, `custom` |
 | `esg` | ESG scores | `disclosure --symbol`, `ratings --symbol`, `benchmark` |
 | `cot` | COT reports | `report`, `analysis` |
+| `insider-trades` | Insider trading | `latest`, `search`, `by-name`, `transaction-types`, `statistics`, `beneficial-ownership` |
+| `government-trading` | Congressional trades | `senate-latest`, `house-latest`, `senate-by-symbol`, `house-by-symbol`, `senate-by-name`, `house-by-name` |
+| `form13-f` | Form 13F institutional filings | `latest`, `extract`, `dates`, `holder-analytics`, `holder-performance`, `holder-industry`, `symbol-positions`, `industry-summary` |
+| `fund` | ETF / fund data | `etf-holdings`, `etf-info`, `etf-sectors`, `etf-countries`, `etf-assets`, `disclosure`, `disclosure-holders-latest` |
+| `fundraisers` | Crowdfunding & equity raises | `crowdfunding-latest`, `crowdfunding-search`, `crowdfunding-by-cik`, `equity-latest`, `equity-search`, `equity-by-cik` |
+| `technical-indicators` | Standalone technical indicators | `sma`, `ema`, `wma`, `dema`, `tema`, `rsi`, `std-dev`, `williams`, `adx` |
 
 ## Common Examples
 
@@ -145,6 +159,42 @@ fmp market-performance sector-performance-snapshot --date 2024-03-15
 
 # DCF valuation
 fmp dcf valuation --symbol AAPL
+
+# Insider trades for a company (recent)
+fmp insider-trades search --symbol AAPL
+
+# Beneficial owners (5%+ holders) for a company
+fmp insider-trades beneficial-ownership --symbol AAPL
+
+# Latest Senate disclosure trades
+fmp government-trading senate-latest --limit 20
+
+# Congressional trades for a stock
+fmp government-trading senate-by-symbol --symbol NVDA
+
+# Latest 13F institutional filings
+fmp form13-f latest --limit 10
+
+# Extract 13F holdings for a specific institution
+fmp form13-f extract --cik 0001166559 --year 2024 --quarter 4
+
+# Who holds AAPL in 13F filings
+fmp form13-f holder-analytics --symbol AAPL --year 2024 --quarter 4
+
+# ETF holdings breakdown
+fmp fund etf-holdings --symbol SPY
+
+# ETF sector weightings
+fmp fund etf-sectors --symbol QQQ
+
+# Latest crowdfunding filings
+fmp fundraisers crowdfunding-latest --limit 20
+
+# 20-period SMA (daily)
+fmp technical-indicators sma --symbol AAPL --period 20
+
+# 14-period RSI on hourly bars
+fmp technical-indicators rsi --symbol AAPL --period 14 --timeframe 1hour
 ```
 
 ## Argument Conventions

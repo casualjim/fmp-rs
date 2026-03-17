@@ -34,6 +34,12 @@ pub enum CompanyArgs {
     MaLatest(MaLatestArgs),
     /// Search mergers and acquisitions by company name
     MaSearch(MaSearchArgs),
+    /// SEC-registered notes and bonds issued by a company
+    Notes(NotesArgs),
+    /// Delisted companies (paginated)
+    Delisted(DelistedArgs),
+    /// Industry-average executive compensation benchmarks by year
+    ExecutiveCompensationBenchmark(ExecutiveCompensationBenchmarkArgs),
 }
 
 impl CompanyArgs {
@@ -53,6 +59,9 @@ impl CompanyArgs {
             Self::FloatAll(args) => args.handle(ctx).await,
             Self::MaLatest(args) => args.handle(ctx).await,
             Self::MaSearch(args) => args.handle(ctx).await,
+            Self::Notes(args) => args.handle(ctx).await,
+            Self::Delisted(args) => args.handle(ctx).await,
+            Self::ExecutiveCompensationBenchmark(args) => args.handle(ctx).await,
         }
     }
 }
@@ -477,6 +486,67 @@ impl MaSearchArgs {
             .name(&self.name)
             .build();
         let data = ctx.client.mergers_acquisitions_search(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct NotesArgs {
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: String,
+}
+
+impl NotesArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::company::SymbolParams::builder()
+            .symbol(&self.symbol)
+            .build();
+        let data = ctx.client.company_notes(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct DelistedArgs {
+    #[arg(long, help = "Page number for pagination (0-indexed)")]
+    pub page: Option<u32>,
+
+    #[arg(long, help = "Maximum number of records to return")]
+    pub limit: Option<u32>,
+}
+
+impl DelistedArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = match (&self.page, &self.limit) {
+            (Some(page), Some(limit)) => fmp::types::company::PaginationParams::builder()
+                .page(*page)
+                .limit(*limit)
+                .build(),
+            (Some(page), None) => fmp::types::company::PaginationParams::builder()
+                .page(*page)
+                .build(),
+            (None, Some(limit)) => fmp::types::company::PaginationParams::builder()
+                .limit(*limit)
+                .build(),
+            (None, None) => fmp::types::company::PaginationParams::builder().build(),
+        };
+        let data = ctx.client.delisted_companies(params).await?;
+        crate::output::output_json(&data)
+    }
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct ExecutiveCompensationBenchmarkArgs {
+    #[arg(long, required = true, help = "Ticker symbol (e.g., AAPL)")]
+    pub symbol: String,
+}
+
+impl ExecutiveCompensationBenchmarkArgs {
+    pub async fn handle(&self, ctx: &Context) -> Result<()> {
+        let params = fmp::types::company::SymbolParams::builder()
+            .symbol(&self.symbol)
+            .build();
+        let data = ctx.client.executive_compensation_benchmark(params).await?;
         crate::output::output_json(&data)
     }
 }
