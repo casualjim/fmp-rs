@@ -1,3 +1,8 @@
+## [0.1.10] - 2026-03-17
+
+### 🚀 Features
+
+- *(cli)* Full API coverage — insider trades, gov trading, 13F, fund, fundraisers, technical indicators (#3)
 ## [0.1.9] - 2026-03-17
 
 ### 🚀 Features
@@ -23,4 +28,6 @@
 - Update rust-builder to 24.04-1.93.0-1.3.9-18
 - Release
 - Update changelog for v0.1.8 [ci skip]
+- Release
+- Update changelog for v0.1.9 [ci skip]
 - Release
