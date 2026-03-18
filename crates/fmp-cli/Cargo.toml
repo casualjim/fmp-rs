@@ -32,7 +32,7 @@ tokio = { workspace = true }
 url = "2"
 
 clap_complete = "4"
-dirs = "6"
+directories = "6"
 mimalloc = "0.1"
 toml = { version = "0.8", default-features = false, features = ["parse"] }
 atty = "0.2"

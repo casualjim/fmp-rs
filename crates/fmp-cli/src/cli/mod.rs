@@ -81,7 +81,9 @@ struct Secrets {
 }
 
 fn load_secrets_api_key() -> Option<String> {
-    let path = dirs::config_dir()?.join("fmp").join("secrets.toml");
+    let path = directories::ProjectDirs::from("", "", "fmp")?
+        .config_dir()
+        .join("secrets.toml");
     let content = std::fs::read_to_string(path).ok()?;
     toml::from_str::<Secrets>(&content).ok().map(|s| s.api_key)
 }
