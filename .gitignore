@@ -28,3 +28,4 @@ qwen.sh
 /memory.db
 .sctl.toml
 /.vscode
+.claude/*.lock
