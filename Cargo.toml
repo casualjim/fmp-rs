@@ -5,7 +5,7 @@ members = [".", "crates/fmp-cli"]
 [workspace.package]
 version = "0.1.10"
 edition = "2024"
-authors = ["Lbyl Team"]
+authors = ["Ivan Porto Carrero"]
 repository = "https://github.com/casualjim/fmp-rs"
 homepage = "https://github.com/casualjim/fmp-rs"
 license = "MIT"
