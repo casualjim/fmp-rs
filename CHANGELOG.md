@@ -7,6 +7,8 @@
 ### ⚙️ Miscellaneous Tasks
 
 - Update crate author metadata
+- Update changelog for v0.1.11 [ci skip]
+- Release
 ## [0.1.10] - 2026-03-17
 
 ### 🚀 Features
