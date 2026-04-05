@@ -113,37 +113,37 @@ mod tests {
 
   #[test]
   fn forex_pair_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_pair.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_pair.json").unwrap();
     let _: Vec<ForexPair> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn forex_quote_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_quote.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_quote.json").unwrap();
     let _: Vec<ForexQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn forex_quote_short_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_quote_short.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_quote_short.json").unwrap();
     let _: Vec<ForexShortQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn forex_chart_light_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_chart_light.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_chart_light.json").unwrap();
     let _: Vec<ForexLightChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn forex_chart_full_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_chart_full.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_chart_full.json").unwrap();
     let _: Vec<ForexHistoricalChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn forex_chart_intraday_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/forex_chart_intraday.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/forex_chart_intraday.json").unwrap();
     let _: Vec<ForexIntradayChart> = serde_json::from_slice(&bytes).unwrap();
   }
 }

@@ -56,13 +56,13 @@ mod tests {
 
   #[test]
   fn fmp_article_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/fmp_article.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/fmp_article.json").unwrap();
     let _: Vec<FmpArticle> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_news_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_news.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_news.json").unwrap();
     let _: Vec<NewsArticle> = serde_json::from_slice(&bytes).unwrap();
   }
 }

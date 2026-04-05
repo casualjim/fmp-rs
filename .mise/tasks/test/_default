@@ -4,4 +4,6 @@
 #MISE sources=["Cargo.toml", "src/**/*.rs"]
 #MISE depends=["build:debug"]
 
-cargo nextest run --all-features
+set -euo pipefail
+
+cargo nextest run "$@"

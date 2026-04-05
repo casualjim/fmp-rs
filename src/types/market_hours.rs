@@ -52,13 +52,13 @@ mod tests {
 
   #[test]
   fn exchange_market_hours_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/exchange_market_hours.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/exchange_market_hours.json").unwrap();
     let _: Vec<ExchangeMarketHours> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn holidays_by_exchange_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/holidays_by_exchange.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/holidays_by_exchange.json").unwrap();
     let _: Vec<HolidayByExchange> = serde_json::from_slice(&bytes).unwrap();
   }
 }

@@ -52,7 +52,7 @@ None - this is a new addition that consumes the existing library API without mod
 
 **APIs**: No changes to existing library APIs - CLI is a consumer
 
-**Dependencies**: 
+**Dependencies**:
 - `clap` with derive + env features (CLI framework)
 - `dirs` (cross-platform directory paths)
 - `secrecy` (secure API key handling)
@@ -62,7 +62,7 @@ None - this is a new addition that consumes the existing library API without mod
 - `toml` (config file format)
 - `owo-colors` (colored output)
 
-**Systems**: 
+**Systems**:
 - Configuration in `~/.config/fmp-cli/config.toml` (Linux), `~/Library/Application Support/fmp-cli/config.toml` (macOS), `%APPDATA%\fmp-cli\config.toml` (Windows)
 - API key via `FMP_API_KEY` env var, `--api-key` flag, or config file
 - Token cache in local data directory

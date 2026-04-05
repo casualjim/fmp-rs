@@ -170,25 +170,25 @@ mod tests {
 
   #[test]
   fn chart_light_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/chart_light.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/chart_light.json").unwrap();
     let _: Vec<LightChartData> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn chart_full_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/chart_full.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/chart_full.json").unwrap();
     let _: Vec<ChartData> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn chart_unadjusted_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/chart_unadjusted.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/chart_unadjusted.json").unwrap();
     let _: Vec<UnadjustedChartData> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn chart_intraday_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/chart_intraday.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/chart_intraday.json").unwrap();
     let _: Vec<IntradayChartData> = serde_json::from_slice(&bytes).unwrap();
   }
 }

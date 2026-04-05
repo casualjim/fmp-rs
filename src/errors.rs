@@ -24,6 +24,9 @@ pub enum FmpError {
 
   #[error(transparent)]
   Transport(#[from] reqwest::Error),
+
+  #[error("csv parse error: {0}")]
+  CsvParse(#[from] csv_async::Error),
 }
 
 impl FmpError {

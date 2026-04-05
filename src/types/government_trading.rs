@@ -54,13 +54,13 @@ mod tests {
 
   #[test]
   fn senate_trade_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/senate_trade.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/senate_trade.json").unwrap();
     let _: Vec<FinancialDisclosure> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn house_trade_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/house_trade.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/house_trade.json").unwrap();
     let _: Vec<FinancialDisclosure> = serde_json::from_slice(&bytes).unwrap();
   }
 }

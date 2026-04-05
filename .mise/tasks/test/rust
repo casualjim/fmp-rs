@@ -9,4 +9,4 @@ cd "$proj_dir" || exit 1
 
 set -euo pipefail
 
-cargo nextest run --all-features
+cargo nextest run "$@"

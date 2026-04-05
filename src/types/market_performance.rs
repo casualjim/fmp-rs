@@ -104,43 +104,43 @@ mod tests {
 
   #[test]
   fn biggest_gainers_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/biggest_gainers.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/biggest_gainers.json").unwrap();
     let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn biggest_losers_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/biggest_losers.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/biggest_losers.json").unwrap();
     let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn most_actives_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/most_actives.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/most_actives.json").unwrap();
     let _: Vec<StockMovement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn sector_performance_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/sector_performance.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/sector_performance.json").unwrap();
     let _: Vec<SectorPerformance> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn industry_performance_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/industry_performance.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/industry_performance.json").unwrap();
     let _: Vec<IndustryPerformance> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn sector_pe_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/sector_pe.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/sector_pe.json").unwrap();
     let _: Vec<SectorPe> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn industry_pe_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/industry_pe.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/industry_pe.json").unwrap();
     let _: Vec<IndustryPe> = serde_json::from_slice(&bytes).unwrap();
   }
 }

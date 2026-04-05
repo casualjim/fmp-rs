@@ -6,7 +6,7 @@
 #   FMP_API_KEY=your_key bash scripts/fetch-fixtures.sh
 #   FMP_API_KEY=your_key bash scripts/fetch-fixtures.sh quotes  # single section
 #
-# Requires: curl, jq
+# Requires: curl
 
 set -euo pipefail
 
@@ -17,14 +17,11 @@ SECTION="${1:-all}"
 
 mkdir -p "$DIR"
 
-# Trim array responses to 2 items; pass objects through unchanged.
-trim() { jq 'if type == "array" then .[0:2] else . end'; }
-
 ok=0; fail=0; skip=0
 
 fetch() {
     local name=$1 url=$2
-    if [[ -f "$DIR/$name.json" && "${FORCE:-}" != "1" ]]; then
+    if [[ -f "$DIR/$name.json.xz" && "${FORCE:-}" != "1" ]]; then
         echo "  skip  $name  (exists; set FORCE=1 to overwrite)"
         (( skip++ )) || true
         return
@@ -34,7 +31,29 @@ fetch() {
     local http_code
     http_code=$(curl -sL -o "$tmp" -w "%{http_code}" "$url")
     if [[ "$http_code" == "200" ]]; then
-        trim < "$tmp" > "$DIR/$name.json"
+        xz -T0 -c "$tmp" > "$DIR/$name.json.xz"
+        echo "  ok    $name"
+        (( ok++ )) || true
+    else
+        echo "  FAIL  $name  (HTTP $http_code): $(cat "$tmp")"
+        (( fail++ )) || true
+    fi
+    rm -f "$tmp"
+}
+
+fetch_csv() {
+    local name=$1 url=$2
+    if [[ -f "$DIR/$name.csv.xz" && "${FORCE:-}" != "1" ]]; then
+        echo "  skip  $name  (exists; set FORCE=1 to overwrite)"
+        (( skip++ )) || true
+        return
+    fi
+    local tmp
+    tmp=$(mktemp)
+    local http_code
+    http_code=$(curl -sL -H "Accept: text/csv" -o "$tmp" -w "%{http_code}" "$url")
+    if [[ "$http_code" == "200" ]]; then
+        xz -T0 -c "$tmp" > "$DIR/$name.csv.xz"
         echo "  ok    $name"
         (( ok++ )) || true
     else
@@ -111,6 +130,29 @@ fetch ratios                  "$BASE/ratios?symbol=AAPL&limit=2&apikey=$KEY"
 fetch ratios_ttm              "$BASE/ratios-ttm?symbol=AAPL&apikey=$KEY"
 fetch financial_scores        "$BASE/financial-scores?symbol=AAPL&apikey=$KEY"
 fetch owner_earnings          "$BASE/owner-earnings?symbol=AAPL&apikey=$KEY"
+fi
+
+# ─── BULK ────────────────────────────────────────────────────────────────────
+if run_section bulk; then
+echo "── bulk ──"
+fetch_csv bulk_profile                         "$BASE/profile-bulk?part=0&apikey=$KEY"
+fetch_csv bulk_etf_holder                      "$BASE/etf-holder-bulk?part=0&apikey=$KEY"
+fetch_csv bulk_eod                             "$BASE/eod-bulk?date=2024-01-02&apikey=$KEY"
+fetch_csv bulk_earnings_surprises              "$BASE/earnings-surprises-bulk?year=2024&apikey=$KEY"
+fetch_csv bulk_income_statement                "$BASE/income-statement-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_balance_sheet_statement         "$BASE/balance-sheet-statement-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_cash_flow_statement             "$BASE/cash-flow-statement-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_income_statement_growth         "$BASE/income-statement-growth-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_balance_sheet_statement_growth  "$BASE/balance-sheet-statement-growth-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_cash_flow_statement_growth      "$BASE/cash-flow-statement-growth-bulk?year=2024&period=FY&apikey=$KEY"
+fetch_csv bulk_key_metrics_ttm                 "$BASE/key-metrics-ttm-bulk?apikey=$KEY"
+fetch_csv bulk_ratios_ttm                      "$BASE/ratios-ttm-bulk?apikey=$KEY"
+fetch_csv bulk_scores                          "$BASE/scores-bulk?apikey=$KEY"
+fetch_csv bulk_rating                          "$BASE/rating-bulk?apikey=$KEY"
+fetch_csv bulk_upgrades_downgrades_consensus   "$BASE/upgrades-downgrades-consensus-bulk?apikey=$KEY"
+fetch_csv bulk_price_target_summary            "$BASE/price-target-summary-bulk?apikey=$KEY"
+fetch_csv bulk_peers                           "$BASE/peers-bulk?apikey=$KEY"
+fetch_csv bulk_dcf                             "$BASE/dcf-bulk?apikey=$KEY"
 fi
 
 # ─── CALENDAR ────────────────────────────────────────────────────────────────

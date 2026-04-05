@@ -137,37 +137,37 @@ mod tests {
 
   #[test]
   fn index_item_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_item.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_item.json").unwrap();
     let _: Vec<IndexItem> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn index_quote_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_quote.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_quote.json").unwrap();
     let _: Vec<IndexQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn index_quote_short_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_quote_short.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_quote_short.json").unwrap();
     let _: Vec<IndexShortQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn index_chart_light_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_chart_light.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_chart_light.json").unwrap();
     let _: Vec<IndexLightChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn index_chart_full_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_chart_full.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_chart_full.json").unwrap();
     let _: Vec<IndexFullChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn index_chart_intraday_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/index_chart_intraday.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/index_chart_intraday.json").unwrap();
     let _: Vec<IndexIntradayData> = serde_json::from_slice(&bytes).unwrap();
   }
 }

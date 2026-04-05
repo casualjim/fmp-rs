@@ -124,35 +124,37 @@ pub struct AcquisitionOwnershipParams {
 
 #[cfg(test)]
 mod tests {
-  use super::{AcquisitionOwnership, InsiderReportingName, InsiderTradeStatistics, InsiderTrading, InsiderTransactionType};
+  use super::{
+    AcquisitionOwnership, InsiderReportingName, InsiderTradeStatistics, InsiderTrading, InsiderTransactionType,
+  };
 
   #[test]
   fn insider_trading_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/insider_trading.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/insider_trading.json").unwrap();
     let _: Vec<InsiderTrading> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn insider_reporting_name_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/insider_reporting_name.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/insider_reporting_name.json").unwrap();
     let _: Vec<InsiderReportingName> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn insider_transaction_type_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/insider_transaction_type.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/insider_transaction_type.json").unwrap();
     let _: Vec<InsiderTransactionType> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn insider_statistics_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/insider_statistics.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/insider_statistics.json").unwrap();
     let _: Vec<InsiderTradeStatistics> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn acquisition_ownership_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/acquisition_ownership.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/acquisition_ownership.json").unwrap();
     let _: Vec<AcquisitionOwnership> = serde_json::from_slice(&bytes).unwrap();
   }
 }

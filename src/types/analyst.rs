@@ -236,61 +236,61 @@ mod tests {
 
   #[test]
   fn analyst_estimate_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/analyst_estimate.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/analyst_estimate.json").unwrap();
     let _: Vec<AnalystEstimate> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn ratings_snapshot_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/ratings_snapshot.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/ratings_snapshot.json").unwrap();
     let _: Vec<RatingsSnapshot> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn ratings_historical_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/ratings_historical.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/ratings_historical.json").unwrap();
     let _: Vec<HistoricalRating> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn price_target_summary_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/price_target_summary.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/price_target_summary.json").unwrap();
     let _: Vec<PriceTargetSummary> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn price_target_consensus_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/price_target_consensus.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/price_target_consensus.json").unwrap();
     let _: Vec<PriceTargetConsensus> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn price_target_news_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/price_target_news.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/price_target_news.json").unwrap();
     let _: Vec<PriceTargetNews> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_grade_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_grade.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_grade.json").unwrap();
     let _: Vec<StockGrade> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_grade_historical_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_grade_historical.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_grade_historical.json").unwrap();
     let _: Vec<HistoricalStockGrade> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_grade_summary_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_grade_summary.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_grade_summary.json").unwrap();
     let _: Vec<StockGradeSummary> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_grade_news_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_grade_news.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_grade_news.json").unwrap();
     let _: Vec<StockGradeNews> = serde_json::from_slice(&bytes).unwrap();
   }
 }

@@ -88,25 +88,25 @@ mod tests {
 
   #[test]
   fn treasury_rate_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/treasury_rate.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/treasury_rate.json").unwrap();
     let _: Vec<TreasuryRate> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn economic_indicator_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/economic_indicator.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/economic_indicator.json").unwrap();
     let _: Vec<EconomicIndicator> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn economic_calendar_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/economic_calendar.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/economic_calendar.json").unwrap();
     let _: Vec<EconomicCalendar> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn market_risk_premium_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/market_risk_premium.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/market_risk_premium.json").unwrap();
     let _: Vec<MarketRiskPremium> = serde_json::from_slice(&bytes).unwrap();
   }
 }

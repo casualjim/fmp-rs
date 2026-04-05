@@ -1,7 +1,7 @@
 use crate::macros::define_api_trait;
 use crate::types::indexes::{
-  IndexBatchParams, IndexFullChart, IndexHistoryParams, IndexIntradayData,
-  IndexItem, IndexLightChart, IndexQuote, IndexShortQuote, IndexSymbolParams,
+  IndexBatchParams, IndexFullChart, IndexHistoryParams, IndexIntradayData, IndexItem, IndexLightChart, IndexQuote,
+  IndexShortQuote, IndexSymbolParams,
 };
 
 define_api_trait!(

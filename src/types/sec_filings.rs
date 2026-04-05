@@ -191,25 +191,25 @@ mod tests {
 
   #[test]
   fn sec_filing_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/sec_filing.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/sec_filing.json").unwrap();
     let _: Vec<SecFiling> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn sec_company_search_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/sec_company_search.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/sec_company_search.json").unwrap();
     let _: Vec<CompanySearchResult> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn sec_company_profile_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/sec_company_profile.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/sec_company_profile.json").unwrap();
     let _: Vec<SecCompanyProfile> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn industry_classification_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/industry_classification.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/industry_classification.json").unwrap();
     let _: Vec<IndustryClassification> = serde_json::from_slice(&bytes).unwrap();
   }
 }

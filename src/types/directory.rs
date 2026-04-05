@@ -60,7 +60,7 @@ pub struct ExchangeEntry {
   pub country_name: String,
   pub country_code: String,
   pub symbol_suffix: String,
-  pub delay: String,
+  pub delay: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -102,31 +102,31 @@ mod tests {
 
   #[test]
   fn available_exchanges_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/available_exchanges.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/available_exchanges.json").unwrap();
     let _: Vec<ExchangeEntry> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn available_sectors_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/available_sectors.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/available_sectors.json").unwrap();
     let _: Vec<SectorEntry> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn available_industries_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/available_industries.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/available_industries.json").unwrap();
     let _: Vec<IndustryEntry> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn available_countries_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/available_countries.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/available_countries.json").unwrap();
     let _: Vec<CountryEntry> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cik_list_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cik_list.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cik_list.json").unwrap();
     let _: Vec<CikEntry> = serde_json::from_slice(&bytes).unwrap();
   }
 }

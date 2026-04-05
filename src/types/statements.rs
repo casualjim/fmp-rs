@@ -984,127 +984,127 @@ mod tests {
 
   #[test]
   fn income_statement_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/income_statement.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/income_statement.json").unwrap();
     let _: Vec<IncomeStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn balance_sheet_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/balance_sheet.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/balance_sheet.json").unwrap();
     let _: Vec<BalanceSheetStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cash_flow_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cash_flow.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cash_flow.json").unwrap();
     let _: Vec<CashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn latest_financial_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/latest_financial.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/latest_financial.json").unwrap();
     let _: Vec<LatestFinancialStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn income_statement_ttm_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/income_statement_ttm.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/income_statement_ttm.json").unwrap();
     let _: Vec<IncomeStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn balance_sheet_ttm_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/balance_sheet_ttm.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/balance_sheet_ttm.json").unwrap();
     let _: Vec<BalanceSheetStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cash_flow_ttm_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cash_flow_ttm.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cash_flow_ttm.json").unwrap();
     let _: Vec<CashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn income_growth_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/income_growth.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/income_growth.json").unwrap();
     let _: Vec<IncomeStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn balance_sheet_growth_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/balance_sheet_growth.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/balance_sheet_growth.json").unwrap();
     let _: Vec<BalanceSheetStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cash_flow_growth_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cash_flow_growth.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cash_flow_growth.json").unwrap();
     let _: Vec<CashFlowStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn financial_growth_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/financial_growth.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/financial_growth.json").unwrap();
     let _: Vec<FinancialStatementGrowth> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn financial_report_dates_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/financial_report_dates.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/financial_report_dates.json").unwrap();
     let _: Vec<FinancialReportDate> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn financial_report_10k_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/financial_report_10k.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/financial_report_10k.json").unwrap();
     let _: FinancialReport10K = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn revenue_product_seg_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/revenue_product_seg.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/revenue_product_seg.json").unwrap();
     let _: Vec<RevenueProductSegmentation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn revenue_geo_seg_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/revenue_geo_seg.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/revenue_geo_seg.json").unwrap();
     let _: Vec<RevenueGeographicSegmentation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn income_as_reported_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/income_as_reported.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/income_as_reported.json").unwrap();
     let _: Vec<AsReportedIncomeStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn balance_sheet_as_reported_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/balance_sheet_as_reported.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/balance_sheet_as_reported.json").unwrap();
     let _: Vec<AsReportedBalanceSheet> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cash_flow_as_reported_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cash_flow_as_reported.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cash_flow_as_reported.json").unwrap();
     let _: Vec<AsReportedCashFlowStatement> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn key_metrics_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/key_metrics.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/key_metrics.json").unwrap();
     let _: Vec<KeyMetrics> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn ratios_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/ratios.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/ratios.json").unwrap();
     let _: Vec<Ratios> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn key_metrics_ttm_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/key_metrics_ttm.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/key_metrics_ttm.json").unwrap();
     let items: Vec<KeyMetricsTtm> = serde_json::from_slice(&bytes).unwrap();
     assert_eq!(items[0].symbol, "AAPL");
     assert!(items[0].market_cap > 0.0);
@@ -1112,19 +1112,19 @@ mod tests {
 
   #[test]
   fn ratios_ttm_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/ratios_ttm.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/ratios_ttm.json").unwrap();
     let _: Vec<FinancialRatiosTtm> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn financial_scores_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/financial_scores.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/financial_scores.json").unwrap();
     let _: Vec<FinancialScores> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn owner_earnings_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/owner_earnings.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/owner_earnings.json").unwrap();
     let _: Vec<OwnerEarnings> = serde_json::from_slice(&bytes).unwrap();
   }
 }

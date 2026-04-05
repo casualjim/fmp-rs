@@ -14,6 +14,7 @@ pub use crate::primitives::{FmpDate, FmpDateTime, FmpErrorPayload, FmpResponse};
 // Re-export all API traits for convenience
 pub use crate::endpoints::{
   analyst::AnalystApi,
+  bulk::BulkApi,
   calendar::CalendarApi,
   chart::{ChartApi, ChartIntervalApi},
   commodity::CommodityApi,
@@ -42,16 +43,17 @@ pub use crate::endpoints::{
   technical_indicators::TechnicalIndicatorsApi,
 };
 
-use http::{HeaderMap, header::CONTENT_TYPE};
-use reqwest_retry::{RetryTransientMiddleware, policies::ExponentialBackoff};
+mod retry;
+
+#[cfg(test)]
+pub mod test_fixtures;
+
+use reqwest_retry::RetryTransientMiddleware;
 use reqwest_tracing::TracingMiddleware;
 
 /// Construct the shared reqwest middleware client.
 /// KEEP: this is the canonical client builder (do not fork settings elsewhere).
 pub(crate) fn make_reqwest_client(config: &FmpConfig) -> eyre::Result<reqwest_middleware::ClientWithMiddleware> {
-  let mut default_headers = HeaderMap::new();
-  default_headers.insert(CONTENT_TYPE, "application/json".parse()?);
-
   let client = reqwest::Client::builder()
     .user_agent(format!("fmp-rs/{}", env!("CARGO_PKG_VERSION")))
     .brotli(true)
@@ -60,12 +62,13 @@ pub(crate) fn make_reqwest_client(config: &FmpConfig) -> eyre::Result<reqwest_mi
     .deflate(true)
     .connect_timeout(config.timeout)
     .timeout(config.timeout)
-    .default_headers(default_headers)
     .build()?;
 
+  let retry_policy = retry::RetryAfterPolicy::new(config.retry_attempts);
   let client = reqwest_middleware::ClientBuilder::new(client)
-    .with(RetryTransientMiddleware::new_with_policy(
-      ExponentialBackoff::builder().build_with_max_retries(config.retry_attempts),
+    .with(RetryTransientMiddleware::new_with_policy_and_strategy(
+      retry_policy.clone(),
+      retry_policy,
     ))
     .with(TracingMiddleware::default())
     .build();

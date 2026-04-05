@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 use typed_builder::TypedBuilder;
 
-use crate::primitives::{de_opt_fmpdate, FmpDate, FmpDateTime};
+use crate::primitives::{FmpDate, FmpDateTime, de_opt_fmpdate};
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -174,13 +174,13 @@ mod tests {
 
   #[test]
   fn crowdfunding_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crowdfunding.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crowdfunding.json").unwrap();
     let _: Vec<CrowdfundingCampaign> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn equity_offering_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/equity_offering.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/equity_offering.json").unwrap();
     let _: Vec<EquityOffering> = serde_json::from_slice(&bytes).unwrap();
   }
 }

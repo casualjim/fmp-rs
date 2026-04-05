@@ -176,47 +176,50 @@ pub struct FundDisclosureParams {
 
 #[cfg(test)]
 mod tests {
-  use super::{FundAssetExposure, FundCountryAllocation, FundDisclosureDate, FundDisclosureHolder, FundHolding, FundInfo, FundSectorWeighting};
+  use super::{
+    FundAssetExposure, FundCountryAllocation, FundDisclosureDate, FundDisclosureHolder, FundHolding, FundInfo,
+    FundSectorWeighting,
+  };
 
   #[test]
   fn etf_holding_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/etf_holding.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/etf_holding.json").unwrap();
     let _: Vec<FundHolding> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn etf_info_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/etf_info.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/etf_info.json").unwrap();
     let _: Vec<FundInfo> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn etf_country_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/etf_country.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/etf_country.json").unwrap();
     let _: Vec<FundCountryAllocation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn etf_asset_exposure_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/etf_asset_exposure.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/etf_asset_exposure.json").unwrap();
     let _: Vec<FundAssetExposure> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn etf_sector_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/etf_sector.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/etf_sector.json").unwrap();
     let _: Vec<FundSectorWeighting> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn fund_disclosure_holder_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/fund_disclosure_holder.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/fund_disclosure_holder.json").unwrap();
     let _: Vec<FundDisclosureHolder> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn fund_disclosure_dates_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/fund_disclosure_dates.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/fund_disclosure_dates.json").unwrap();
     let _: Vec<FundDisclosureDate> = serde_json::from_slice(&bytes).unwrap();
   }
 }

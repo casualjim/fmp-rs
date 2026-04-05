@@ -33,7 +33,7 @@ pub struct EsgRating {
   pub fiscal_year: i32,
   #[serde(rename = "ESGRiskRating")]
   pub esg_risk_rating: String,
-  pub industry_rank: String,
+  pub industry_rank: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -71,19 +71,19 @@ mod tests {
 
   #[test]
   fn esg_disclosure_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/esg_disclosure.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/esg_disclosure.json").unwrap();
     let _: Vec<EsgDisclosure> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn esg_rating_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/esg_rating.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/esg_rating.json").unwrap();
     let _: Vec<EsgRating> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn esg_benchmark_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/esg_benchmark.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/esg_benchmark.json").unwrap();
     let _: Vec<EsgBenchmark> = serde_json::from_slice(&bytes).unwrap();
   }
 }

@@ -1,4 +1,5 @@
 pub mod analyst;
+pub mod bulk;
 pub mod calendar;
 pub mod chart;
 pub mod commodity;

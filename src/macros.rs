@@ -60,3 +60,52 @@ macro_rules! define_api_trait {
 }
 
 pub(crate) use define_api_trait;
+
+/// Macro to generate extension traits for FMP CSV streaming endpoints.
+///
+/// Mirror of [`define_api_trait!`] but for bulk CSV endpoints.  Each generated
+/// method returns `impl Future<Output = FmpResult<impl Stream<Item = FmpResult<$return_ty>> + Send>> + Send`.
+///
+/// # Syntax
+///
+/// ```text
+/// define_csv_api_trait!(
+///   /// Documentation for the trait (optional)
+///   TraitName,
+///   method_name -> "/api-path" -> ParamType -> ReturnType,
+/// );
+/// ```
+macro_rules! define_csv_api_trait {
+  (
+    $(#[$attr:meta])*
+    $trait_name:ident,
+    $(
+      $fn_name:ident -> $path:literal -> $param_ty:tt -> $return_ty:ty
+    ),* $(,)?
+  ) => {
+    $(#[$attr])*
+    pub trait $trait_name {
+      $(
+        fn $fn_name(
+          &self,
+          params: $param_ty,
+        ) -> impl std::future::Future<
+          Output = crate::errors::FmpResult<futures::stream::BoxStream<'static, crate::errors::FmpResult<$return_ty>>>,
+        > + Send;
+      )*
+    }
+
+    impl $trait_name for crate::client::FmpHttpClient {
+      $(
+        async fn $fn_name(
+          &self,
+          params: $param_ty,
+        ) -> crate::errors::FmpResult<futures::stream::BoxStream<'static, crate::errors::FmpResult<$return_ty>>> {
+          self.get_csv($path, &params).await
+        }
+      )*
+    }
+  };
+}
+
+pub(crate) use define_csv_api_trait;

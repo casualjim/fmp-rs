@@ -28,3 +28,7 @@ qwen.sh
 /memory.db
 .sctl.toml
 /.vscode
+
+# Paid bulk fixtures must never be committed
+/tests/fixtures/bulk_*.csv
+/tests/fixtures/bulk_*.csv.xz

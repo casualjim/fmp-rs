@@ -9,8 +9,8 @@ pub struct Cryptocurrency {
   pub symbol: String,
   pub name: String,
   pub exchange: String,
-  pub ico_date: FmpDateTime,
-  pub circulating_supply: f64,
+  pub ico_date: Option<FmpDate>,
+  pub circulating_supply: Option<f64>,
   pub total_supply: Option<f64>,
 }
 
@@ -117,37 +117,37 @@ mod tests {
 
   #[test]
   fn cryptocurrency_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cryptocurrency.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cryptocurrency.json").unwrap();
     let _: Vec<Cryptocurrency> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn crypto_quote_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crypto_quote.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crypto_quote.json").unwrap();
     let _: Vec<CryptocurrencyQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn crypto_quote_short_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crypto_quote_short.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crypto_quote_short.json").unwrap();
     let _: Vec<CryptocurrencyShortQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn crypto_chart_light_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crypto_chart_light.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crypto_chart_light.json").unwrap();
     let _: Vec<CryptocurrencyLightChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn crypto_chart_full_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crypto_chart_full.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crypto_chart_full.json").unwrap();
     let _: Vec<CryptocurrencyHistoricalChart> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn crypto_chart_intraday_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/crypto_chart_intraday.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/crypto_chart_intraday.json").unwrap();
     let _: Vec<CryptocurrencyIntradayPrice> = serde_json::from_slice(&bytes).unwrap();
   }
 }

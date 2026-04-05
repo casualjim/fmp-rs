@@ -18,7 +18,7 @@ mod tests {
 
   #[test]
   fn commodity_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/commodity.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/commodity.json").unwrap();
     let _: Vec<Commodity> = serde_json::from_slice(&bytes).unwrap();
   }
 }

@@ -302,7 +302,7 @@ pub struct ExecutiveCompensation {
   /// Fair value of stock awards granted during the fiscal year.
   pub stock_award: f64,
   /// Fair value of stock option awards granted during the fiscal year.
-  pub option_award: f64,
+  pub option_award: Option<f64>,
   /// Non-equity incentive plan compensation earned during the fiscal year.
   pub incentive_plan_compensation: f64,
   /// All other compensation (perquisites, employer 401k match, etc.).
@@ -436,67 +436,67 @@ mod tests {
 
   #[test]
   fn company_profile_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/company_profile.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/company_profile.json").unwrap();
     let _: Vec<CompanyProfile> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn company_notes_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/company_notes.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/company_notes.json").unwrap();
     let _: Vec<CompanyNote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_peers_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_peers.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_peers.json").unwrap();
     let _: Vec<StockPeer> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn delisted_companies_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/delisted_companies.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/delisted_companies.json").unwrap();
     let _: Vec<DelistedCompany> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn employee_count_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/employee_count.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/employee_count.json").unwrap();
     let _: Vec<EmployeeCount> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn market_cap_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/market_cap.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/market_cap.json").unwrap();
     let _: Vec<MarketCap> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn share_float_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/share_float.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/share_float.json").unwrap();
     let _: Vec<ShareFloat> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn merger_acquisition_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/merger_acquisition.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/merger_acquisition.json").unwrap();
     let _: Vec<MergerAcquisition> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn company_executive_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/company_executive.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/company_executive.json").unwrap();
     let _: Vec<CompanyExecutive> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn executive_compensation_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/executive_compensation.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/executive_compensation.json").unwrap();
     let _: Vec<ExecutiveCompensation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn executive_compensation_benchmark_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/executive_compensation_benchmark.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/executive_compensation_benchmark.json").unwrap();
     let _: Vec<ExecutiveCompensationBenchmark> = serde_json::from_slice(&bytes).unwrap();
   }
 }

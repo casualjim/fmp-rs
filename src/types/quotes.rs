@@ -198,31 +198,31 @@ mod tests {
 
   #[test]
   fn stock_quote_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_quote.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_quote.json").unwrap();
     let _: Vec<StockQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_quote_short_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_quote_short.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_quote_short.json").unwrap();
     let _: Vec<StockQuoteShort> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn aftermarket_trade_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/aftermarket_trade.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/aftermarket_trade.json").unwrap();
     let _: Vec<AftermarketTrade> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn aftermarket_quote_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/aftermarket_quote.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/aftermarket_quote.json").unwrap();
     let _: Vec<AftermarketQuote> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn stock_price_change_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/stock_price_change.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_price_change.json").unwrap();
     let _: Vec<StockPriceChange> = serde_json::from_slice(&bytes).unwrap();
   }
 }

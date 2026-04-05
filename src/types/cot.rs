@@ -182,13 +182,13 @@ mod tests {
 
   #[test]
   fn cot_report_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cot_report.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cot_report.json").unwrap();
     let _: Vec<CotReport> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn cot_analysis_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/cot_analysis.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/cot_analysis.json").unwrap();
     let _: Vec<CotAnalysis> = serde_json::from_slice(&bytes).unwrap();
   }
 }

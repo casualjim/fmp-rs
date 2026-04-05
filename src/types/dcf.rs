@@ -96,19 +96,19 @@ mod tests {
 
   #[test]
   fn dcf_valuation_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/dcf_valuation.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/dcf_valuation.json").unwrap();
     let _: Vec<DcfValuation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn dcf_levered_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/dcf_levered.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/dcf_levered.json").unwrap();
     let _: Vec<DcfValuation> = serde_json::from_slice(&bytes).unwrap();
   }
 
   #[test]
   fn dcf_custom_fixture_deserializes() {
-    let bytes = std::fs::read("tests/fixtures/dcf_custom.json").unwrap();
+    let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/dcf_custom.json").unwrap();
     let _: Vec<CustomDcfOutput> = serde_json::from_slice(&bytes).unwrap();
   }
 }

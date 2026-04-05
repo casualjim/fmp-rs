@@ -38,7 +38,7 @@ Currently, users must write Rust code to interact with the API. A CLI would prov
 
 **Decision:** Create `crates/fmp-cli` as a separate binary crate in the workspace, depending on the `fmp` library crate.
 
-**Rationale:** 
+**Rationale:**
 - Clean separation between library and CLI concerns
 - Allows independent versioning and release cycles
 - Library users don't pay CLI dependency cost
@@ -95,7 +95,7 @@ fmp market search "apple" --limit 10
 ```rust
 #[derive(clap::Parser, Debug, Clone)]
 pub struct Cli {
-  #[arg(long = "base-url", env = "FMP_BASE_URL", 
+  #[arg(long = "base-url", env = "FMP_BASE_URL",
         default_value = "https://financialmodelingprep.com/api/v3/")]
   pub base_url: String,
 
@@ -117,16 +117,16 @@ pub struct Cli {
 ```rust
 pub(crate) fn load_config(cli: &Cli) -> Result<FmpConfig> {
   let mut config = FmpConfig::from_cli(cli);
-  
+
   if let Some(path) = &cli.config_file {
     let file_config: FmpConfig = toml::from_str(&fs::read_to_string(path)?)?;
     config.merge(file_config);
   }
-  
+
   let cfg_dir = dirs::home_dir()
     .ok_or_else(|| eyre::eyre!("Could not determine home directory"))?
     .join(".config/fmp-cli/config.toml");
-  
+
   if cfg_dir.exists() {
     let file_config: FmpConfig = toml::from_str(&fs::read_to_string(&cfg_dir)?)?;
     config.merge(file_config);
