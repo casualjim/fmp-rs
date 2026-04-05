@@ -1,3 +1,19 @@
+## [0.1.13] - 2026-04-05
+
+### 🚀 Features
+
+- Implement bulk CSV streaming, CLI, and xz fixtures
+
+### ⚙️ Miscellaneous Tasks
+
+- *(openspec)* Archive completed CLI changes and promote specs
+- *(openspec)* Propose bulk CSV streaming endpoints change
+## [0.1.12] - 2026-03-18
+
+### ⚙️ Miscellaneous Tasks
+
+- Update changelog for v0.1.12 [ci skip]
+- Release
 ## [0.1.11] - 2026-03-18
 
 ### 📚 Documentation
