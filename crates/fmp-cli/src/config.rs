@@ -5,6 +5,7 @@ use url::Url;
 #[derive(Parser, Debug, Clone)]
 #[command(name = "fmp")]
 #[command(about = "Financial Modeling Prep CLI", long_about = None)]
+#[command(version = env!("CARGO_PKG_VERSION"))]
 pub struct Cli {
   #[arg(long = "api-key", env = "FMP_API_KEY", hide_env_values = true)]
   pub api_key: Option<String>,
