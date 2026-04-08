@@ -7,7 +7,7 @@ use crate::primitives::FmpDate;
 #[serde(rename_all = "camelCase")]
 pub struct CompanySymbol {
   pub symbol: String,
-  pub company_name: String,
+  pub company_name: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -15,8 +15,8 @@ pub struct CompanySymbol {
 pub struct FinancialStatementSymbol {
   #[serde(flatten)]
   pub base: CompanySymbol,
-  pub trading_currency: String,
-  pub reporting_currency: String,
+  pub trading_currency: Option<String>,
+  pub reporting_currency: Option<String>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -98,7 +98,42 @@ pub struct SymbolChangeParams {
 
 #[cfg(test)]
 mod tests {
-  use super::{CikEntry, CountryEntry, ExchangeEntry, IndustryEntry, SectorEntry};
+  use super::{
+    CikEntry, CompanySymbol, CountryEntry, ExchangeEntry, FinancialStatementSymbol, IndustryEntry, SectorEntry,
+  };
+
+  #[test]
+  fn stock_list_allows_null_company_name() {
+    let data: Vec<CompanySymbol> = serde_json::from_str(
+      r#"[
+        {"symbol":"603459.SS","companyName":null}
+      ]"#,
+    )
+    .unwrap();
+
+    assert_eq!(data[0].symbol, "603459.SS");
+    assert_eq!(data[0].company_name, None);
+  }
+
+  #[test]
+  fn financial_statement_symbol_list_allows_null_currencies() {
+    let data: Vec<FinancialStatementSymbol> = serde_json::from_str(
+      r#"[
+        {
+          "symbol":"0010F0.KQ",
+          "companyName":"Bowon Chemical Co Ltd",
+          "tradingCurrency":null,
+          "reportingCurrency":null
+        }
+      ]"#,
+    )
+    .unwrap();
+
+    assert_eq!(data[0].base.symbol, "0010F0.KQ");
+    assert_eq!(data[0].base.company_name.as_deref(), Some("Bowon Chemical Co Ltd"));
+    assert_eq!(data[0].trading_currency, None);
+    assert_eq!(data[0].reporting_currency, None);
+  }
 
   #[test]
   fn available_exchanges_fixture_deserializes() {
