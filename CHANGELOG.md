@@ -1,8 +1,18 @@
+## [0.1.15] - 2026-04-08
+
+### 🚀 Features
+
+- Add bulk CSV streaming support and archive change
 ## [0.1.14] - 2026-04-08
 
 ### 🐛 Bug Fixes
 
 - *(directory)* Allow nulls in directory responses
+
+### ⚙️ Miscellaneous Tasks
+
+- Update changelog for v0.1.14 [ci skip]
+- Release
 ## [0.1.13] - 2026-04-05
 
 ### 🚀 Features
