@@ -102,7 +102,9 @@ impl FmpHttpClient {
 
     let byte_stream = resp.bytes_stream().map(|r| r.map_err(std::io::Error::other));
     let reader = StreamReader::new(byte_stream);
-    let deserializer = csv_async::AsyncDeserializer::from_reader(reader);
+    let mut csv_builder = csv_async::AsyncReaderBuilder::new();
+    csv_builder.trim(csv_async::Trim::Fields);
+    let deserializer = csv_builder.create_deserializer(reader);
     let records = deserializer
       .into_deserialize::<T>()
       .map(|r| r.map_err(FmpError::from).map_err(eyre::Error::from))

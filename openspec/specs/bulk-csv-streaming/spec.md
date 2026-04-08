@@ -1,7 +1,7 @@
 ## ADDED Requirements
 
 ### Requirement: CSV streaming client method
-`FmpHttpClient` SHALL expose a `get_csv` method that sends an HTTP GET request and returns `FmpResult<impl Stream<Item = FmpResult<T>> + Send>` where T is any `serde::de::DeserializeOwned + Send` type. The outer `FmpResult` SHALL resolve to an error on non-2xx HTTP status or network failure before any streaming begins. The inner stream SHALL yield one deserialized record per CSV row, with per-row deserialization failures surfaced as `FmpResult::Err`.
+`FmpHttpClient` SHALL expose a `get_csv` method that sends an HTTP GET request and returns `FmpResult<futures::stream::BoxStream<'static, FmpResult<T>>>` where T is any `serde::de::DeserializeOwned + Send` type. The outer `FmpResult` SHALL resolve to an error on non-2xx HTTP status or network failure before any streaming begins. The inner stream SHALL yield one deserialized record per CSV row, with per-row deserialization failures surfaced as `FmpResult::Err`.
 
 #### Scenario: Successful streaming response
 - **WHEN** the server responds with 200 and a valid CSV body
@@ -27,14 +27,14 @@
 - **THEN** the yielded error SHALL be `FmpError::CsvParse` (not a generic IO or API error)
 
 ### Requirement: Bulk API trait
-A `BulkApi` trait SHALL be generated via `define_csv_api_trait!` and implemented for `FmpHttpClient`, covering all 18 FMP bulk endpoints. Each method SHALL return `impl Future<Output = FmpResult<impl Stream<Item = FmpResult<T>> + Send>> + Send`.
+A `BulkApi` trait SHALL be generated via `define_csv_api_trait!` and implemented for `FmpHttpClient`, covering all 18 FMP bulk endpoints. Each method SHALL return `impl Future<Output = FmpResult<futures::stream::BoxStream<'static, FmpResult<T>>>> + Send`.
 
 #### Scenario: Profile bulk with part parameter
 - **WHEN** `profile(PartParams { part: 0 })` is called on `BulkApi`
 - **THEN** it SHALL issue a GET to `/profile-bulk?part=0&apikey=...` and return a stream of `CompanyProfile` records
 
 #### Scenario: Income statement bulk with year and period
-- **WHEN** `income_statement(YearPeriodParams { year: "2024".into(), period: "FY".into() })` is called on `BulkApi`
+- **WHEN** `income_statement(YearPeriodParams { year: 2024, period: "FY".into() })` is called on `BulkApi`
 - **THEN** it SHALL issue a GET to `/income-statement-bulk?year=2024&period=FY&apikey=...` and return a stream of `IncomeStatement` records
 
 #### Scenario: Key metrics TTM with no parameters
@@ -90,7 +90,7 @@ The HTTP client SHALL use a custom retry policy that checks for a `Retry-After` 
 - **THEN** the client SHALL retry using exponential backoff (unchanged from current behavior)
 
 ### Requirement: CLI bulk commands with --all flag
-The CLI SHALL expose bulk subcommands for all 18 bulk endpoints. For the two part-based endpoints (`profile-bulk`, `etf-holder-bulk`), the CLI SHALL support both `--part <0-3>` (single part) and `--all` (all 4 parts sequentially). When `--all` is used, the CLI SHALL pace requests by tracking elapsed time since the previous request started and sleeping `max(0, 60s − elapsed)` between parts.
+The CLI SHALL expose bulk subcommands for all 18 bulk endpoints. For the two part-based endpoints (`profile-bulk`, `etf-holder-bulk`), the CLI SHALL support both `--part <0-3>` (single part) and `--all` (all 4 parts sequentially). When `--all` is used, the CLI SHALL pace requests by tracking elapsed time since the previous request started and sleeping `max(0, 60s − elapsed)` between parts. All bulk subcommands SHALL support `--format json|csv` (default: `json`). Endpoints with year+period parameters SHALL accept `Q1`, `Q2`, `Q3`, `Q4`, and `FY` period values.
 
 #### Scenario: Single part fetch
 - **WHEN** the user runs `fmp bulk profile --part 1`
@@ -103,6 +103,14 @@ The CLI SHALL expose bulk subcommands for all 18 bulk endpoints. For the two par
 #### Scenario: EOD by date
 - **WHEN** the user runs `fmp bulk eod --date 2024-10-22`
 - **THEN** the CLI SHALL fetch and output EOD data for that date
+
+#### Scenario: Bulk output format defaults to JSON lines
+- **WHEN** the user runs `fmp bulk rating` without `--format`
+- **THEN** the CLI SHALL output JSON lines (one JSON object per record)
+
+#### Scenario: Bulk output format supports CSV
+- **WHEN** the user runs `fmp bulk rating --format csv`
+- **THEN** the CLI SHALL output CSV with a header row
 
 #### Scenario: Earnings surprises by year
 - **WHEN** the user runs `fmp bulk earnings-surprises --year 2024`

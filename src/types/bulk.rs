@@ -2,7 +2,7 @@ use serde::de::Error as DeError;
 use serde::{Deserialize, Serialize};
 use serde_with::serde_as;
 
-use crate::primitives::{de_opt_fmpdate, FmpDate, FmpDateTime};
+use crate::primitives::{FmpDate, FmpDateTime, de_opt_fmpdate};
 
 /// Deserialize ticker symbols as text, including the `NAN` ticker.
 ///
@@ -137,13 +137,13 @@ where
 #[serde(rename_all = "camelCase")]
 pub struct CompanyProfile {
   pub symbol: String,
-  pub price: f64,
-  pub market_cap: f64,
+  pub price: Option<f64>,
+  pub market_cap: Option<f64>,
   pub beta: f64,
   pub last_dividend: Option<f64>,
   pub range: String,
-  pub change: f64,
-  pub change_percentage: f64,
+  pub change: Option<f64>,
+  pub change_percentage: Option<f64>,
   pub volume: f64,
   pub average_volume: f64,
   pub company_name: String,
@@ -511,7 +511,25 @@ mod tests {
     T: DeserializeOwned,
   {
     let reader = crate::test_fixtures::open_fixture_xz_reader(path).await.unwrap();
-    let mut records = csv_async::AsyncDeserializer::from_reader(reader).into_deserialize::<T>();
+    let mut csv_builder = csv_async::AsyncReaderBuilder::new();
+    csv_builder.trim(csv_async::Trim::Fields);
+    let mut records = csv_builder.create_deserializer(reader).into_deserialize::<T>();
+    let mut items = Vec::new();
+    while let Some(record) = records.next().await {
+      items.push(record.unwrap());
+    }
+    items
+  }
+
+  async fn read_plain_csv_fixture<T>(path: &str) -> Vec<T>
+  where
+    T: DeserializeOwned,
+  {
+    let file = tokio::fs::File::open(path).await.unwrap();
+    let reader = tokio::io::BufReader::new(file);
+    let mut csv_builder = csv_async::AsyncReaderBuilder::new();
+    csv_builder.trim(csv_async::Trim::Fields);
+    let mut records = csv_builder.create_deserializer(reader).into_deserialize::<T>();
     let mut items = Vec::new();
     while let Some(record) = records.next().await {
       items.push(record.unwrap());
@@ -539,7 +557,21 @@ mod tests {
     let items: Vec<CompanyProfile> = read_csv_fixture("tests/fixtures/bulk_profile.csv").await;
     assert!(!items.is_empty());
     assert!(items.iter().all(|item| !item.symbol.is_empty()));
-    assert!(items.iter().all(|item| item.price.is_finite()));
+    assert!(items.iter().all(|item| item.price.is_none_or(f64::is_finite)));
+  }
+
+  #[tokio::test]
+  async fn bulk_profile_all_parts_deserialize() {
+    let mut total = 0_usize;
+
+    for part in 0_u8..=3 {
+      let path = format!("tests/fixtures/profile.part.{part}.csv");
+      let items: Vec<CompanyProfile> = read_plain_csv_fixture(&path).await;
+      assert!(!items.is_empty(), "{path} should contain records");
+      total += items.len();
+    }
+
+    assert!(total > 0, "expected records across all profile part fixtures");
   }
 
   #[tokio::test]
@@ -686,7 +718,6 @@ mod tests {
     assert!(items.iter().all(|item| !item.symbol.is_empty()));
     assert!(items.iter().all(|item| item.stock_price.is_finite()));
   }
-
 }
 
 #[cfg(test)]

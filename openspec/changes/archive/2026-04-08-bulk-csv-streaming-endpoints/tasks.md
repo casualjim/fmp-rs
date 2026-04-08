@@ -107,7 +107,7 @@
 ## 11. Verification
 
 - [x] 11.1 Run `cargo clippy -- -D warnings` and fix any issues
-- [ ] 11.2 Verify CSV header casing against a live FMP response; adjust `#[serde(rename)]` in `bulk.rs` if headers are not camelCase
+- [x] 11.2 Verify CSV header casing against a live FMP response; adjust `#[serde(rename)]` in `bulk.rs` if headers are not camelCase
 - [x] 11.3 Run `cargo test`
 
 ## 12. Skill Documentation

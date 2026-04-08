@@ -16,17 +16,30 @@ pub struct FmpArticle {
   pub site: String,
 }
 
+fn de_string_or_default<'de, D>(d: D) -> Result<String, D::Error>
+where
+  D: serde::Deserializer<'de>,
+{
+  Ok(Option::<String>::deserialize(d)?.unwrap_or_default())
+}
+
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct NewsArticle {
   #[serde(default)]
   pub symbol: Option<String>,
   pub published_date: FmpDateTime,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub publisher: String,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub title: String,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub image: String,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub site: String,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub text: String,
+  #[serde(default, deserialize_with = "de_string_or_default")]
   pub url: String,
 }
 
@@ -64,5 +77,28 @@ mod tests {
   fn stock_news_fixture_deserializes() {
     let bytes = crate::test_fixtures::read_fixture_bytes("tests/fixtures/stock_news.json").unwrap();
     let _: Vec<NewsArticle> = serde_json::from_slice(&bytes).unwrap();
+  }
+
+  #[test]
+  fn stock_news_handles_null_string_fields() {
+    let bytes = br#"[
+      {
+        "symbol": "AAPL",
+        "publishedDate": "2026-03-17 02:19:00",
+        "publisher": null,
+        "title": "Sample headline",
+        "image": null,
+        "site": "example.com",
+        "text": null,
+        "url": null
+      }
+    ]"#;
+
+    let items: Vec<NewsArticle> = serde_json::from_slice(bytes).unwrap();
+    assert_eq!(items.len(), 1);
+    assert_eq!(items[0].publisher, "");
+    assert_eq!(items[0].image, "");
+    assert_eq!(items[0].text, "");
+    assert_eq!(items[0].url, "");
   }
 }

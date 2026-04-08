@@ -32,3 +32,4 @@ qwen.sh
 # Paid bulk fixtures must never be committed
 /tests/fixtures/bulk_*.csv
 /tests/fixtures/bulk_*.csv.xz
+/tests/fixtures/profile.part.*
