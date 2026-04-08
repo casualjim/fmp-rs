@@ -1,3 +1,8 @@
+## [0.1.14] - 2026-04-08
+
+### 🐛 Bug Fixes
+
+- *(directory)* Allow nulls in directory responses
 ## [0.1.13] - 2026-04-05
 
 ### 🚀 Features
@@ -8,6 +13,8 @@
 
 - *(openspec)* Archive completed CLI changes and promote specs
 - *(openspec)* Propose bulk CSV streaming endpoints change
+- Update changelog for v0.1.13 [ci skip]
+- Release
 ## [0.1.12] - 2026-03-18
 
 ### ⚙️ Miscellaneous Tasks
