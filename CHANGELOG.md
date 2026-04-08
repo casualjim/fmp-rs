@@ -1,8 +1,18 @@
+## [0.1.16] - 2026-04-08
+
+### 🚀 Features
+
+- Add cli version flag
 ## [0.1.15] - 2026-04-08
 
 ### 🚀 Features
 
 - Add bulk CSV streaming support and archive change
+
+### ⚙️ Miscellaneous Tasks
+
+- Update changelog for v0.1.15 [ci skip]
+- Release
 ## [0.1.14] - 2026-04-08
 
 ### 🐛 Bug Fixes
